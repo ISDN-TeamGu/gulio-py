@@ -1,9 +1,14 @@
 # Import and initialize the pygame library
 import pygame
+from src.video.VideoPlayer import *
+
 pygame.init()
 
 # Set up the drawing window
-screen = pygame.display.set_mode([500, 500])
+screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
+
+videoPlayer = VideoPlayer()
+videoPlayer.play("./resources/videos/test.mp4")
 
 # Run until the user asks to quit
 running = True
@@ -14,11 +19,8 @@ while running:
         if event.type == pygame.QUIT:
             running = False
 
-    # Fill the background with white
-    screen.fill((255, 255, 255))
-
-    # Draw a solid blue circle in the center
-    pygame.draw.circle(screen, (0, 0, 255), (250, 250), 75)
+    # Draw video to display surface
+    videoPlayer.draw_to(screen, (screen.get_width()/4, screen.get_height()/5))
 
     # Flip the display
     pygame.display.flip()
