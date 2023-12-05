@@ -1,17 +1,16 @@
 # Import and initialize the pygame library
 import pygame
-import moviepy.editor
+from moviepy.editor import VideoFileClip
 import os
 
 pygame.init()
 os.environ["DISPLAY"] = ":0"
 pygame.display.init()
+clip = VideoFileClip("resources/videos/test.mp4")
+clip.preview(fullscreen=True)
 
 # Set up the drawing window
-screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
-
-video = moviepy.editor.VideoFileClip("resources/videos/test.mp4")
-video.preview()
+screen = pygame.display.set_mode(clip.size, pygame.FULLSCREEN)
 
 # Run until the user asks to quit
 running = True
