@@ -1,8 +1,11 @@
 # Import and initialize the pygame library
 import pygame
 import moviepy.editor
+import os
 
 pygame.init()
+os.environ["DISPLAY"] = ":0"
+pygame.display.init()
 
 # Set up the drawing window
 screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
