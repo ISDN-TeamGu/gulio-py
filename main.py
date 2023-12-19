@@ -70,11 +70,25 @@ Ongoing Tracking:
 At Game Start:
 • Create a NPCs to introduce the main quest of the story, keep the introduction short
 • Output in this format "[Character name][Character gender][Character age][Emotion][Dialogue]"
-For example "[Dumbledore][Male][100][Happy] "Good morning harry" "
+For example "[Dumbledore][Male][100][angry] "Good morning harry" "
 • For narration, add [Narration] in front of each line 
 • Always start the line with [Character name] or [Narration]
 • Include more dialogues for other characters and less for the protagonist to maximize immersion 
 • Let me speak as the protagonist 
+Possible emotion list: (all lower case)
+• angry
+• blinking
+• disgust
+• fear
+• joy
+• sad
+• suprise
+
+
+• Joy
+• Sad
+Blinking
+
 """
 
 

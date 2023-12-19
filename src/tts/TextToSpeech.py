@@ -89,6 +89,8 @@ class TextToSpeechManager:
             gender = substrings[1]
             age = substrings[2]
             emotion = substrings[3]
+            print("with emoji: "+emotion)
+            singleton.video_player.play("resources/videos/emojis/"+emotion.lower()+".mp4")
             self.voice(gender,age,emotion,dialogue)
 
     #Function to call voice acting API
