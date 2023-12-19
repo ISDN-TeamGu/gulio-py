@@ -1,3 +1,4 @@
+from dotenv import load_dotenv
 import os
 import openai
 from test import *
@@ -5,7 +6,8 @@ import numpy as np
 import asyncio
 import simpleaudio as sa
 
-openai.api_key = "apikey" #apikey
+load_dotenv("../.env")  # take environment variables from .env.
+openai.api_key = os.getenv("OPENAI_API_KEY") #apikey
 openai.api_base = "https://isdn4001.openai.azure.com/"
 openai.api_type = 'azure'
 openai.api_version = '2023-05-15' 
@@ -121,17 +123,17 @@ def get_attribute(line):
 #Function to call voice acting API
 def voice(gender,age,emotion,dialogue):
     if gender == "Narration":
-        asyncio.run(AIvoice.async_main(user="userid",key="key",text=[dialogue],quality="faster",interactive=False,use_async=True,voice="s3://mockingbird-prod/abigail_vo_6661b91f-4012-44e3-ad12-589fbdee9948/voices/speaker/manifest.json"))
+        asyncio.run(AIvoice.async_main(user="Wip26iViI4fvUgFHjj9oaIFQjWA2",key=os.getenv("PLAYHT_API_KEY"),text=[dialogue],quality="faster",interactive=False,use_async=True,voice="s3://mockingbird-prod/abigail_vo_6661b91f-4012-44e3-ad12-589fbdee9948/voices/speaker/manifest.json"))
     elif gender == "Male":
         if int(age) > 40:
-            asyncio.run(AIvoice.async_main(user="userid",key="key",text=[dialogue],quality="faster",interactive=False,use_async=True,voice="s3://mockingbird-prod/hook_1_chico_a3e5e83f-08ae-4a9f-825c-7e48d32d2fd8/voices/speaker/manifest.json"))
+            asyncio.run(AIvoice.async_main(user="Wip26iViI4fvUgFHjj9oaIFQjWA2",key=os.getenv("PLAYHT_API_KEY"),text=[dialogue],quality="faster",interactive=False,use_async=True,voice="s3://mockingbird-prod/hook_1_chico_a3e5e83f-08ae-4a9f-825c-7e48d32d2fd8/voices/speaker/manifest.json"))
         else:
-            asyncio.run(AIvoice.async_main(user="userid",key="key",text=[dialogue],quality="faster",interactive=False,use_async=True,voice="s3://peregrine-voices/nolan saad parrot/manifest.json"))
+            asyncio.run(AIvoice.async_main(user="Wip26iViI4fvUgFHjj9oaIFQjWA2",key=os.getenv("PLAYHT_API_KEY"),text=[dialogue],quality="faster",interactive=False,use_async=True,voice="s3://peregrine-voices/nolan saad parrot/manifest.json"))
     elif gender == "Female":   
         if int(age) > 40:
-            asyncio.run(AIvoice.async_main(user="userid",key="key",text=[dialogue],quality="faster",interactive=False,use_async=True,voice="s3://voice-cloning-zero-shot/7c38b588-14e8-42b9-bacd-e03d1d673c3c/nicole/manifest.json"))
+            asyncio.run(AIvoice.async_main(user="Wip26iViI4fvUgFHjj9oaIFQjWA2",key=os.getenv("PLAYHT_API_KEY"),text=[dialogue],quality="faster",interactive=False,use_async=True,voice="s3://voice-cloning-zero-shot/7c38b588-14e8-42b9-bacd-e03d1d673c3c/nicole/manifest.json"))
         else: 
-            asyncio.run(AIvoice.async_main(user="userid",key="key",text=[dialogue],quality="faster",interactive=False,use_async=True,voice="s3://peregrine-voices/donna_parrot_saad/manifest.json"))
+            asyncio.run(AIvoice.async_main(user="Wip26iViI4fvUgFHjj9oaIFQjWA2",key=os.getenv("PLAYHT_API_KEY"),text=[dialogue],quality="faster",interactive=False,use_async=True,voice="s3://peregrine-voices/donna_parrot_saad/manifest.json"))
 
 #Function to call openAI API
 def get_response(instructions, previous_questions_and_answers, new_question):
