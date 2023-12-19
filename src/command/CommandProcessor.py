@@ -1,7 +1,9 @@
+import src.singleton as singleton
 from src.video.VideoPlayer import *
 class CommandProcessor:
     def __init__(self):
         self.processRate = 1.0
+        singleton.command_processor = self
     
     def run_command(self, commandLine):
         # Split the command line into command and arguments
@@ -18,18 +20,19 @@ class CommandProcessor:
             self.quit()
         else:
             print("Unknown command:", command)
-    
+    def speak(self, arguments):
+        # Handle the playMusic command with its arguments
+        if len(arguments) == 0:
+            print("Playing music...")
+        else:
+            song_name = arguments[0]
+            print("Playing music:", song_name)
     def play_emoji(self, arguments):
         # Handle the playMusic command with its arguments
         if len(arguments) == 1:
             emoji_name = arguments[0]
             print("Playing emoji:", emoji_name)
-            if emoji_name == "happy":
-                print("happy")
-                singleton.video_player.play("resources/videos/test.mp4")
-            elif emoji_name == "sad":
-                print("sad")
-                singleton.video_player.play("resources/videos/blinking.mp4")
+            singleton.video_player.play("resources/videos/gulio "+emoji_name+".mp4")
     
     def play_music(self, arguments):
         # Handle the playMusic command with its arguments
