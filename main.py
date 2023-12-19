@@ -27,7 +27,7 @@ chat_gpt_manager = ChatGPTManager()
 time = 0
 loop_interval = 10
 
-video_player.play("resources/videos/test.mp4")
+video_player.play("resources/videos/emojis/joy.mp4")
 
 
 INSTRUCTIONS = """
@@ -129,7 +129,7 @@ def main_process():
         previous_questions_and_answers.append((new_question, response))
 
 main_process_thread = threading.Thread(target=main_process)
-main_process_thread.start()
+# main_process_thread.start()
 
 
 # Drawing Display
