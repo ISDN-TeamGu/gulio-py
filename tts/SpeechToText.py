@@ -2,6 +2,7 @@ import argparse
 
 from pvcheetah import CheetahActivationLimitError, create
 from pvrecorder import PvRecorder
+import os
 
 
 def speech():
@@ -35,7 +36,7 @@ def speech():
 
 
     cheetah = create(
-        access_key='gCt7GlxRQFbJOorkO1Or9Kr7LjKQ73Xc7YEny4nf6Rz0cdCjuDX5lw==',
+        access_key=os.getenv("PVCHEETAH_API_KEY"),
         library_path=args.library_path,
         model_path=args.model_path,
         endpoint_duration_sec=args.endpoint_duration_sec,
