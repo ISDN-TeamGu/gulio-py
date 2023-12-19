@@ -2,24 +2,41 @@
 import pygame
 import os
 from src.video.VideoPlayer import VideoPlayer
+from src.command.CommandProcessor import CommandProcessor
 from multiprocessing import Process
+import asyncio
+import threading
+import src.singleton as singleton
+
 
 pygame.init()
 os.environ["DISPLAY"] = ":0"
 pygame.display.init()
-videoPlayer = VideoPlayer()
+
+# SETUP SINGLETONS
+command_processor = CommandProcessor()
+video_player = VideoPlayer()
 
 time = 0
 loop_interval = 10
 
-videoPlayer.play("resources/videos/test.mp4")
+video_player.play("resources/videos/test.mp4")
 
-# Run until the user asks to quit
-running = True
-while running:
-    running = True
-    videoPlayer.draw()
-    pygame.time.wait(loop_interval)  # Limit the speed of the loop
-    time += loop_interval
-    if time >= 5000 and time < 5010:
-        videoPlayer.play("resources/videos/1211.mp4")
+
+# Processing Command
+def command_prompt():
+    while True:
+        response = input('Please enter the command: ')
+        command_processor.run_command(response)
+
+
+thread2 = threading.Thread(target=command_prompt)
+thread2.start()
+
+
+
+# Drawing Display
+while True:
+    pygame.time.wait(30)
+    video_player.draw()
+

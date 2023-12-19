@@ -1,3 +1,4 @@
+from src.video.VideoPlayer import *
 class CommandProcessor:
     def __init__(self):
         self.processRate = 1.0
@@ -9,14 +10,26 @@ class CommandProcessor:
         arguments = command_tokens[1:]
         
         # Check the command and perform the corresponding action
-        if command == "playMusic":
+        if command == "play_music":
             self.play_music(arguments)
-        elif command == "setRate":
-            self.set_rate(arguments)
+        elif command == "play_emoji":
+            self.play_emoji(arguments)
         elif command == "quit":
             self.quit()
         else:
             print("Unknown command:", command)
+    
+    def play_emoji(self, arguments):
+        # Handle the playMusic command with its arguments
+        if len(arguments) == 1:
+            emoji_name = arguments[0]
+            print("Playing emoji:", emoji_name)
+            if emoji_name == "happy":
+                print("happy")
+                singleton.video_player.play("resources/videos/test.mp4")
+            elif emoji_name == "sad":
+                print("sad")
+                singleton.video_player.play("resources/videos/blinking.mp4")
     
     def play_music(self, arguments):
         # Handle the playMusic command with its arguments
@@ -25,15 +38,6 @@ class CommandProcessor:
         else:
             song_name = arguments[0]
             print("Playing music:", song_name)
-    
-    def set_rate(self, arguments):
-        # Handle the setRate command with its arguments
-        if len(arguments) == 0:
-            print("Please provide a rate value.")
-        else:
-            rate = float(arguments[0])
-            self.processRate = rate
-            print("Process rate set to:", rate)
     
     def quit(self):
         # Handle the quit command
