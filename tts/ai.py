@@ -5,6 +5,7 @@ from test import *
 import numpy as np
 import asyncio
 import simpleaudio as sa
+from SpeechToText import *
 
 load_dotenv("../.env")  # take environment variables from .env.
 openai.api_key = os.getenv("OPENAI_API_KEY") #apikey
@@ -169,10 +170,13 @@ def get_response(instructions, previous_questions_and_answers, new_question):
 #main function
 previous_questions_and_answers = []
 while True:
-	new_question = input("You :")
-	response = get_response(INSTRUCTIONS, previous_questions_and_answers, new_question)
-	if new_question.lower() == "exit":
-			print("ChatGPT: Goodbye!")
-			break 	
-	# add the new question and answer to the list of previous questions and answers
-	previous_questions_and_answers.append((new_question, response))
+    print("detecting Your Input:")
+    new_question = detect_speech()
+    print("You said: ", new_question)
+	# new_question = input("You :")
+    response = get_response(INSTRUCTIONS, previous_questions_and_answers, new_question)
+    if new_question.lower() == "exit":
+        print("ChatGPT: Goodbye!")
+        break 	
+    # add the new question and answer to the list of previous questions and answers
+    previous_questions_and_answers.append((new_question, response))

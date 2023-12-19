@@ -1,3 +1,6 @@
+from dotenv import load_dotenv
+load_dotenv("../.env")  # take environment variables from .env.
+
 import argparse
 
 from pvcheetah import CheetahActivationLimitError, create
@@ -5,7 +8,7 @@ from pvrecorder import PvRecorder
 import os
 
 
-def speech():
+def detect_speech():
     parser = argparse.ArgumentParser()
     parser.add_argument(
         '--access_key',
@@ -48,18 +51,18 @@ def speech():
         recorder = PvRecorder(frame_length=cheetah.frame_length, device_index=args.audio_device_index)
         recorder.start()
         print('Listening... (press Ctrl+C to stop)')
-
+        result = ""
         try:
             while True:
                 partial_transcript, is_endpoint = cheetah.process(recorder.read())
-                print(partial_transcript, end='', flush=False)
+                result += partial_transcript
                 if is_endpoint:
-                    print(cheetah.flush())
+                    last = cheetah.flush()
+                    result += last
                     recorder.stop()
-                    return (partial_transcript)
         finally:
-            print()
             recorder.stop()
+            return result
 
     except KeyboardInterrupt:
         pass
@@ -67,7 +70,3 @@ def speech():
         print('AccessKey has reached its processing limit.')
     finally:
         cheetah.delete()
-
-
-if __name__ == '__main__':
-    speech()
