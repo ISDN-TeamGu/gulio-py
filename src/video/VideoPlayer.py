@@ -26,10 +26,10 @@ class VideoPlayer:
     def play(self, videoPath, loop=True):
         try:
             # Load the video from the specified path
-            self.video = Video(videoPath)
+            # self.video = Video(videoPath)
 
-            # Start the video
-            self.video.play(loop)
+            # # Start the video
+            # self.video.play(loop)
 
             print("playing video: ", self.video.frame_width)
         except:
