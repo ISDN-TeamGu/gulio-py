@@ -157,12 +157,17 @@ def signal_handler(sig, frame):
 
 signal.signal(signal.SIGINT, signal_handler)
 
+def start_rendering():
+    while running:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                # Add your code here to perform any necessary cleanup or termination actions
+                sys.exit(0)
+        pygame.time.wait(30)
+        video_player.draw()
+        pygame.display.update()
 
-while running:
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            # Add your code here to perform any necessary cleanup or termination actions
-            sys.exit(0)
-    pygame.time.wait(30)
-    video_player.draw()
-    pygame.display.update()
+# main
+if __name__ == "__main__":
+    start_main_process_thread()
+    start_rendering()
