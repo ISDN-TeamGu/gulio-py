@@ -1,11 +1,8 @@
 import RPi.GPIO as GPIO
 from mfrc522 import MFRC522
 from mfrc522 import SimpleMFRC522
-from time import sleep
-from datetime import datetime
-from main import *
-
 reader = MFRC522()
+
 
 def detect_rfid():
     try:
@@ -23,9 +20,13 @@ def detect_rfid():
                 break
     finally:
             GPIO.cleanup()
-
-
 t = threading.Thread(target=detect_rfid)
 t.daemon = True
 t.start()
+
+from datetime import datetime
+from time import sleep
+from main import *
+
+# start_main_process_thread() # Remove this for raspberry pi
 start_rendering()
