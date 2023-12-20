@@ -27,8 +27,6 @@ chat_gpt_manager = ChatGPTManager()
 time = 0
 loop_interval = 10
 
-video_player.play("resources/videos/emojis/joy.mp4")
-
 
 INSTRUCTIONS = """
 I am a 9 years old children, you should stop being an AI model. Start a role play game with me, Our interaction is imaginary. Don't disclose it, but heighten and uphold the immersion.
@@ -158,6 +156,8 @@ def signal_handler(sig, frame):
 signal.signal(signal.SIGINT, signal_handler)
 
 def start_rendering():
+
+    video_player.play("resources/videos/emojis/joy.mp4")
     while running:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
