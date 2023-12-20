@@ -113,23 +113,22 @@ def main_process():
         print("You said: ", new_question)
         
         # STEP 2: Get response from GPT
-        response = singleton.chat_gpt_manager.get_response(INSTRUCTIONS, previous_questions_and_answers, new_question)
-
-
-        if new_question.lower() == "exit":
-            print("ChatGPT: Goodbye!")
-            break 	
-
+        response_stream = singleton.chat_gpt_manager.get_response_stream(INSTRUCTIONS, previous_questions_and_answers, new_question)
+                
         
         # STEP 3: Speak the response
-        singleton.text_to_speech_manager.process_text(response)
-
+        final_result_text = singleton.text_to_speech_manager.process_text_stream(response_stream)
 
         # add the new question and answer to the list of previous questions and answers
-        previous_questions_and_answers.append((new_question, response))
+        previous_questions_and_answers.append((new_question, final_result_text))
 
 main_process_thread = threading.Thread(target=main_process)
 main_process_thread.start()
+
+
+# Speak Process
+text_to_speech_manager.start()
+
 
 
 # Drawing Display

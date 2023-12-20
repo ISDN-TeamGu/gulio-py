@@ -46,31 +46,86 @@ def listToString(s):
     # return string
     return str1
 
+class SpeakTask:
+    def __init__(self, dialogue, speech_attribute):
+        self.dialogue = dialogue
+        self.speech_attribute = speech_attribute
+        self.is_done = False
+    def play(self):
+        print("Playing SpeakTask: ", self.dialogue)
         
+        if self.speech_attribute["gender"] == "Narration":
+            asyncio.run(AIvoice.async_main(user="Wip26iViI4fvUgFHjj9oaIFQjWA2",key=os.getenv("PLAYHT_API_KEY"),text=[self.dialogue],quality="faster",interactive=False,use_async=True,voice="s3://mockingbird-prod/abigail_vo_6661b91f-4012-44e3-ad12-589fbdee9948/voices/speaker/manifest.json"))
+        elif self.speech_attribute["gender"] == "Male":
+            if int(self.speech_attribute["age"]) > 40:
+                asyncio.run(AIvoice.async_main(user="Wip26iViI4fvUgFHjj9oaIFQjWA2",key=os.getenv("PLAYHT_API_KEY"),text=[self.dialogue],quality="faster",interactive=False,use_async=True,voice="s3://mockingbird-prod/hook_1_chico_a3e5e83f-08ae-4a9f-825c-7e48d32d2fd8/voices/speaker/manifest.json"))
+            else:
+                asyncio.run(AIvoice.async_main(user="Wip26iViI4fvUgFHjj9oaIFQjWA2",key=os.getenv("PLAYHT_API_KEY"),text=[self.dialogue],quality="faster",interactive=False,use_async=True,voice="s3://peregrine-voices/nolan saad parrot/manifest.json"))
+        elif self.speech_attribute["gender"] == "Female":   
+            if int(self.speech_attribute["age"]) > 40:
+                asyncio.run(AIvoice.async_main(user="Wip26iViI4fvUgFHjj9oaIFQjWA2",key=os.getenv("PLAYHT_API_KEY"),text=[self.dialogue],quality="faster",interactive=False,use_async=True,voice="s3://voice-cloning-zero-shot/7c38b588-14e8-42b9-bacd-e03d1d673c3c/nicole/manifest.json"))
+            else: 
+                asyncio.run(AIvoice.async_main(user="Wip26iViI4fvUgFHjj9oaIFQjWA2",key=os.getenv("PLAYHT_API_KEY"),text=[self.dialogue],quality="faster",interactive=False,use_async=True,voice="s3://peregrine-voices/donna_parrot_saad/manifest.json"))
+            
+        # When done
+        self.is_done = True
+        print("Speak task is done!")
+
 class TextToSpeechManager:
     def __init__(self):
         singleton.text_to_speech_manager = self
+        self.current_speech_attribute = {
+            "name": "Narrator",
+            "gender": "Male",
+            "age": "35",
+            "emotion": "Blinking"
+        }
+        # Multithreading
+        self.lock = threading.Lock()
+        self.tasks = []
+        self.current_task_index = -1
+        self.playing_thread = None
 
-    #Function to split the output to multiple line for calling voice acting separately 
-    def process_text(self, text):
-        lines = [line.strip() for line in text.split("\n")]
-        for key in lines:
-            self.run_dialogue_with_attribute(key)
-            
-    #Obtain the attributes like age or name from output to customize voice acting 
-    def run_dialogue_with_attribute(self, line):
+
+    def process_text_stream(self, stream):
+        temp = ""
+        sentences = []
+        for chunk in stream:
+            content = chunk["choices"][0].get("delta", {}).get("content") 
+            if content is not None:
+                temp += content
+            # when detected full stop, question mark, exclamation mark, comma or new line, process the text
+            if("." in temp or "?" in temp or "!" in temp or "\n" in temp):
+                print("sentence: ", temp)
+                # If the text detected flag like [Narration] or [Character name], update current attribute
+                dialogue = self.process_dialogue(temp)
+                sentences.append(dialogue)
+                # Process text
+                self.speak_text(dialogue)
+                temp = ""
         
+        # Make result
+        return "".join(sentences)
+        
+            
+    # Obtain the attributes like age or name from output to customize voice acting 
+    def process_dialogue(self, line):
         try:
-            substrings = []
+            
+            substrings = ["Narrator", "Male", "35", "Blinking", "", "" ,"" ,""]
+            load_attribute = False
             in_brackets = False
             current_substring = ""
             dialogue = ""
             
+            argIndex = 0
             for c in line:
                 if c == "[":
                     in_brackets = True
+                    load_attribute = True
                 elif c == "]" and in_brackets:
-                    substrings.append(current_substring)
+                    substrings[argIndex] = current_substring
+                    argIndex += 1
                     current_substring = ""
                     in_brackets = False
                 elif in_brackets:
@@ -78,41 +133,66 @@ class TextToSpeechManager:
                 elif in_brackets == False:
                     dialogue += c
             if current_substring:
-                substrings.append(current_substring)
-            name = substrings[0]
-            if name == "Narration":
-                gender = "Narration"
-                age = "Narration"
-                emotion = "Narration"
-                self.voice(gender,age,emotion,dialogue)
-            if name != "Narration":
-                gender = substrings[1]
-                age = substrings[2]
-                emotion = substrings[3]
-                print("with emoji: "+emotion)
-                singleton.video_player.play("resources/videos/emojis/"+emotion.lower()+".mp4")
-                self.voice(gender,age,emotion,dialogue)
-        except:
-            print("Error in parsing the output")
-            pass
+                substrings[argIndex] = current_substring
+                argIndex += 1
+            
+            # Load the attributes
+            if load_attribute:
+                print(substrings)
+                self.current_speech_attribute["name"] = substrings[0]
+                self.current_speech_attribute["gender"] = substrings[1]
+                self.current_speech_attribute["age"] = substrings[2]
+                self.current_speech_attribute["emotion"] = substrings[3]
+                print("Loaded speech attribute: ", self.current_speech_attribute)
+            return dialogue
+        except Exception as e:
+            print("Error in parsing the output", e)
+        return ""
 
-    #Function to call voice acting API
-    def voice(self, gender,age,emotion,dialogue):
-        singleton.command_processor.play_emoji(emotion)
-        if gender == "Narration":
-            asyncio.run(AIvoice.async_main(user="Wip26iViI4fvUgFHjj9oaIFQjWA2",key=os.getenv("PLAYHT_API_KEY"),text=[dialogue],quality="faster",interactive=False,use_async=True,voice="s3://mockingbird-prod/abigail_vo_6661b91f-4012-44e3-ad12-589fbdee9948/voices/speaker/manifest.json"))
-        elif gender == "Male":
-            if int(age) > 40:
-                asyncio.run(AIvoice.async_main(user="Wip26iViI4fvUgFHjj9oaIFQjWA2",key=os.getenv("PLAYHT_API_KEY"),text=[dialogue],quality="faster",interactive=False,use_async=True,voice="s3://mockingbird-prod/hook_1_chico_a3e5e83f-08ae-4a9f-825c-7e48d32d2fd8/voices/speaker/manifest.json"))
-            else:
-                asyncio.run(AIvoice.async_main(user="Wip26iViI4fvUgFHjj9oaIFQjWA2",key=os.getenv("PLAYHT_API_KEY"),text=[dialogue],quality="faster",interactive=False,use_async=True,voice="s3://peregrine-voices/nolan saad parrot/manifest.json"))
-        elif gender == "Female":   
-            if int(age) > 40:
-                asyncio.run(AIvoice.async_main(user="Wip26iViI4fvUgFHjj9oaIFQjWA2",key=os.getenv("PLAYHT_API_KEY"),text=[dialogue],quality="faster",interactive=False,use_async=True,voice="s3://voice-cloning-zero-shot/7c38b588-14e8-42b9-bacd-e03d1d673c3c/nicole/manifest.json"))
-            else: 
-                asyncio.run(AIvoice.async_main(user="Wip26iViI4fvUgFHjj9oaIFQjWA2",key=os.getenv("PLAYHT_API_KEY"),text=[dialogue],quality="faster",interactive=False,use_async=True,voice="s3://peregrine-voices/donna_parrot_saad/manifest.json"))
+    # Add the speak task according to text
+    def speak_text(self, text):
+        if(text is None):
+            return
+        if(text is ""):
+            return
+        lines = [line.strip() for line in text.split("\n")]
+        for line in lines:
+            self.add_speak_task(line, self.current_speech_attribute)
+            print("speak text task: ", line)
 
+    
+    # Multithreading
+    def add_speak_task(self, dialogue, speak_attribute):
+        singleton.command_processor.play_emoji(speak_attribute["emotion"])
+        speak_task = SpeakTask(dialogue, speak_attribute)
+        self.tasks.append(speak_task)
+        return speak_task
 
+    def play_next_task(self):
+        if self.current_task_index+1 < len(self.tasks):
+            self.current_task_index += 1
+            task = self.tasks[self.current_task_index]
+            self.playing_thread = threading.Thread(target=task.play)
+            self.playing_thread.start()
+            self.playing_thread.join()
+            self.play_next_task()
+        else:
+            self.current_task_index = -1
+            self.playing_thread = None
+
+    def play_tasks(self):
+        if self.playing_thread is None or not self.playing_thread.is_alive():
+            self.play_next_task()
+
+    def check_tasks(self):
+        while True:
+            with self.lock:
+                self.play_tasks()
+            asyncio.wait(0.01)
+
+    def start(self):
+        check_thread = threading.Thread(target=self.check_tasks)
+        check_thread.start()
 
 class AIvoice:
 

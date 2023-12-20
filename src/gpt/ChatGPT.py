@@ -25,7 +25,7 @@ class ChatGPTManager:
     def __init__(self):
         singleton.chat_gpt_manager = self
     #Function to call openAI API
-    def get_response(self, instructions, previous_questions_and_answers, new_question):
+    def get_response_stream(self, instructions, previous_questions_and_answers, new_question):
         messages = [
             { "role": "system", "content": instructions },
         ]
@@ -35,8 +35,8 @@ class ChatGPTManager:
             messages.append({ "role": "assistant", "content": answer })
         # add the new question
         messages.append({ "role": "user", "content": new_question })
-        completion = openai.ChatCompletion.create(engine=deployment_name, messages=messages, max_tokens=1000)
-        return completion.choices[0].message.content.replace('\n\n', '\n')
+        chatGptResponseStream = openai.ChatCompletion.create(engine=deployment_name, messages=messages, max_tokens=1000, stream=True)
+        return chatGptResponseStream
 
 
     #def ask_gpt(prompt):
