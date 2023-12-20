@@ -68,7 +68,7 @@ Ongoing Tracking:
 At Game Start:
 • Create a NPCs to introduce the main quest of the story, keep the introduction short
 • Output in this format "[Character name][Character gender][Character age][Emotion][Dialogue]"
-For example "[Dumbledore][Male][100][angry] "Good morning harry" "
+For example [Dumbledore][Male][100][angry] "Good morning harry"; 
 • For narration, add [Narration] in front of each line 
 • Always start the line with [Character name] or [Narration]
 • Include more dialogues for other characters and less for the protagonist to maximize immersion 
@@ -83,7 +83,13 @@ Possible emotion list: (all lower case)
 • suprise
 IMPORTANT REMINDER:
 • For the [Character age], please represent with an integer, do not output non integers like [40s],[Old]
-
+• Please use semi-colon to separate each chunk of dialogues of different character. Each chunk should have less than 50 words
+  If the same character saying the 2 lines, then should not put a semi-colon between these 2 lines. 
+  But If the same character saying 8 lines, and they are 300 words in total, you should split them into 6 chunks, each 50 words. 
+  Use it wisely to optimize the TTS.
+  For example: 
+  [Dumbledore][Male][100][angry] "Hello, Harry. I am Matthew. How are you today?";
+  [Harry][Male][9][angry] "I do not want to talk to you right now! You don't know anything about me..";
 """
 
 
@@ -105,11 +111,18 @@ command_prompt_thread.running = True
 previous_questions_and_answers = []
 def main_process():
     t = threading.currentThread()
+    first_time = True
     while getattr(t, "running", True):
         print("detecting Your Input:")
         # STEP 1: Listen to user input
-        new_question = singleton.speech_to_text_manager.detect_speech()
-        print("You said: ", new_question)
+        new_question = ""
+        if first_time:
+            new_question = "Initialize the story with random setting while related to the theme Harry Potter"
+            singleton.text_to_speech_manager.speak_text("Initializing Story")
+            first_time = False
+        else:
+            new_question = singleton.speech_to_text_manager.detect_speech()
+            print("You said: ", new_question)
         
         # STEP 2: Get response from GPT
         response_stream = singleton.chat_gpt_manager.get_response_stream(INSTRUCTIONS, previous_questions_and_answers, new_question)

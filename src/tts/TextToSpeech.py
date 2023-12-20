@@ -73,7 +73,7 @@ class SpeakTask:
             else: 
                 self.audio_stream = asyncio.run(preload_playht(user="Wip26iViI4fvUgFHjj9oaIFQjWA2",key=os.getenv("PLAYHT_API_KEY"),text=[self.dialogue],quality="faster",interactive=False,use_async=True,voice="s3://peregrine-voices/donna_parrot_saad/manifest.json"))
         #Predict preload finish or not
-        asyncio.sleep(2+0.05 * len(self.dialogue))
+        asyncio.run(asyncio.sleep(2+0.05 * len(self.dialogue)))
         print("delaying: ", 0.05 * len(self.dialogue))
         print("Finished preloaded audio: ", self.dialogue)
         self.preloaded = True
@@ -103,18 +103,19 @@ class TextToSpeechManager:
         self.tasks = []
         self.current_task = None
         self.playing_thread = None
-        self.semaphore = threading.Semaphore(2)  # Limiting preloads to 3 at same time
+        self.semaphore = threading.Semaphore(1)  # Limiting preloads to 3 at same time
 
 
     def process_text_stream(self, stream):
         temp = ""
         sentences = []
+
         for chunk in stream:
             content = chunk["choices"][0].get("delta", {}).get("content") 
             if content is not None:
                 temp += content
             # when detected full stop, question mark, exclamation mark, comma or new line, process the text
-            if("." in temp or "?" in temp or "!" in temp or "\n" in temp):
+            if(";" in temp or "!" in temp or "?" in temp or "\n" in temp):
                 print("sentence: ", temp)
                 # If the text detected flag like [Narration] or [Character name], update current attribute
                 dialogue = self.process_dialogue(temp)
