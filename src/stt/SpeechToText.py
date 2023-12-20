@@ -10,7 +10,8 @@ class SpeechToTextManager:
     def __init__(self):
         self.processRate = 1.0
         singleton.speech_to_text_manager = self
-    def detect_speech(self):
+        self.setup()
+    def setup(self):
         parser = argparse.ArgumentParser()
         parser.add_argument(
             '--access_key',
@@ -40,35 +41,34 @@ class SpeechToTextManager:
             return
 
 
-        cheetah = create(
+        self.cheetah = create(
             access_key=os.getenv("PVCHEETAH_API_KEY"),
             library_path=args.library_path,
             model_path=args.model_path,
             endpoint_duration_sec=args.endpoint_duration_sec,
             enable_automatic_punctuation=not args.disable_automatic_punctuation)
+        self.recorder = PvRecorder(frame_length=self.cheetah.frame_length, device_index=args.audio_device_index)
 
+    def detect_speech(self):
         try:
-            print('Cheetah version : %s' % cheetah.version)
+            print('Cheetah version : %s' % self.cheetah.version)
 
-            recorder = PvRecorder(frame_length=cheetah.frame_length, device_index=args.audio_device_index)
-            recorder.start()
+            self.recorder.start()
             print('Listening... (press Ctrl+C to stop)')
             result = ""
             try:
                 while True:
-                    partial_transcript, is_endpoint = cheetah.process(recorder.read())
+                    partial_transcript, is_endpoint = self.cheetah.process(self.recorder.read())
                     result += partial_transcript
                     if is_endpoint:
-                        last = cheetah.flush()
+                        last = self.cheetah.flush()
                         result += last
-                        recorder.stop()
+                        self.recorder.stop()
             finally:
-                recorder.stop()
+                self.recorder.stop()
                 return result
 
         except KeyboardInterrupt:
             pass
         except CheetahActivationLimitError:
             print('AccessKey has reached its processing limit.')
-        finally:
-            cheetah.delete()

@@ -60,38 +60,41 @@ class TextToSpeechManager:
     #Obtain the attributes like age or name from output to customize voice acting 
     def run_dialogue_with_attribute(self, line):
         
-    
-        substrings = []
-        in_brackets = False
-        current_substring = ""
-        dialogue = ""
-        
-        for c in line:
-            if c == "[":
-                in_brackets = True
-            elif c == "]" and in_brackets:
+        try:
+            substrings = []
+            in_brackets = False
+            current_substring = ""
+            dialogue = ""
+            
+            for c in line:
+                if c == "[":
+                    in_brackets = True
+                elif c == "]" and in_brackets:
+                    substrings.append(current_substring)
+                    current_substring = ""
+                    in_brackets = False
+                elif in_brackets:
+                    current_substring += c
+                elif in_brackets == False:
+                    dialogue += c
+            if current_substring:
                 substrings.append(current_substring)
-                current_substring = ""
-                in_brackets = False
-            elif in_brackets:
-                current_substring += c
-            elif in_brackets == False:
-                dialogue += c
-        if current_substring:
-            substrings.append(current_substring)
-        name = substrings[0]
-        if name == "Narration":
-            gender = "Narration"
-            age = "Narration"
-            emotion = "Narration"
-            self.voice(gender,age,emotion,dialogue)
-        if name != "Narration":
-            gender = substrings[1]
-            age = substrings[2]
-            emotion = substrings[3]
-            print("with emoji: "+emotion)
-            singleton.video_player.play("resources/videos/emojis/"+emotion.lower()+".mp4")
-            self.voice(gender,age,emotion,dialogue)
+            name = substrings[0]
+            if name == "Narration":
+                gender = "Narration"
+                age = "Narration"
+                emotion = "Narration"
+                self.voice(gender,age,emotion,dialogue)
+            if name != "Narration":
+                gender = substrings[1]
+                age = substrings[2]
+                emotion = substrings[3]
+                print("with emoji: "+emotion)
+                singleton.video_player.play("resources/videos/emojis/"+emotion.lower()+".mp4")
+                self.voice(gender,age,emotion,dialogue)
+        except:
+            print("Error in parsing the output")
+            pass
 
     #Function to call voice acting API
     def voice(self, gender,age,emotion,dialogue):
