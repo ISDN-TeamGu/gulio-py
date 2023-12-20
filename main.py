@@ -83,11 +83,8 @@ Possible emotion list: (all lower case)
 • joy
 • sad
 • suprise
-
-
-• Joy
-• Sad
-Blinking
+IMPORTANT REMINDER:
+• For the [Character age], please represent with an integer, do not output non integers like [40s],[Old]
 
 """
 
@@ -131,7 +128,10 @@ main_process_thread.start()
 
 # Speak Process
 text_to_speech_manager.start()
-
+# text_to_speech_manager.speak_text("Hello my friend")
+# text_to_speech_manager.speak_text("This is a very long sentence, I am testing the text to speech function. And not only that.")
+# text_to_speech_manager.speak_text("I have even tried to speak in a very fast speed. I am testing the text to speech function. And not only that.")
+# text_to_speech_manager.speak_text("Thats why I am speaking in a very slow speed. I am helloing you all hahaha. And nobody knows.")
 
 
 # Drawing Display

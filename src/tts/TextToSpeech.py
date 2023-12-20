@@ -50,26 +50,39 @@ class SpeakTask:
     def __init__(self, dialogue, speech_attribute):
         self.dialogue = dialogue
         self.speech_attribute = speech_attribute
+        self.preloaded = False
         self.is_done = False
-    def play(self):
-        print("Playing SpeakTask: ", self.dialogue, self.speech_attribute)
-        
+        self.audio_stream = None
+    def start_preloading(self, semaphore: threading.Semaphore):
+        with semaphore:
+            preload_thread = threading.Thread(target=self.preload)
+            preload_thread.start()
+    def preload(self):
+        print("Start preloading audio: ", self.dialogue)
         if self.speech_attribute["gender"] == "Narration":
-            asyncio.run(AIvoice.async_main(user="Wip26iViI4fvUgFHjj9oaIFQjWA2",key=os.getenv("PLAYHT_API_KEY"),text=[self.dialogue],quality="faster",interactive=False,use_async=True,voice="s3://mockingbird-prod/abigail_vo_6661b91f-4012-44e3-ad12-589fbdee9948/voices/speaker/manifest.json"))
+            self.audio_stream = asyncio.run(preload_playht(user="Wip26iViI4fvUgFHjj9oaIFQjWA2",key=os.getenv("PLAYHT_API_KEY"),text=[self.dialogue],quality="faster",interactive=False,use_async=True,voice="s3://mockingbird-prod/abigail_vo_6661b91f-4012-44e3-ad12-589fbdee9948/voices/speaker/manifest.json"))
         elif self.speech_attribute["gender"] == "Male":
             if int(self.speech_attribute["age"]) > 40:
-                asyncio.run(AIvoice.async_main(user="Wip26iViI4fvUgFHjj9oaIFQjWA2",key=os.getenv("PLAYHT_API_KEY"),text=[self.dialogue],quality="faster",interactive=False,use_async=True,voice="s3://mockingbird-prod/hook_1_chico_a3e5e83f-08ae-4a9f-825c-7e48d32d2fd8/voices/speaker/manifest.json"))
+                self.audio_stream = asyncio.run(preload_playht(user="Wip26iViI4fvUgFHjj9oaIFQjWA2",key=os.getenv("PLAYHT_API_KEY"),text=[self.dialogue],quality="faster",interactive=False,use_async=True,voice="s3://mockingbird-prod/hook_1_chico_a3e5e83f-08ae-4a9f-825c-7e48d32d2fd8/voices/speaker/manifest.json"))
             else:
-                asyncio.run(AIvoice.async_main(user="Wip26iViI4fvUgFHjj9oaIFQjWA2",key=os.getenv("PLAYHT_API_KEY"),text=[self.dialogue],quality="faster",interactive=False,use_async=True,voice="s3://peregrine-voices/nolan saad parrot/manifest.json"))
+                self.audio_stream = asyncio.run(preload_playht(user="Wip26iViI4fvUgFHjj9oaIFQjWA2",key=os.getenv("PLAYHT_API_KEY"),text=[self.dialogue],quality="faster",interactive=False,use_async=True,voice="s3://peregrine-voices/nolan saad parrot/manifest.json"))
         elif self.speech_attribute["gender"] == "Female":   
             if int(self.speech_attribute["age"]) > 40:
-                asyncio.run(AIvoice.async_main(user="Wip26iViI4fvUgFHjj9oaIFQjWA2",key=os.getenv("PLAYHT_API_KEY"),text=[self.dialogue],quality="faster",interactive=False,use_async=True,voice="s3://voice-cloning-zero-shot/7c38b588-14e8-42b9-bacd-e03d1d673c3c/nicole/manifest.json"))
+                self.audio_stream = asyncio.run(preload_playht(user="Wip26iViI4fvUgFHjj9oaIFQjWA2",key=os.getenv("PLAYHT_API_KEY"),text=[self.dialogue],quality="faster",interactive=False,use_async=True,voice="s3://voice-cloning-zero-shot/7c38b588-14e8-42b9-bacd-e03d1d673c3c/nicole/manifest.json"))
             else: 
-                asyncio.run(AIvoice.async_main(user="Wip26iViI4fvUgFHjj9oaIFQjWA2",key=os.getenv("PLAYHT_API_KEY"),text=[self.dialogue],quality="faster",interactive=False,use_async=True,voice="s3://peregrine-voices/donna_parrot_saad/manifest.json"))
-            
-        # When done
-        self.is_done = True
-        print("Speak task is done!")
+                self.audio_stream = asyncio.run(preload_playht(user="Wip26iViI4fvUgFHjj9oaIFQjWA2",key=os.getenv("PLAYHT_API_KEY"),text=[self.dialogue],quality="faster",interactive=False,use_async=True,voice="s3://peregrine-voices/donna_parrot_saad/manifest.json"))
+        print("Finished preloaded audio: ", self.dialogue)
+        self.preloaded = True
+    
+    async def play(self):
+        print("Playing SpeakTask: ", self.dialogue, self.speech_attribute)
+        if self.audio_stream is not None:
+            print("audio_stream: ", self.audio_stream)
+            await asyncio.wait_for(async_play_audio(self.audio_stream), 60)
+            self.audio_stream.close()
+            self.audio_stream = None
+            self.is_done = True
+            print("Speak task is done!", self.is_done)
 
 class TextToSpeechManager:
     def __init__(self):
@@ -83,8 +96,9 @@ class TextToSpeechManager:
         # Multithreading
         self.lock = threading.Lock()
         self.tasks = []
-        self.current_task_index = -1
+        self.current_task = None
         self.playing_thread = None
+        self.semaphore = threading.Semaphore(3)  # Limiting preloads to 3 at same time
 
 
     def process_text_stream(self, stream):
@@ -143,7 +157,7 @@ class TextToSpeechManager:
                 self.current_speech_attribute["gender"] = substrings[1]
 
                 try:
-                    self.current_speech_attribute["age"] = substrings[2]
+                    self.current_speech_attribute["age"] = int(substrings[2])
                 except:
                     pass
 
@@ -156,6 +170,7 @@ class TextToSpeechManager:
 
     # Add the speak task according to text
     def speak_text(self, text):
+        print("speak_text: ", text)
         if(text is None):
             return
         if(text == ""):
@@ -163,7 +178,7 @@ class TextToSpeechManager:
         lines = [line.strip() for line in text.split("\n")]
         for line in lines:
             self.add_speak_task(line, self.current_speech_attribute.copy())
-            print("speak text task: ", line, self.current_speech_attribute)
+            # print("speak text task: ", line, self.current_speech_attribute)
 
     
     # Multithreading
@@ -174,34 +189,34 @@ class TextToSpeechManager:
             return
         singleton.command_processor.play_emoji(speech_attribute["emotion"])
         speak_task = SpeakTask(dialogue, speech_attribute)
+        speak_task.start_preloading(self.semaphore)
         self.tasks.append(speak_task)
         return speak_task
-
+    def play_current_task(self):
+        if self.current_task is not None:
+            asyncio.run(self.current_task.play())
     def play_next_task(self):
-        self.clear_done_tasks()
-        if self.current_task_index+1 < len(self.tasks):
-            self.current_task_index += 1
-            task = self.tasks[self.current_task_index]
-            self.playing_thread = threading.Thread(target=task.play)
+        # get the first task in tasks
+        if len(self.tasks) > 0:
+            self.current_task = self.tasks.pop(0)
+            while self.current_task.preloaded == False:
+                time.sleep(0.1)
+            self.playing_thread = threading.Thread(target=self.play_current_task)
             self.playing_thread.start()
-            self.playing_thread.join()
-            self.play_next_task()
-        else:
-            self.current_task_index = -1
-            self.playing_thread = None
 
-    def play_tasks(self):
-        if self.playing_thread is None or not self.playing_thread.is_alive():
+    def try_next_task(self):
+        if self.current_task == None:
             self.play_next_task()
+            return
+        if self.current_task.is_done:
+            self.play_next_task()
+            return
 
-    def clear_done_tasks(self):
-        self.tasks = [task for task in self.tasks if not task.is_done]
     
     def check_tasks(self):
         while True:
             with self.lock:
-                self.play_tasks()
-                self.clear_done_tasks()
+                self.try_next_task()
                 time.sleep(0.1)
     def is_speaking(self):
         if  len(self.tasks) > 0:
@@ -213,194 +228,38 @@ class TextToSpeechManager:
         check_thread = threading.Thread(target=self.check_tasks)
         check_thread.start()
 
-class AIvoice:
-
-    def main(
-        user: str,
-        key: str,
-        text: Iterable[str],
-        voice: str,
-        quality: Literal["fast"] | Literal["faster"],
-        interactive: bool,
-        use_async: bool,
-    ):
-        del use_async
-
-    # Setup the client
-        client = Client(user, key)
-
-    # Set the speech options
-        options = TTSOptions(voice=voice, format=api_pb2.FORMAT_WAV, quality=quality)
-
-    # Get the streams
-        in_stream, out_stream = client.get_stream_pair(options)
-
-    # Start a player thread.
-        audio_thread = threading.Thread(None, play_audio, args=(out_stream,))
-        audio_thread.start()
-
-    # Send text, play audio.
-        for t in text:
-            in_stream(t)
-        in_stream.done()
-
-    # cleanup
-        audio_thread.join()
-        out_stream.close()
-
-    # interactive session.
-        if interactive:
-            print("Starting interactive session.")
-            print("Input an empty line to quit.")
-            t = input("> ")
-            while t:
-                play_audio(client.tts(t, options))
-                t = input("> ")
-            print()
-            print("Interactive session closed.")
-
-    # Cleanup.
-        client.close()
-        return 0
-
-
-
-
-
     
 
 
-    async def async_main(
-        user: str,
-        key: str,
-        text: Iterable[str],
-        voice: str,
-        quality: Literal["fast"] | Literal["faster"],
-        interactive: bool,
-        use_async: bool,
-    ):  
-        del use_async
+async def preload_playht(
+    user: str,
+    key: str,
+    text: Iterable[str],
+    voice: str,
+    quality: Literal["fast"] | Literal["faster"],
+    interactive: bool,
+    use_async: bool,
+):  
+    del use_async
 
-        # Setup the client
-        client = AsyncClient(user, key)
+    # Setup the client
+    client = AsyncClient(user, key)
 
-        # Set the speech options
-        options = TTSOptions(voice=voice, format=api_pb2.FORMAT_WAV, quality=quality)
+    # Set the speech options
+    options = TTSOptions(voice=voice, format=api_pb2.FORMAT_WAV, quality=quality)
 
-    # Get the streams
-        in_stream, out_stream = client.get_stream_pair(options)
+# Get the streams
+    in_stream, out_stream = client.get_stream_pair(options)
 
-        audio_task = asyncio.create_task(async_play_audio(out_stream))
-
-    # Send text, play audio.
-        await in_stream(*text)
-        await in_stream.done()
-
-    # cleanup
-        await asyncio.wait_for(audio_task, 60)
-        out_stream.close()
-
-        async def get_input():
-            while not select.select([sys.stdin], [], [], 0)[0]:
-                await asyncio.sleep(0.01)
-            return sys.stdin.readline().strip()
-
-    #interactive session.
-        if interactive:
-            print("Starting interactive session.")
-            print("Input an empty line to quit.")
-            t = await get_input()
-            while t:
-                asyncio.ensure_future(async_play_audio(client.tts(t, options)))
-                t = await get_input()
-            print()
-            print("Interactive session closed.")
-
-    # Cleanup.
-        await client.close()
-
-        if __name__ == "__main__":
-            import argparse
-
-            parser = argparse.ArgumentParser("PyHT Streaming Demo")
-
-            parser.add_argument(
-                "--async", action="store_true", help="Use the asyncio client.", dest="use_async"
-            )
-
-            parser.add_argument(
-                "--user", "-u", type=str, required=True, help="w67Bc740ToecfLroYCRQ2Dw042I3" ,
-                default="w67Bc740ToecfLroYCRQ2Dw042I3",
-            )
-            parser.add_argument(
-                "--key", "-k", type=str, required=True, help="7e684a86098e48359d38cc536e8b5769",
-                default = "7e684a86098e48359d38cc536e8b5769",
-            )
-            parser.add_argument(
-                "--voice",
-                "-v",
-                type=str,
-                default="s3://voice-cloning-zero-shot/d9ff78ba-d016-47f6-b0ef-dd630f59414e/female-cs/manifest.json",
-                help="Voice manifest URI",
-            )
-            parser.add_argument(
-                "--quality",
-                "-q",
-                choices=["fast", "faster"],
-                default="faster",
-                help="Quality of the generated audio",
-            )
-
-            input_group = parser.add_mutually_exclusive_group(required=True)
-            input_group.add_argument(
-                "--text",
-                "-t",
-                type=str,
-                nargs="+",
-                default=[],
-                help="Text to generate, REQUIRED if the `--interactive` flag is not set.",
-            )
-            input_group.add_argument(
-                "--interactive",
-                "-i",
-                action="store_true",
-                help="Run this demo in interactive-input mode, REQUIRED if `--text` is not supplied.",
-            )
-
-            args = parser.parse_args()
-
-            if args.use_async:
-                asyncio.run(async_main(**vars(args)))
-                sys.exit(0)
-
-            sys.exit(main(**vars(args)))
+# Send text, play audio.
+    await in_stream(*text)
+    await in_stream.done()
+      
+# Cleanup.
+    await client.close()
+    return out_stream
 
 
-
-def play_audio(data: Generator[bytes, None, None] | Iterable[bytes]):
-    buff_size = 10485760
-    ptr = 0
-    start_time = time.time()
-    buffer = np.empty(buff_size, np.float16)
-    audio = None
-    for i, chunk in enumerate(data):
-        if i == 0:
-            start_time = time.time()
-            continue  # Drop the first response.
-        elif i == 1:
-            print("First audio byte received in:", time.time() - start_time)
-    for sample in np.frombuffer(chunk, np.float16):
-        buffer[ptr] = sample
-        ptr += 1
-    if i == 5:
-        # Give a 4 sample worth of breathing room before starting
-        # playback
-        audio = sa.play_buffer(buffer, 1, 2, 24000)
-    approx_run_time = ptr / 24_000
-    time.sleep(max(approx_run_time - time.time() + start_time, 0))
-    if audio is not None:
-        time.sleep(1)
-        audio.stop()
 
 async def async_play_audio(data: AsyncGenerator[bytes, None] | AsyncIterable[bytes]):
     buff_size = 10485760
