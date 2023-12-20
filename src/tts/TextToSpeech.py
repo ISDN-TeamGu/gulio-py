@@ -10,7 +10,7 @@ import src.singleton as singleton
 from typing import AsyncGenerator, AsyncIterable, Generator, Iterable, Literal
 
 import time
-import threading
+import multiprocessing
 import select
 import sys
 
@@ -53,11 +53,11 @@ class SpeakTask:
         self.preloaded = False
         self.is_done = False
         self.audio_stream = None
-    def start_preloading(self, semaphore: threading.Semaphore):
-        preload_thread = threading.Thread(target=self.preload, args=[semaphore])
+    def start_preloading(self, semaphore: multiprocessing.Semaphore):
+        preload_thread = multiprocessing.Process(target=self.preload, args=[semaphore])
         preload_thread.daemon = True
         preload_thread.start()
-    def preload(self, semaphore: threading.Semaphore):
+    def preload(self, semaphore: multiprocessing.Semaphore):
         semaphore.acquire()
         print("Start preloading audio: ", self.dialogue)
         if self.speech_attribute["gender"] == "Narration":
@@ -99,11 +99,11 @@ class TextToSpeechManager:
             "emotion": "Blinking"
         }
         # Multithreading
-        self.lock = threading.Lock()
+        self.lock = multiprocessing.Lock()
         self.tasks = []
         self.current_task = None
         self.playing_thread = None
-        self.semaphore = threading.Semaphore(3)  # Limiting preloads to 3 at same time
+        self.semaphore = multiprocessing.Semaphore(3)  # Limiting preloads to 3 at same time
 
 
     def process_text_stream(self, stream):
@@ -207,7 +207,7 @@ class TextToSpeechManager:
             self.current_task = self.tasks.pop(0)
             while self.current_task.audio_stream == None:
                 time.sleep(0.1)
-            self.playing_thread = threading.Thread(target=self.play_current_task)
+            self.playing_thread = multiprocessing.Process(target=self.play_current_task)
             self.playing_thread.daemon = True
             self.playing_thread.start()
 
@@ -232,7 +232,7 @@ class TextToSpeechManager:
             return self.playing_thread.is_alive()
 
     def start(self):
-        check_thread = threading.Thread(target=self.check_tasks)
+        check_thread = multiprocessing.Process(target=self.check_tasks)
         check_thread.daemon = True
         check_thread.start()
 

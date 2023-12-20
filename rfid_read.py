@@ -2,7 +2,7 @@ import RPi.GPIO as GPIO
 from mfrc522 import MFRC522
 from mfrc522 import SimpleMFRC522
 reader = MFRC522()
-import threading
+from multiprocessing import Process
 
 
 def detect_rfid():
@@ -21,7 +21,7 @@ def detect_rfid():
                 break
     finally:
             GPIO.cleanup()
-t = threading.Thread(target=detect_rfid)
+t = Process(target=detect_rfid)
 t.daemon = True
 t.start()
 

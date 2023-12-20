@@ -8,21 +8,13 @@ from src.video.VideoPlayer import VideoPlayer
 from src.command.CommandProcessor import CommandProcessor
 from multiprocessing import Process
 import asyncio
-import threading
 import src.singleton as singleton
 from src.tts.TextToSpeech import *
 from src.stt.SpeechToText import *
 from src.gpt.ChatGPT import *
+from multiprocessing import Process
 
-pygame.init()
-pygame.display.init()
 
-# SETUP SINGLETONS
-command_processor = CommandProcessor()
-video_player = VideoPlayer()
-text_to_speech_manager = TextToSpeechManager()
-speech_to_text_manager = SpeechToTextManager()
-chat_gpt_manager = ChatGPTManager()
 
 time = 0
 loop_interval = 10
@@ -94,31 +86,30 @@ IMPORTANT REMINDER:
 """
 
 
-# User Input Command
-def command_prompt():
-    t = threading.currentThread()
-    while getattr(t, "running", True):
-        response = input('Please enter the command: ')
-        command_processor.run_command(response)
+# # User Input Command
+# def command_prompt():
+#     t = threading.currentThread()
+#     while getattr(t, "running", True):
+#         response = input('Please enter the command: ')
+#         command_processor.run_command(response)
 
 
-command_prompt_thread = threading.Thread(target=command_prompt)
-command_prompt_thread.daemon = True
-command_prompt_thread.running = True
+# command_prompt_thread = multiprocessing.Process(target=command_prompt)
+# command_prompt_thread.daemon = True
+# command_prompt_thread.running = True
 # command_prompt_thread.start()
 
 
 # Main Process
 previous_questions_and_answers = []
 def main_process():
-    t = threading.currentThread()
     first_time = True
-    while getattr(t, "running", True):
+    while True:
         # STEP 1: Listen to user input
         new_question = ""
         if first_time:
             print("Initializing for first time")
-            video_player.play("resources/videos/blinking.mp4")
+            singleton.video_player.play("resources/videos/blinking.mp4")
             new_question = "Initialize the story with random setting while related to the theme Harry Potter"
             singleton.text_to_speech_manager.speak_text("Initializing Story")
             first_time = False
@@ -137,21 +128,19 @@ def main_process():
         previous_questions_and_answers.append((new_question, final_result_text))
 
         # Wait until finish speaking
-        while text_to_speech_manager.is_speaking():
+        while singleton.text_to_speech_manager.is_speaking():
             pass
 main_process_thread = None
 def start_main_process_thread():
     global main_process_thread
     if main_process_thread is not None:
         return
-    main_process_thread = threading.Thread(target=main_process)
+    main_process_thread = Process(target=main_process)
     main_process_thread.daemon = True
     main_process_thread.running = True
     main_process_thread.start()
 
 
-# Speak Process
-text_to_speech_manager.start()
 # text_to_speech_manager.speak_text("Hello my friend")
 # text_to_speech_manager.speak_text("This is a very long sentence, I am testing the text to speech function. And not only that.")
 # text_to_speech_manager.speak_text("I have even tried to speak in a very fast speed. I am testing the text to speech function. And not only that.")
@@ -162,28 +151,38 @@ text_to_speech_manager.start()
 running = True
 
 def signal_handler(sig, frame):
-    running = False
     print('You pressed Ctrl+C!')
     print("quitted")
-    command_prompt_thread.running = False
-    main_process_thread.running = False
     pygame.quit()
     sys.exit(0)
 
 signal.signal(signal.SIGINT, signal_handler)
+def setup():
+    pygame.init()
+    pygame.display.init()
 
+    # SETUP SINGLETONS
+    video_player = VideoPlayer()
+    command_processor = CommandProcessor()
+    text_to_speech_manager = TextToSpeechManager()
+    speech_to_text_manager = SpeechToTextManager()
+    chat_gpt_manager = ChatGPTManager()
+
+    # Speak Process
+    singleton.text_to_speech_manager.start()
 def start_rendering():
-    video_player.play("resources/videos/emojis/joy.mp4")
+    singleton.video_player.play("resources/videos/emojis/joy.mp4")
     while running:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 # Add your code here to perform any necessary cleanup or termination actions
                 sys.exit(0)
         pygame.time.wait(30)
-        video_player.draw()
+        singleton.video_player.draw()
         pygame.display.update()
 
 # main
 if __name__ == "__main__":
+    setup()
     start_main_process_thread()
     start_rendering()
