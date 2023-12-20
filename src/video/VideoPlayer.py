@@ -24,10 +24,13 @@ class VideoPlayer:
         # Update pygame display
         pygame.display.flip()
     def play(self, videoPath, loop=True):
-        # Load the video from the specified path
-        self.video = Video(videoPath)
+        try:
+            # Load the video from the specified path
+            self.video = Video(videoPath)
 
-        # Start the video
-        self.video.play(loop)
+            # Start the video
+            self.video.play(loop)
 
-        print("playing video: ", self.video.frame_width)
+            print("playing video: ", self.video.frame_width)
+        except:
+            print("Error playing video: ", videoPath)
