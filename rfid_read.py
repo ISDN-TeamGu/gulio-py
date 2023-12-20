@@ -2,6 +2,7 @@ import RPi.GPIO as GPIO
 from mfrc522 import MFRC522
 from mfrc522 import SimpleMFRC522
 reader = MFRC522()
+import threading
 
 
 def detect_rfid():
