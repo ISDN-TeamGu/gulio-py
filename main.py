@@ -73,7 +73,7 @@ For example [Dumbledore][Male][100][angry] "Good morning harry";
 • Always start the line with [Character name] or [Narration]
 • Include more dialogues for other characters and less for the protagonist to maximize immersion 
 • Let me speak as the protagonist 
-Possible emotion list: (all lower case)
+Please ONLY use the emoji given below: (all lower case) 
 • angry
 • blinking
 • disgust
@@ -82,6 +82,7 @@ Possible emotion list: (all lower case)
 • sad
 • suprise
 IMPORTANT REMINDER:
+• DO NOT USE EMOJI NOT IN THE LIST ABOVE
 • For the [Character age], please represent with an integer, do not output non integers like [40s],[Old]
 • Please use semi-colon to separate each chunk of dialogues of different character. Each chunk should have less than 50 words
   If the same character saying the 2 lines, then should not put a semi-colon between these 2 lines. 

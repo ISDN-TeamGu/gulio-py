@@ -103,7 +103,7 @@ class TextToSpeechManager:
         self.tasks = []
         self.current_task = None
         self.playing_thread = None
-        self.semaphore = threading.Semaphore(1)  # Limiting preloads to 3 at same time
+        self.semaphore = threading.Semaphore(3)  # Limiting preloads to 3 at same time
 
 
     def process_text_stream(self, stream):

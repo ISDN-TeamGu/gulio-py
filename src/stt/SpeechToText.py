@@ -4,6 +4,8 @@ from pvcheetah import CheetahActivationLimitError, create
 from pvrecorder import PvRecorder
 import os
 import src.singleton as singleton
+# from pydub import AudioSegment
+# from pydub.playback import play
 
 
 class SpeechToTextManager:
@@ -25,7 +27,7 @@ class SpeechToTextManager:
         parser.add_argument(
             '--endpoint_duration_sec',
             type=float,
-            default=3.,
+            default=1,
             help='Duration in seconds for speechless audio to be considered an endpoint')
         parser.add_argument(
             '--disable_automatic_punctuation',
@@ -51,19 +53,26 @@ class SpeechToTextManager:
 
     def detect_speech(self):
         try:
+            # sound1 = AudioSegment.from_wav("soundeffects/start.wav")
+            # sound2 = AudioSegment.from_wav("soundeffects/stop.wav")
             print('Cheetah version : %s' % self.cheetah.version)
 
             self.recorder.start()
             print('Listening... (press Ctrl+C to stop)')
             result = ""
             try:
+                passed = False
+                # play(sound1)
                 while True:
-                    partial_transcript, is_endpoint = self.cheetah.process(self.recorder.read())
-                    result += partial_transcript
+                    partial_transcript, is_endpoint, c_char_p= self.cheetah.process(self.recorder.read())
+                    print(partial_transcript, end='', flush=True)
+                    if c_char_p != '':
+                        passed = True
                     if is_endpoint:
-                        last = self.cheetah.flush()
-                        result += last
-                        self.recorder.stop()
+                        if passed == True:
+                            self.recorder.stop()
+                            # play(sound2)
+                            return(self.cheetah.flush())
             finally:
                 self.recorder.stop()
                 return result
@@ -72,3 +81,5 @@ class SpeechToTextManager:
             pass
         except CheetahActivationLimitError:
             print('AccessKey has reached its processing limit.')
+
+
