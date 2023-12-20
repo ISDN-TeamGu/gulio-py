@@ -14,7 +14,6 @@ from src.stt.SpeechToText import *
 from src.gpt.ChatGPT import *
 
 pygame.init()
-os.environ["DISPLAY"] = ":0"
 pygame.display.init()
 
 # SETUP SINGLETONS
