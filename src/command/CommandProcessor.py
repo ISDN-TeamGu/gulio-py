@@ -1,5 +1,6 @@
 import src.singleton as singleton
 from src.video.VideoPlayer import *
+import sys
 class CommandProcessor:
     def __init__(self):
         self.processRate = 1.0
@@ -45,4 +46,3 @@ class CommandProcessor:
     def quit(self):
         # Handle the quit command
         print("Quitting...")
-        # Add your code here to perform any necessary cleanup or termination actions

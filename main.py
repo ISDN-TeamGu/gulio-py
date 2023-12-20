@@ -1,5 +1,6 @@
 # Import and initialize the pygame library
 from dotenv import load_dotenv
+import signal
 load_dotenv(".env")  # take environment variables from .env.
 import pygame
 import os
@@ -90,19 +91,23 @@ IMPORTANT REMINDER:
 
 # User Input Command
 def command_prompt():
-    while True:
+    t = threading.currentThread()
+    while getattr(t, "running", True):
         response = input('Please enter the command: ')
         command_processor.run_command(response)
 
 
 command_prompt_thread = threading.Thread(target=command_prompt)
-command_prompt_thread.start()
+command_prompt_thread.setDaemon(True)
+command_prompt_thread.running = True
+# command_prompt_thread.start()
 
 
 # Main Process
 previous_questions_and_answers = []
 def main_process():
-    while True:
+    t = threading.currentThread()
+    while getattr(t, "running", True):
         print("detecting Your Input:")
         # STEP 1: Listen to user input
         new_question = singleton.speech_to_text_manager.detect_speech()
@@ -122,6 +127,8 @@ def main_process():
             pass
 
 main_process_thread = threading.Thread(target=main_process)
+main_process_thread.setDaemon(True)
+main_process_thread.running = True
 main_process_thread.start()
 
 
@@ -134,8 +141,25 @@ text_to_speech_manager.start()
 
 
 # Drawing Display
-while True:
+running = True
+
+def signal_handler(sig, frame):
+    running = False
+    print('You pressed Ctrl+C!')
+    print("quitted")
+    command_prompt_thread.running = False
+    main_process_thread.running = False
+    pygame.quit()
+    sys.exit(0)
+
+signal.signal(signal.SIGINT, signal_handler)
+
+
+while running:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            # Add your code here to perform any necessary cleanup or termination actions
+            sys.exit(0)
     pygame.time.wait(30)
     video_player.draw()
     pygame.display.update()
-
