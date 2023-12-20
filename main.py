@@ -113,14 +113,15 @@ def main_process():
     t = threading.currentThread()
     first_time = True
     while getattr(t, "running", True):
-        print("detecting Your Input:")
         # STEP 1: Listen to user input
         new_question = ""
         if first_time:
+            print("Initializing for first time")
             new_question = "Initialize the story with random setting while related to the theme Harry Potter"
             singleton.text_to_speech_manager.speak_text("Initializing Story")
             first_time = False
         else:
+            print("detecting Your Input:")
             new_question = singleton.speech_to_text_manager.detect_speech()
             print("You said: ", new_question)
         
