@@ -52,7 +52,7 @@ class SpeakTask:
         self.speech_attribute = speech_attribute
         self.is_done = False
     def play(self):
-        print("Playing SpeakTask: ", self.dialogue)
+        print("Playing SpeakTask: ", self.dialogue, self.speech_attribute)
         
         if self.speech_attribute["gender"] == "Narration":
             asyncio.run(AIvoice.async_main(user="Wip26iViI4fvUgFHjj9oaIFQjWA2",key=os.getenv("PLAYHT_API_KEY"),text=[self.dialogue],quality="faster",interactive=False,use_async=True,voice="s3://mockingbird-prod/abigail_vo_6661b91f-4012-44e3-ad12-589fbdee9948/voices/speaker/manifest.json"))
@@ -75,8 +75,8 @@ class TextToSpeechManager:
     def __init__(self):
         singleton.text_to_speech_manager = self
         self.current_speech_attribute = {
-            "name": "Narrator",
-            "gender": "Male",
+            "name": "Narration",
+            "gender": "Female",
             "age": "35",
             "emotion": "Blinking"
         }
@@ -141,7 +141,12 @@ class TextToSpeechManager:
                 print(substrings)
                 self.current_speech_attribute["name"] = substrings[0]
                 self.current_speech_attribute["gender"] = substrings[1]
-                self.current_speech_attribute["age"] = substrings[2]
+
+                try:
+                    self.current_speech_attribute["age"] = substrings[2]
+                except:
+                    pass
+
                 self.current_speech_attribute["emotion"] = substrings[3]
                 print("Loaded speech attribute: ", self.current_speech_attribute)
             return dialogue
@@ -153,22 +158,27 @@ class TextToSpeechManager:
     def speak_text(self, text):
         if(text is None):
             return
-        if(text is ""):
+        if(text == ""):
             return
         lines = [line.strip() for line in text.split("\n")]
         for line in lines:
-            self.add_speak_task(line, self.current_speech_attribute)
-            print("speak text task: ", line)
+            self.add_speak_task(line, self.current_speech_attribute.copy())
+            print("speak text task: ", line, self.current_speech_attribute)
 
     
     # Multithreading
-    def add_speak_task(self, dialogue, speak_attribute):
-        singleton.command_processor.play_emoji(speak_attribute["emotion"])
-        speak_task = SpeakTask(dialogue, speak_attribute)
+    def add_speak_task(self, dialogue, speech_attribute):
+        if(dialogue is None):
+            return
+        if(len(dialogue) < 2):
+            return
+        singleton.command_processor.play_emoji(speech_attribute["emotion"])
+        speak_task = SpeakTask(dialogue, speech_attribute)
         self.tasks.append(speak_task)
         return speak_task
 
     def play_next_task(self):
+        self.clear_done_tasks()
         if self.current_task_index+1 < len(self.tasks):
             self.current_task_index += 1
             task = self.tasks[self.current_task_index]
@@ -184,11 +194,20 @@ class TextToSpeechManager:
         if self.playing_thread is None or not self.playing_thread.is_alive():
             self.play_next_task()
 
+    def clear_done_tasks(self):
+        self.tasks = [task for task in self.tasks if not task.is_done]
+    
     def check_tasks(self):
         while True:
             with self.lock:
                 self.play_tasks()
-            asyncio.wait(0.01)
+                self.clear_done_tasks()
+                time.sleep(0.1)
+    def is_speaking(self):
+        if  len(self.tasks) > 0:
+            return True
+        if self.playing_thread is not None:
+            return self.playing_thread.is_alive()
 
     def start(self):
         check_thread = threading.Thread(target=self.check_tasks)
