@@ -71,6 +71,8 @@ class SpeakTask:
                 self.audio_stream = asyncio.run(preload_playht(user="Wip26iViI4fvUgFHjj9oaIFQjWA2",key=os.getenv("PLAYHT_API_KEY"),text=[self.dialogue],quality="faster",interactive=False,use_async=True,voice="s3://voice-cloning-zero-shot/7c38b588-14e8-42b9-bacd-e03d1d673c3c/nicole/manifest.json"))
             else: 
                 self.audio_stream = asyncio.run(preload_playht(user="Wip26iViI4fvUgFHjj9oaIFQjWA2",key=os.getenv("PLAYHT_API_KEY"),text=[self.dialogue],quality="faster",interactive=False,use_async=True,voice="s3://peregrine-voices/donna_parrot_saad/manifest.json"))
+        #Predict preload finish or not
+        asyncio.sleep(0.1 * len(self.dialogue))
         print("Finished preloaded audio: ", self.dialogue)
         self.preloaded = True
     
@@ -98,7 +100,7 @@ class TextToSpeechManager:
         self.tasks = []
         self.current_task = None
         self.playing_thread = None
-        self.semaphore = threading.Semaphore(3)  # Limiting preloads to 3 at same time
+        self.semaphore = threading.Semaphore(2)  # Limiting preloads to 3 at same time
 
 
     def process_text_stream(self, stream):
@@ -199,7 +201,7 @@ class TextToSpeechManager:
         # get the first task in tasks
         if len(self.tasks) > 0:
             self.current_task = self.tasks.pop(0)
-            while self.current_task.preloaded == False:
+            while self.current_task.audio_stream == None:
                 time.sleep(0.1)
             self.playing_thread = threading.Thread(target=self.play_current_task)
             self.playing_thread.start()
