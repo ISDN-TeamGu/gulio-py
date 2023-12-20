@@ -56,7 +56,7 @@ class SpeakTask:
     def start_preloading(self, semaphore: threading.Semaphore):
         with semaphore:
             preload_thread = threading.Thread(target=self.preload)
-            preload_thread.setDaemon(True)
+            preload_thread.daemon = True
             preload_thread.start()
     def preload(self):
         print("Start preloading audio: ", self.dialogue)
@@ -205,7 +205,7 @@ class TextToSpeechManager:
             while self.current_task.audio_stream == None:
                 time.sleep(0.1)
             self.playing_thread = threading.Thread(target=self.play_current_task)
-            self.playing_thread.setDaemon(True)
+            self.playing_thread.daemon = True
             self.playing_thread.start()
 
     def try_next_task(self):
@@ -230,7 +230,7 @@ class TextToSpeechManager:
 
     def start(self):
         check_thread = threading.Thread(target=self.check_tasks)
-        check_thread.setDaemon(True)
+        check_thread.daemon = True
         check_thread.start()
 
     

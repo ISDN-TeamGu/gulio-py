@@ -98,7 +98,7 @@ def command_prompt():
 
 
 command_prompt_thread = threading.Thread(target=command_prompt)
-command_prompt_thread.setDaemon(True)
+command_prompt_thread.daemon = True
 command_prompt_thread.running = True
 # command_prompt_thread.start()
 
@@ -127,7 +127,7 @@ def main_process():
             pass
 
 main_process_thread = threading.Thread(target=main_process)
-main_process_thread.setDaemon(True)
+main_process_thread.daemon = True
 main_process_thread.running = True
 main_process_thread.start()
 
