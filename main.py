@@ -125,11 +125,14 @@ def main_process():
         # Wait until finish speaking
         while text_to_speech_manager.is_speaking():
             pass
-
-main_process_thread = threading.Thread(target=main_process)
-main_process_thread.daemon = True
-main_process_thread.running = True
-main_process_thread.start()
+main_process_thread = None
+def start_main_process_thread():
+    if main_process_thread is not None:
+        return
+    main_process_thread = threading.Thread(target=main_process)
+    main_process_thread.daemon = True
+    main_process_thread.running = True
+    main_process_thread.start()
 
 
 # Speak Process

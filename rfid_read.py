@@ -3,6 +3,7 @@ from mfrc522 import MFRC522
 from mfrc522 import SimpleMFRC522
 from time import sleep
 from datetime import datetime
+from main import *
 
 reader = MFRC522()
 
@@ -16,6 +17,8 @@ try:
         buf = reader.MFRC522_Read(0)
         reader.MFRC522_Request(reader.PICC_HALT)
         if buf:
-            print(datetime.now().isoformat(), ':'.join([chr(x) for x in buf]))
+            print(datetime.now().isoformat(), ':'.join([hex(x) for x in buf]))
+            start_main_process_thread()
+            break
 finally:
         GPIO.cleanup()
