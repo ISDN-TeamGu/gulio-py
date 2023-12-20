@@ -7,7 +7,6 @@ import atexit
 import pygame
 import numpy
 import cv2
-from ffpyplayer.player import MediaPlayer
 
 
 __version__ = "2.0.0"
@@ -67,7 +66,6 @@ class Video:
 
         self.__vidcap = cv2.VideoCapture(self.filepath)
         ff_opts = {"fast": True, "framedrop": True, "paused": True}
-        self.__ff = MediaPlayer(self.filepath, ff_opts=ff_opts)
 
         self.fps = self.__vidcap.get(cv2.CAP_PROP_FPS)
 
@@ -91,7 +89,6 @@ class Video:
 
         if self.is_ready:
             self.__vidcap.release()
-            self.__ff.close_player()
             self.is_ready = False
 
     # Control methods
@@ -114,7 +111,6 @@ class Video:
             self.start_time = time.time()
             self.__start_time = time.time()
 
-            self.__ff.set_pause(False)
 
     def stop(self) -> None:
         """
@@ -123,21 +119,18 @@ class Video:
 
         self.is_playing = False
         self.is_paused = False
-        self.__ff.set_pause(True)
 
     def pause(self) -> None:
         """ Pause the video. """
 
         if self.is_playing:
             self.is_paused = True
-            self.__ff.set_pause(True)
 
     def resume(self) -> None:
         """ Resume the video. """
 
         if self.is_playing:
             self.is_paused = False
-            self.__ff.set_pause(False)
 
     def toggle_pause(self) -> None:
         """ Switch between paused states. """
@@ -153,12 +146,10 @@ class Video:
         # MediaPlayer.set_mute doesn't work!
         self.is_muted = True
         self.__volume_before_mute = self.volume
-        self.__ff.set_volume(0.0)
 
     def unmute(self) -> None:
         """ Unmute audio playback. """
         self.is_muted = False
-        self.__ff.set_volume(self.__volume_before_mute)
 
     @property
     def volume(self) -> float:
@@ -168,9 +159,6 @@ class Video:
     @volume.setter
     def volume(self, value: float) -> None:
         self.__volume = value
-        if not self.is_muted:
-            self.__ff.set_volume(value)
-
     # Duration methods & properties
 
     @property
@@ -211,7 +199,6 @@ class Video:
         self.start_time = self.__start_time + timepoint / 1000
         self.draw_frame = int((time.time() - self.start_time) * self.fps)
         self.__vidcap.set(cv2.CAP_PROP_POS_MSEC, timepoint)
-        self.__ff.seek(timepoint / 1000, relative=False)
 
     def seek_frame(self, frame: int) -> None:
         """
