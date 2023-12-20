@@ -129,7 +129,7 @@ def main_process():
         previous_questions_and_answers.append((new_question, response))
 
 main_process_thread = threading.Thread(target=main_process)
-# main_process_thread.start()
+main_process_thread.start()
 
 
 # Drawing Display
