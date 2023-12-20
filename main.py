@@ -27,7 +27,7 @@ chat_gpt_manager = ChatGPTManager()
 time = 0
 loop_interval = 10
 
-video_player.play("resources/videos/emojis/joy.mp4")
+# video_player.play("resources/videos/emojis/joy.mp4")
 
 
 INSTRUCTIONS = """
@@ -135,5 +135,7 @@ main_process_thread = threading.Thread(target=main_process)
 # Drawing Display
 while True:
     pygame.time.wait(30)
-    video_player.draw()
+    video_player.window.fill((  0,255,  0))
+    pygame.display.update()
+    # video_player.draw()
 
