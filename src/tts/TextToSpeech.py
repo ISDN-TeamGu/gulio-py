@@ -54,11 +54,11 @@ class SpeakTask:
         self.is_done = False
         self.audio_stream = None
     def start_preloading(self, semaphore: threading.Semaphore):
-        with semaphore:
-            preload_thread = threading.Thread(target=self.preload)
-            preload_thread.daemon = True
-            preload_thread.start()
-    def preload(self):
+        preload_thread = threading.Thread(target=self.preload, args=[semaphore])
+        preload_thread.daemon = True
+        preload_thread.start()
+    def preload(self, semaphore: threading.Semaphore):
+        semaphore.acquire()
         print("Start preloading audio: ", self.dialogue)
         if self.speech_attribute["gender"] == "Narration":
             self.audio_stream = asyncio.run(preload_playht(user="Wip26iViI4fvUgFHjj9oaIFQjWA2",key=os.getenv("PLAYHT_API_KEY"),text=[self.dialogue],quality="faster",interactive=False,use_async=True,voice="s3://mockingbird-prod/abigail_vo_6661b91f-4012-44e3-ad12-589fbdee9948/voices/speaker/manifest.json"))
@@ -73,9 +73,11 @@ class SpeakTask:
             else: 
                 self.audio_stream = asyncio.run(preload_playht(user="Wip26iViI4fvUgFHjj9oaIFQjWA2",key=os.getenv("PLAYHT_API_KEY"),text=[self.dialogue],quality="faster",interactive=False,use_async=True,voice="s3://peregrine-voices/donna_parrot_saad/manifest.json"))
         #Predict preload finish or not
-        asyncio.sleep(0.1 * len(self.dialogue))
+        asyncio.sleep(2+0.05 * len(self.dialogue))
+        print("delaying: ", 0.05 * len(self.dialogue))
         print("Finished preloaded audio: ", self.dialogue)
         self.preloaded = True
+        semaphore.release()
     
     async def play(self):
         print("Playing SpeakTask: ", self.dialogue, self.speech_attribute)
