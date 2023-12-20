@@ -123,8 +123,8 @@ def main_process():
         # Wait until finish speaking
         while text_to_speech_manager.is_speaking():
             pass
-main_process_thread = None
 def start_main_process_thread():
+    global main_process_thread
     if main_process_thread is not None:
         return
     main_process_thread = threading.Thread(target=main_process)
