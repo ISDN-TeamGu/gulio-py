@@ -1,6 +1,6 @@
 import pygame
 import asyncio
-from pygamevideo import Video
+from src.etc.pygamevideo import Video
 import src.singleton as singleton
 
 class VideoPlayer:
