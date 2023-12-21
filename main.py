@@ -118,7 +118,7 @@ def main_process():
         new_question = ""
         if first_time:
             print("Initializing for first time")
-            video_player.play("resources/videos/blinking.mp4")
+            video_player.play("resources/videos/loading.mp4")
             new_question = "Initialize the story with random setting while related to the theme Harry Potter"
             singleton.text_to_speech_manager.speak_text("Initializing Story")
             first_time = False
