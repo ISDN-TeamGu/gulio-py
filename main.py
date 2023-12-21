@@ -112,33 +112,40 @@ command_prompt_thread.running = True
 previous_questions_and_answers = []
 def main_process():
     t = threading.currentThread()
-    first_time = True
-    while getattr(t, "running", True):
+    generating_speech = False
+    i = 0
+    while True:
         # STEP 1: Listen to user input
         new_question = ""
-        if first_time:
+        print("iteration: ", i)
+        if i == 0:
             print("Initializing for first time")
-            video_player.play("resources/videos/loading.mp4")
+            video_player.play("resources/videos/emojis/loading.mp4")
             new_question = "Initialize the story with random setting while related to the theme Harry Potter"
             singleton.text_to_speech_manager.speak_text("Initializing Story")
-            first_time = False
         else:
             print("detecting Your Input:")
             new_question = singleton.speech_to_text_manager.detect_speech()
             print("You said: ", new_question)
-        
         # STEP 2: Get response from GPT
         response_stream = singleton.chat_gpt_manager.get_response_stream(INSTRUCTIONS, previous_questions_and_answers, new_question)
                 
         # STEP 3: Speak the response
         final_result_text = singleton.text_to_speech_manager.process_text_stream(response_stream)
 
+        video_player.play("resources/videos/emojis/blinking.mp4")
         # add the new question and answer to the list of previous questions and answers
         previous_questions_and_answers.append((new_question, final_result_text))
 
+
         # Wait until finish speaking
+        # wait for 2 seconds
         while text_to_speech_manager.is_speaking():
             pass
+        if i==0:
+            #Initial wait
+            pygame.time.wait(5000)
+        i += 1 
 main_process_thread = None
 def start_main_process_thread():
     global main_process_thread
@@ -187,3 +194,5 @@ def start_rendering():
 if __name__ == "__main__":
     start_main_process_thread()
     start_rendering()
+    # new_question = singleton.speech_to_text_manager.detect_speech()
+    # print("You said: ", new_question)
