@@ -4,9 +4,14 @@ from pvcheetah import CheetahActivationLimitError, create
 from pvrecorder import PvRecorder
 import os
 import src.singleton as singleton
+import simpleaudio as sa
+import asyncio
+import pygame
 # from pydub import AudioSegment
 # from pydub.playback import play
 
+sound1 = sa.WaveObject.from_wave_file("soundeffects/start.wav")
+sound2 = sa.WaveObject.from_wave_file("soundeffects/stop.wav")
 
 class SpeechToTextManager:
     def __init__(self):
@@ -27,7 +32,7 @@ class SpeechToTextManager:
         parser.add_argument(
             '--endpoint_duration_sec',
             type=float,
-            default=1,
+            default=3.,
             help='Duration in seconds for speechless audio to be considered an endpoint')
         parser.add_argument(
             '--disable_automatic_punctuation',
@@ -53,8 +58,7 @@ class SpeechToTextManager:
 
     def detect_speech(self):
         try:
-            # sound1 = AudioSegment.from_wav("soundeffects/start.wav")
-            # sound2 = AudioSegment.from_wav("soundeffects/stop.wav")
+            pygame.time.wait(6000)
             print('Cheetah version : %s' % self.cheetah.version)
 
             self.recorder.start()
@@ -62,24 +66,20 @@ class SpeechToTextManager:
             result = ""
             try:
                 passed = False
-                # play(sound1)
+                sound1.play()
                 while True:
-                    partial_transcript, is_endpoint, c_char_p= self.cheetah.process(self.recorder.read())
-                    print(partial_transcript, end='', flush=True)
-                    if c_char_p != '':
-                        passed = True
+                    partial_transcript, is_endpoint = self.cheetah.process(self.recorder.read())
+                    result += partial_transcript
                     if is_endpoint:
-                        if passed == True:
-                            self.recorder.stop()
-                            # play(sound2)
-                            return(self.cheetah.flush())
+                        last = self.cheetah.flush()
+                        result += last
+                        self.recorder.stop()
             finally:
                 self.recorder.stop()
+                print("stopped")
+                sound2.play()
                 return result
-
         except KeyboardInterrupt:
             pass
         except CheetahActivationLimitError:
             print('AccessKey has reached its processing limit.')
-
-

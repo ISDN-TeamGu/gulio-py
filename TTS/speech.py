@@ -79,5 +79,4 @@ def speech():
         cheetah.delete()
 
 
-if __name__ == '__main__':
-    speech()
+speech()

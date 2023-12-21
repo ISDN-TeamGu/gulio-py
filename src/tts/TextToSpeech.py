@@ -80,6 +80,8 @@ class SpeakTask:
         semaphore.release()
     
     async def play(self):
+        print("Playing emoji: "+self.speech_attribute["emotion"].lower())
+        singleton.command_processor.play_emoji(self.speech_attribute["emotion"].lower())
         print("Playing SpeakTask: ", self.dialogue, self.speech_attribute)
         if self.audio_stream is not None:
             print("audio_stream: ", self.audio_stream)
@@ -96,7 +98,7 @@ class TextToSpeechManager:
             "name": "Narration",
             "gender": "Female",
             "age": "35",
-            "emotion": "Blinking"
+            "emotion": "blinking"
         }
         # Multithreading
         self.lock = threading.Lock()
@@ -116,7 +118,7 @@ class TextToSpeechManager:
                 temp += content
             # when detected full stop, question mark, exclamation mark, comma or new line, process the text
             if(";" in temp or "!" in temp or "?" in temp or "\n" in temp):
-                print("sentence: ", temp)
+                # print("sentence: ", temp)
                 # If the text detected flag like [Narration] or [Character name], update current attribute
                 dialogue = self.process_dialogue(temp)
                 sentences.append(dialogue)
@@ -132,7 +134,7 @@ class TextToSpeechManager:
     def process_dialogue(self, line):
         try:
             
-            substrings = ["Narrator", "Male", "35", "Blinking", "", "" ,"" ,""]
+            substrings = ["Narrator", "Narration", "35", "blinking", "", "" ,"" ,""]
             load_attribute = False
             in_brackets = False
             current_substring = ""
@@ -168,7 +170,7 @@ class TextToSpeechManager:
                     pass
 
                 self.current_speech_attribute["emotion"] = substrings[3]
-                print("Loaded speech attribute: ", self.current_speech_attribute)
+                # print("Loaded speech attribute: ", self.current_speech_attribute)
             return dialogue
         except Exception as e:
             print("Error in parsing the output", e)
@@ -176,7 +178,7 @@ class TextToSpeechManager:
 
     # Add the speak task according to text
     def speak_text(self, text):
-        print("speak_text: ", text)
+        # print("speak_text: ", text)
         if(text is None):
             return
         if(text == ""):
@@ -193,7 +195,6 @@ class TextToSpeechManager:
             return
         if(len(dialogue) < 2):
             return
-        singleton.command_processor.play_emoji(speech_attribute["emotion"])
         speak_task = SpeakTask(dialogue, speech_attribute)
         speak_task.start_preloading(self.semaphore)
         self.tasks.append(speak_task)
