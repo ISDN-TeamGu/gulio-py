@@ -30,11 +30,13 @@ class CommandProcessor:
             print("Playing music:", song_name)
     def play_emoji(self, name, emotion):
         # Handle the playMusic command with its arguments
-        
-        emoji_name = name
-        emoji = emotion
-        print("Playing emoji:", emoji_name)
-        singleton.video_player.play("resources/videos/emojis/"+emoji_name.lower()+"/"+emoji.lower()+".mp4")
+        if name.lower() == "harry" or name.lower() == "dumbledore" or name.lower() == "ron" or name.lower() == "hermione":
+            emoji_name = name
+            emoji = emotion
+            print("Playing emoji:", emoji_name)
+            singleton.video_player.play("resources/videos/emojis/"+emoji_name.lower()+"/"+emoji.lower()+".mp4")
+        else:
+            singleton.video_player.play("resources/videos/emojis/blinking.mp4")
     
     def play_music(self, arguments):
         # Handle the playMusic command with its arguments
