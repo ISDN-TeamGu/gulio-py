@@ -3,6 +3,7 @@ from __future__ import annotations
 import os
 import openai
 import numpy as np
+import json
 import asyncio
 import simpleaudio as sa
 from src.stt.SpeechToText import *
@@ -13,18 +14,19 @@ import time
 import threading
 import select
 import sys
-
+from dotenv import load_dotenv
 
 from pyht.client import Client, TTSOptions
 from pyht.async_client import AsyncClient
 from pyht.protos import api_pb2
-
+load_dotenv()
 openai.api_key = os.getenv("OPENAI_API_KEY") #apikey
 openai.api_base = "https://isdn4001.openai.azure.com/"
 openai.api_type = 'azure'
 openai.api_version = '2023-05-15' 
 
 deployment_name='ISDN4001'
+
 
 
 TEMPERATURE = 0.5
@@ -63,20 +65,20 @@ class SpeakTask:
         if self.speech_attribute["gender"] == "Narration":
             self.audio_stream = asyncio.run(preload_playht(user="Wip26iViI4fvUgFHjj9oaIFQjWA2",key=os.getenv("PLAYHT_API_KEY"),text=[self.dialogue],quality="faster",interactive=False,use_async=True,voice="s3://mockingbird-prod/abigail_vo_6661b91f-4012-44e3-ad12-589fbdee9948/voices/speaker/manifest.json"))
         elif self.speech_attribute["gender"] == "Male":
-            if int(self.speech_attribute["name"]) == "Harry Potter":
+            if self.speech_attribute["name"] == "Harry Potter":
                 self.audio_stream = asyncio.run(preload_playht(user="Wip26iViI4fvUgFHjj9oaIFQjWA2",key=os.getenv("PLAYHT_API_KEY"),text=[self.dialogue],quality="faster",interactive=False,use_async=True,voice="https://play.ht/studio/voice-cloning/claim-voice/77a0bccb1ab5ed038fd28019b0c726cee1e98ae014dcc30b963039f2e7a8485f"))
-            elif int(self.speech_attribute["name"]) == "Ron Weasley":
+            elif self.speech_attribute["name"] == "Ron Weasley":
                 self.audio_stream = asyncio.run(preload_playht(user="Wip26iViI4fvUgFHjj9oaIFQjWA2",key=os.getenv("PLAYHT_API_KEY"),text=[self.dialogue],quality="faster",interactive=False,use_async=True,voice="https://play.ht/studio/voice-cloning/claim-voice/614b56116b76ab42e03fd210f410cb96514c558ac207b2723a7f0906adebe749"))
-            elif int(self.speech_attribute["name"]) == "Professor Snape":
+            elif self.speech_attribute["name"] == "Professor Snape":
                 self.audio_stream = asyncio.run(preload_playht(user="Wip26iViI4fvUgFHjj9oaIFQjWA2",key=os.getenv("PLAYHT_API_KEY"),text=[self.dialogue],quality="faster",interactive=False,use_async=True,voice="https://play.ht/studio/voice-cloning/claim-voice/f6c99ccd11226cdaff1f0397c450c6868daf6de47b0ffe6d7e13cff2be70111f"))
-            elif int(self.speech_attribute["name"]) == "Professor Dumbledore":
+            elif self.speech_attribute["name"] == "Professor Dumbledore":
                 self.audio_stream = asyncio.run(preload_playht(user="Wip26iViI4fvUgFHjj9oaIFQjWA2",key=os.getenv("PLAYHT_API_KEY"),text=[self.dialogue],quality="faster",interactive=False,use_async=True,voice="https://play.ht/studio/voice-cloning/claim-voice/4355db3c4e62679b7e415030dc8cd00e3ae2db52122f3aab55baa78e9ca55977"))
             elif int(self.speech_attribute["age"]) > 40:
                 self.audio_stream = asyncio.run(preload_playht(user="Wip26iViI4fvUgFHjj9oaIFQjWA2",key=os.getenv("PLAYHT_API_KEY"),text=[self.dialogue],quality="faster",interactive=False,use_async=True,voice="s3://mockingbird-prod/hook_1_chico_a3e5e83f-08ae-4a9f-825c-7e48d32d2fd8/voices/speaker/manifest.json"))
             else:
                 self.audio_stream = asyncio.run(preload_playht(user="Wip26iViI4fvUgFHjj9oaIFQjWA2",key=os.getenv("PLAYHT_API_KEY"),text=[self.dialogue],quality="faster",interactive=False,use_async=True,voice="s3://peregrine-voices/nolan saad parrot/manifest.json"))
         elif self.speech_attribute["gender"] == "Female":   
-            if int(self.speech_attribute["name"]) == "Hermione Granger":
+            if self.speech_attribute["name"] == "Hermione Granger":
                 self.audio_stream = asyncio.run(preload_playht(user="Wip26iViI4fvUgFHjj9oaIFQjWA2",key=os.getenv("PLAYHT_API_KEY"),text=[self.dialogue],quality="faster",interactive=False,use_async=True,voice="https://play.ht/studio/voice-cloning/claim-voice/99378e225453f9dbc46246c4e24c2f8a7245574b7254054b1804ab1a0ebcfb3e"))
             elif int(self.speech_attribute["age"]) > 40:
                 self.audio_stream = asyncio.run(preload_playht(user="Wip26iViI4fvUgFHjj9oaIFQjWA2",key=os.getenv("PLAYHT_API_KEY"),text=[self.dialogue],quality="faster",interactive=False,use_async=True,voice="s3://voice-cloning-zero-shot/7c38b588-14e8-42b9-bacd-e03d1d673c3c/nicole/manifest.json"))
@@ -127,23 +129,38 @@ class TextToSpeechManager:
             if content is not None:
                 temp += content
             # when detected full stop, question mark, exclamation mark, comma or new line, process the text
-            if(";" in temp or "!" in temp or "?" in temp or "\n" in temp):
+            #if(";" in temp or "!" in temp or "?" in temp or "\n" in temp):
                 # print("sentence: ", temp)
                 # If the text detected flag like [Narration] or [Character name], update current attribute
-                dialogue = self.process_dialogue(temp)
-                sentences.append(dialogue)
+        print(temp)
+        dialogue = self.process_dialogue(temp)
+        sentences.append(dialogue)
                 # Process text
-                self.speak_text(dialogue)
-                temp = ""
-        
+        self.speak_text(dialogue)
+        temp = ""
         # Make result
         return "".join(sentences)
         
-            
+    def voice(gender,age,emotion,dialogue,name):
+    if gender == "Narration":
+        asyncio.run(AIvoice.async_main(user="Wip26iViI4fvUgFHjj9oaIFQjWA2 ",key=os.getenv("PLAYHT_API_KEY"),text=[dialogue],quality="faster",interactive=False,use_async=True,voice="s3://mockingbird-prod/abigail_vo_6661b91f-4012-44e3-ad12-589fbdee9948/voices/speaker/manifest.json"))
+    elif gender == "Male":
+        if int(age) > 30:
+            asyncio.run(AIvoice.async_main(user="Wip26iViI4fvUgFHjj9oaIFQjWA2 ",key=os.getenv("PLAYHT_API_KEY"),text=[dialogue],quality="faster",interactive=False,use_async=True,voice="s3://mockingbird-prod/hook_1_chico_a3e5e83f-08ae-4a9f-825c-7e48d32d2fd8/voices/speaker/manifest.json"))
+        else:
+            asyncio.run(AIvoice.async_main(user="Wip26iViI4fvUgFHjj9oaIFQjWA2 ",key=os.getenv("PLAYHT_API_KEY"),text=[dialogue],quality="faster",interactive=False,use_async=True,voice="s3://peregrine-voices/nolan saad parrot/manifest.json"))
+    elif gender == "Female":   
+        if int(age) > 30:
+            asyncio.run(AIvoice.async_main(user="Wip26iViI4fvUgFHjj9oaIFQjWA2 ",key=os.getenv("PLAYHT_API_KEY"),text=[dialogue],quality="faster",interactive=False,use_async=True,voice="s3://voice-cloning-zero-shot/7c38b588-14e8-42b9-bacd-e03d1d673c3c/nicole/manifest.json"))
+        else: 
+            asyncio.run(AIvoice.async_main(user="Wip26iViI4fvUgFHjj9oaIFQjWA2 ",key=os.getenv("PLAYHT_API_KEY"),text=[dialogue],quality="faster",interactive=False,use_async=True,voice="s3://peregrine-voices/donna_parrot_saad/manifest.json"))        
+    
+    
     # Obtain the attributes like age or name from output to customize voice acting 
+
     def process_dialogue(self, line):
         try:
-            
+            load_attribute = True
             data = json.loads(line) 
     
     # Access the fields of each JSON object
@@ -155,11 +172,11 @@ class TextToSpeechManager:
             dialogue = data["dialogue"]
             soundeffect = data["soundeffect"]
             choices = data["choices"]
-            print(name, age, gender, emotion, dialogue, soundeffect, choices)
+            
             
             # Load the attributes
             if load_attribute:
-                print(substrings)
+              
                 self.current_speech_attribute["name"] = name
                 self.current_speech_attribute["gender"] = gender
 
@@ -170,6 +187,9 @@ class TextToSpeechManager:
 
                 self.current_speech_attribute["emotion"] = emotion
                 # print("Loaded speech attribute: ", self.current_speech_attribute)
+            
+            self.voice(gender,age,emotion,dialogue,name)
+
             return dialogue
         except Exception as e:
             print("Error in parsing the output", e)
