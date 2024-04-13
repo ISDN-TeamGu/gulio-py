@@ -63,12 +63,22 @@ class SpeakTask:
         if self.speech_attribute["gender"] == "Narration":
             self.audio_stream = asyncio.run(preload_playht(user="Wip26iViI4fvUgFHjj9oaIFQjWA2",key=os.getenv("PLAYHT_API_KEY"),text=[self.dialogue],quality="faster",interactive=False,use_async=True,voice="s3://mockingbird-prod/abigail_vo_6661b91f-4012-44e3-ad12-589fbdee9948/voices/speaker/manifest.json"))
         elif self.speech_attribute["gender"] == "Male":
-            if int(self.speech_attribute["age"]) > 40:
+            if int(self.speech_attribute["name"]) == "Harry Potter":
+                self.audio_stream = asyncio.run(preload_playht(user="Wip26iViI4fvUgFHjj9oaIFQjWA2",key=os.getenv("PLAYHT_API_KEY"),text=[self.dialogue],quality="faster",interactive=False,use_async=True,voice="https://play.ht/studio/voice-cloning/claim-voice/77a0bccb1ab5ed038fd28019b0c726cee1e98ae014dcc30b963039f2e7a8485f"))
+            elif int(self.speech_attribute["name"]) == "Ron Weasley":
+                self.audio_stream = asyncio.run(preload_playht(user="Wip26iViI4fvUgFHjj9oaIFQjWA2",key=os.getenv("PLAYHT_API_KEY"),text=[self.dialogue],quality="faster",interactive=False,use_async=True,voice="https://play.ht/studio/voice-cloning/claim-voice/614b56116b76ab42e03fd210f410cb96514c558ac207b2723a7f0906adebe749"))
+            elif int(self.speech_attribute["name"]) == "Professor Snape":
+                self.audio_stream = asyncio.run(preload_playht(user="Wip26iViI4fvUgFHjj9oaIFQjWA2",key=os.getenv("PLAYHT_API_KEY"),text=[self.dialogue],quality="faster",interactive=False,use_async=True,voice="https://play.ht/studio/voice-cloning/claim-voice/f6c99ccd11226cdaff1f0397c450c6868daf6de47b0ffe6d7e13cff2be70111f"))
+            elif int(self.speech_attribute["name"]) == "Professor Dumbledore":
+                self.audio_stream = asyncio.run(preload_playht(user="Wip26iViI4fvUgFHjj9oaIFQjWA2",key=os.getenv("PLAYHT_API_KEY"),text=[self.dialogue],quality="faster",interactive=False,use_async=True,voice="https://play.ht/studio/voice-cloning/claim-voice/4355db3c4e62679b7e415030dc8cd00e3ae2db52122f3aab55baa78e9ca55977"))
+            elif int(self.speech_attribute["age"]) > 40:
                 self.audio_stream = asyncio.run(preload_playht(user="Wip26iViI4fvUgFHjj9oaIFQjWA2",key=os.getenv("PLAYHT_API_KEY"),text=[self.dialogue],quality="faster",interactive=False,use_async=True,voice="s3://mockingbird-prod/hook_1_chico_a3e5e83f-08ae-4a9f-825c-7e48d32d2fd8/voices/speaker/manifest.json"))
             else:
                 self.audio_stream = asyncio.run(preload_playht(user="Wip26iViI4fvUgFHjj9oaIFQjWA2",key=os.getenv("PLAYHT_API_KEY"),text=[self.dialogue],quality="faster",interactive=False,use_async=True,voice="s3://peregrine-voices/nolan saad parrot/manifest.json"))
         elif self.speech_attribute["gender"] == "Female":   
-            if int(self.speech_attribute["age"]) > 40:
+            if int(self.speech_attribute["name"]) == "Hermione Granger":
+                self.audio_stream = asyncio.run(preload_playht(user="Wip26iViI4fvUgFHjj9oaIFQjWA2",key=os.getenv("PLAYHT_API_KEY"),text=[self.dialogue],quality="faster",interactive=False,use_async=True,voice="https://play.ht/studio/voice-cloning/claim-voice/99378e225453f9dbc46246c4e24c2f8a7245574b7254054b1804ab1a0ebcfb3e"))
+            elif int(self.speech_attribute["age"]) > 40:
                 self.audio_stream = asyncio.run(preload_playht(user="Wip26iViI4fvUgFHjj9oaIFQjWA2",key=os.getenv("PLAYHT_API_KEY"),text=[self.dialogue],quality="faster",interactive=False,use_async=True,voice="s3://voice-cloning-zero-shot/7c38b588-14e8-42b9-bacd-e03d1d673c3c/nicole/manifest.json"))
             else: 
                 self.audio_stream = asyncio.run(preload_playht(user="Wip26iViI4fvUgFHjj9oaIFQjWA2",key=os.getenv("PLAYHT_API_KEY"),text=[self.dialogue],quality="faster",interactive=False,use_async=True,voice="s3://peregrine-voices/donna_parrot_saad/manifest.json"))
@@ -134,42 +144,31 @@ class TextToSpeechManager:
     def process_dialogue(self, line):
         try:
             
-            substrings = ["Narrator", "Narration", "35", "blinking", "", "" ,"" ,""]
-            load_attribute = False
-            in_brackets = False
-            current_substring = ""
-            dialogue = ""
-            
-            argIndex = 0
-            for c in line:
-                if c == "[":
-                    in_brackets = True
-                    load_attribute = True
-                elif c == "]" and in_brackets:
-                    substrings[argIndex] = current_substring
-                    argIndex += 1
-                    current_substring = ""
-                    in_brackets = False
-                elif in_brackets:
-                    current_substring += c
-                elif in_brackets == False:
-                    dialogue += c
-            if current_substring:
-                substrings[argIndex] = current_substring
-                argIndex += 1
+            data = json.loads(line) 
+    
+    # Access the fields of each JSON object
+        
+            name = data["name"]
+            age = data["age"]
+            gender = data["gender"]
+            emotion = data["emotion"]
+            dialogue = data["dialogue"]
+            soundeffect = data["soundeffect"]
+            choices = data["choices"]
+            print(name, age, gender, emotion, dialogue, soundeffect, choices)
             
             # Load the attributes
             if load_attribute:
                 print(substrings)
-                self.current_speech_attribute["name"] = substrings[0]
-                self.current_speech_attribute["gender"] = substrings[1]
+                self.current_speech_attribute["name"] = name
+                self.current_speech_attribute["gender"] = gender
 
                 try:
-                    self.current_speech_attribute["age"] = int(substrings[2])
+                    self.current_speech_attribute["age"] = int(age)
                 except:
                     pass
 
-                self.current_speech_attribute["emotion"] = substrings[3]
+                self.current_speech_attribute["emotion"] = emotion
                 # print("Loaded speech attribute: ", self.current_speech_attribute)
             return dialogue
         except Exception as e:
