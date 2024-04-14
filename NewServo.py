@@ -12,9 +12,9 @@ class Servo:
     def __angle_to_duty(self, angle):
         duty_0 = 2.5
         duty_180 = 12.5
-        return duty_0 + (float(angle) / 180) * (duty_180 - duty_0)
+        return duty_0 + (float(angle) / 18) 
 
-    def move(self, angle, speed):
+    def move(self, angle):
         # round to 2 decimal places, so we have a chance of reducing unwanted servo adjustments
         angle = round(angle, 2)
         # do we need to move?
@@ -24,5 +24,5 @@ class Servo:
         # calculate the new duty cycle and move the motor
         duty = self.__angle_to_duty(angle)
         self.pwm.ChangeDutyCycle(duty)
-        time.sleep(speed)
+        
 
