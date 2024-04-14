@@ -91,7 +91,7 @@ class SpeakTask:
     
     async def play(self):
         print("Playing emoji: "+self.speech_attribute["emotion"].lower())
-        singleton.video_player.stop()
+        
         singleton.command_processor.play_emoji(self.speech_attribute["name"].lower(),self.speech_attribute["emotion"].lower())
 
         print("Playing SpeakTask: ", self.dialogue, self.speech_attribute)
@@ -102,7 +102,7 @@ class SpeakTask:
             self.audio_stream = None
             self.is_done = True
             print("Speak task is done!", self.is_done)
-            singleton.video_player.stop()
+            
 
 class TextToSpeechManager:
     def __init__(self):
@@ -222,6 +222,7 @@ class TextToSpeechManager:
             self.current_task = self.tasks.pop(0)
             while self.current_task.audio_stream == None:
                 time.sleep(0.1)
+                singleton.video_player.stop()
             self.playing_thread = threading.Thread(target=self.play_current_task)
             self.playing_thread.daemon = True
             self.playing_thread.start()
