@@ -34,3 +34,6 @@ class VideoPlayer:
             print("playing video: ", self.video.frame_width)
         except:
             print("Error playing video: ", videoPath)
+    def stop(self):
+        self.video.release()
+    
