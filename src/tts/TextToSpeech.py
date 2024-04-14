@@ -91,7 +91,9 @@ class SpeakTask:
     
     async def play(self):
         print("Playing emoji: "+self.speech_attribute["emotion"].lower())
+        singleton.video_player.stop()
         singleton.command_processor.play_emoji(self.speech_attribute["name"].lower(),self.speech_attribute["emotion"].lower())
+
         print("Playing SpeakTask: ", self.dialogue, self.speech_attribute)
         if self.audio_stream is not None:
             print("audio_stream: ", self.audio_stream)
@@ -181,6 +183,7 @@ class TextToSpeechManager:
                     pass
 
                 self.current_speech_attribute["emotion"] = substrings[3]
+                
                 # print("Loaded speech attribute: ", self.current_speech_attribute)
             return dialogue
         except Exception as e:
