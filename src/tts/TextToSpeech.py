@@ -100,6 +100,7 @@ class SpeakTask:
             self.audio_stream = None
             self.is_done = True
             print("Speak task is done!", self.is_done)
+            singleton.video_player.stop()
 
 class TextToSpeechManager:
     def __init__(self):
