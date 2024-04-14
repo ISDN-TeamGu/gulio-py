@@ -8,7 +8,7 @@ class VideoPlayer:
         info = pygame.display.Info()
 
         # and create a borderless window that's as big as the entire screen
-        self.window = pygame.display.set_mode((400, 360), pygame.SCALED | pygame.NOFRAME | pygame.FULLSCREEN)
+        self.window = pygame.display.set_mode((1200, 1080), pygame.SCALED | pygame.NOFRAME | pygame.FULLSCREEN)
         # self.window = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
         self.video = None
 
