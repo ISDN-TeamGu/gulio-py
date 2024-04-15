@@ -77,9 +77,14 @@ class VideoPlayer:
             sleep(1)                 # Wait 1 second
             self.t.ChangeDutyCycle(11.8)
             sleep(1)
+            self.stop()
             print("motor initialized")
         except:
             print("error initalizing")
+    def stop(self):
+        self.p.ChangeDutyCycle(0) 
+        self.t.ChangeDutyCycle(0)
+           
     def move(self, emotion):
         try:
             print("move called")
@@ -96,6 +101,7 @@ class VideoPlayer:
                 sleep(0.2)
                 self.t.ChangeDutyCycle(11.8)
                 sleep(0.1)
+                self.stop
             if emotion == "sad":
             #sad
                 self.p.ChangeDutyCycle(8)
@@ -106,12 +112,15 @@ class VideoPlayer:
                 sleep(0.1)           
                 self.t.ChangeDutyCycle(11.8)
                 sleep(0.1)
+                self.stop
             if emotion == "angry":
             #angry
                 self.t.ChangeDutyCycle(12.5)
                 sleep(0.5)
                 self.t.ChangeDutyCycle(11.8)
                 sleep(0.1)
+                self.stop
+
                 
             if emotion == "disgust":
             #disgust
@@ -122,6 +131,7 @@ class VideoPlayer:
                 sleep(0.2)
                 self.p.ChangeDutyCycle(8.5)
                 sleep(0.1)
+                self.stop
                 
             if emotion == "fear":
             #fear
@@ -129,6 +139,7 @@ class VideoPlayer:
                 sleep(0.5)
                 self.t.ChangeDutyCycle(11.8)
                 sleep(0.1)
+                self.stop
 
         except:
             print("Error occurred")
