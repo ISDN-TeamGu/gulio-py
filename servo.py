@@ -19,14 +19,19 @@ sleep(1)
 
 #happy
 t.ChangeDutyCycle(12.5)
+sleep(1)
 t.ChangeDutyCycle(11.8)
+sleep(1)
 t.ChangeDutyCycle(11.7)
+sleep(1)
 t.ChangeDutyCycle(11.6)
+sleep(1)
 t.ChangeDutyCycle(11.4)
+sleep(1)
 t.ChangeDutyCycle(11.8)
 sleep(3)
 
-#sad
+"""#sad
 p.ChangeDutyCycle(8)
 t.ChangeDutyCycle(12.5)
 p.ChangeDutyCycle(8.5)            
@@ -51,3 +56,4 @@ sleep(3)
 t.ChangeDutyCycle(11.4)
 sleep(2)
 t.ChangeDutyCycle(11.8)
+"""
