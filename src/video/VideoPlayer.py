@@ -55,8 +55,8 @@ class VideoPlayer:
             rotated_rect = rotated_image.get_rect()
 
             # Calculate the position to center the rotated image
-            x = (1200 - rotated_rect.width) // 2
-            y = (1000 - rotated_rect.height) // 2
+            x = (1000 - rotated_rect.width) // 2
+            y = (1200 - rotated_rect.height) // 2
 
             if hasattr(self, 'image_displayed'):  # Check if image has been displayed before
                 # Fill the screen with white
