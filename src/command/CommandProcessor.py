@@ -30,14 +30,16 @@ class CommandProcessor:
             song_name = arguments[0]
             print("Playing music:", song_name)
     def play_emoji(self, name, emotion):
+        image = ImageDisplaySingleton.get_instance()
+
         # Handle the playMusic command with its arguments
         if name.lower() == "harry" or name.lower() == "dumbledore" or name.lower() == "ron" or name.lower() == "hermione":
             emoji_name = name
             emoji = emotion
             print("Playing emoji:", emoji_name)
-            ImageDisplaySingleton.display_image("resources/videos/emojis/"+emoji_name.lower()+"/"+emoji.lower()+".jpg") 
+            image.display_image("resources/videos/emojis/"+emoji_name.lower()+"/"+emoji.lower()+".jpg") 
         else:
-            ImageDisplaySingleton.display_image("resources/videos/emojis/1.jpg")
+            image.display_image("resources/videos/emojis/1.jpg")
     
     def play_music(self, arguments):
         # Handle the playMusic command with its arguments
