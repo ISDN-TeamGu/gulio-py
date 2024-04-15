@@ -69,7 +69,10 @@ class SpeechToTextManager:
                 sound1.play()
                 while True:
                     partial_transcript, is_endpoint = self.cheetah.process(self.recorder.read())
+                    print(partial_transcript, end='', flush=True)
+
                     result += partial_transcript
+                    
                     if is_endpoint:
                         last = self.cheetah.flush()
                         result += last
