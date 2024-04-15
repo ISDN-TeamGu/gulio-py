@@ -182,8 +182,8 @@ class TextToSpeechManager:
                     pass
 
                 self.current_speech_attribute["emotion"] = substrings[3]
-                if current_speech_attribute["emotion"] != "happy" or  current_speech_attribute["emotion"] != "default" or  current_speech_attribute["emotion"] != "sad" or  current_speech_attribute["emotion"] != "fear" or  current_speech_attribute["emotion"] != "disgust" or  current_speech_attribute["emotion"] != "surprised":
-                    current_speech_attribute["emotion"] = "default"
+                if self.current_speech_attribute["emotion"] != "happy" or  self.current_speech_attribute["emotion"] != "default" or self.current_speech_attribute["emotion"] != "sad" or self.current_speech_attribute["emotion"] != "fear" or self.current_speech_attribute["emotion"] != "disgust" or self.current_speech_attribute["emotion"] != "surprised":
+                    self.current_speech_attribute["emotion"] = "default"
                 
                 # print("Loaded speech attribute: ", self.current_speech_attribute)
             return dialogue
