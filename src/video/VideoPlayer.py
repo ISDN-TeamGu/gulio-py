@@ -84,44 +84,44 @@ class VideoPlayer:
             if emotion == "happy":
             #happy
                 
-                t.ChangeDutyCycle(11.4)
+                self.t.ChangeDutyCycle(11.4)
                 sleep(0.2)
-                t.ChangeDutyCycle(11)
+                self.t.ChangeDutyCycle(11)
                 sleep(0.2)
-                t.ChangeDutyCycle(11.8)
+                self.t.ChangeDutyCycle(11.8)
                 sleep(0.1)
             if emotion == "sad":
             #sad
-                p.ChangeDutyCycle(8)
+                self.p.ChangeDutyCycle(8)
                 sleep(0.2)
-                t.ChangeDutyCycle(12.5)
+                self.t.ChangeDutyCycle(12.5)
                 sleep(0.3)
-                p.ChangeDutyCycle(8.5) 
+                self.p.ChangeDutyCycle(8.5) 
                 sleep(0.1)           
-                t.ChangeDutyCycle(11.8)
+                self.t.ChangeDutyCycle(11.8)
                 sleep(0.1)
             if emotion == "angry":
             #angry
-                t.ChangeDutyCycle(12.5)
+                self.t.ChangeDutyCycle(12.5)
                 sleep(0.5)
-                t.ChangeDutyCycle(11.8)
+                self.t.ChangeDutyCycle(11.8)
                 sleep(0.1)
                 
             if emotion == "disgust":
             #disgust
                 
-                p.ChangeDutyCycle(8.1)
+                self.p.ChangeDutyCycle(8.1)
                 sleep(0.2)
-                p.ChangeDutyCycle(8.9)
+                self.p.ChangeDutyCycle(8.9)
                 sleep(0.2)
-                p.ChangeDutyCycle(8.5)
+                self.p.ChangeDutyCycle(8.5)
                 sleep(0.1)
                 
             if emotion == "fear":
             #fear
-                t.ChangeDutyCycle(11.4)
+                self.t.ChangeDutyCycle(11.4)
                 sleep(0.5)
-                t.ChangeDutyCycle(11.8)
+                self.t.ChangeDutyCycle(11.8)
                 sleep(0.1)
 
         except:
