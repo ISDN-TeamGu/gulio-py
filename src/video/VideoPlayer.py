@@ -52,10 +52,10 @@ class VideoPlayer:
                     running = False
 
             # Fill the screen with white
-            self.screen.fill((255, 255, 255))
+            self.window.fill((255, 255, 255))
 
             # Display the image on the screen
-            self.screen.blit(image, (0, 0))
+            self.window.blit(image, (0, 0))
 
             # Update the display
             pygame.display.flip()
