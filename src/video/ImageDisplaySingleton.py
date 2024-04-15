@@ -27,7 +27,12 @@ class ImageDisplaySingleton:
             self.image_path = ""
 
             ImageDisplaySingleton.__instance = self
-
+    def draw(self):
+        pygame.event.pump() #MUST KEEP THIS TO PREVENT FREEZING
+        if self.image is None:
+            return
+        self.image.draw_to(self.window, (0, 0))
+        
     def display_image(self, image_path):
         # Load the image
         image = pygame.image.load(image_path)
