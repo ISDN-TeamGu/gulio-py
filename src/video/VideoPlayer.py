@@ -39,14 +39,8 @@ class VideoPlayer:
 
     def display_image(self, image_path):
     # Initialize Pygame
-        pygame.init()
-
+        
         # Set up the display window
-        screen = pygame.display.set_mode((1200, 1080), pygame.SCALED | pygame.NOFRAME | pygame.FULLSCREEN)
-
-        pygame.display.set_caption("Image Display")
-
-        # Load the image
         image = pygame.image.load(image_path)
 
         # Main loop
@@ -58,12 +52,14 @@ class VideoPlayer:
                     running = False
 
             # Fill the screen with white
-            screen.fill((255, 255, 255))
+            self.screen.fill((255, 255, 255))
 
             # Display the image on the screen
-            screen.blit(image, (0, 0))
+            self.screen.blit(image, (0, 0))
 
             # Update the display
             pygame.display.flip()
 
         # Quit Pygame
+        pygame.quit()
+
