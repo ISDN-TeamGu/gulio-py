@@ -137,6 +137,8 @@ def main_process():
         if i == 0:
             print("Initializing for first time")
             singleton.video_player.display_image(image_path)
+            singleton.video_player.start()
+
             new_question = "Initialize the story with random setting while related to the theme Harry Potter"
             singleton.text_to_speech_manager.speak_text("Initializing Story")
         else:
@@ -198,7 +200,6 @@ signal.signal(signal.SIGINT, signal_handler)
 
 def start_rendering():
     singleton.video_player.display_image(image_path)
-    singleton.video_player.start()
     while running:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
