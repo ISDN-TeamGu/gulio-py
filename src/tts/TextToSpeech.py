@@ -13,6 +13,8 @@ import time
 import threading
 import select
 import sys
+from src.singleton import motor
+
 
 
 from pyht.client import Client, TTSOptions
@@ -25,6 +27,7 @@ openai.api_type = 'azure'
 openai.api_version = '2023-05-15' 
 
 deployment_name='ISDN4001'
+motor_instance = motor.Motor()
 
 video_lock = threading.Lock()
 TEMPERATURE = 0.5
@@ -94,7 +97,7 @@ class SpeakTask:
         print("Playing SpeakTask: ", self.dialogue, self.speech_attribute)
         singleton.command_processor.play_emoji(self.speech_attribute["name"].lower(),self.speech_attribute["emotion"].lower())
         if (self.speech_attribute["emotion"]=="happy" or self.speech_attribute["emotion"]=="sad" or self.speech_attribute["emotion"]=="fear" or self.speech_attribute["emotion"]=="surprised" or self.speech_attribute["emotion"]=="disgust" or self.speech_attribute["emotion"]=="angry"):
-            singleton.motor.move(self.speech_attribute["emotion"])
+            motor_instance.move(self.speech_attribute["emotion"])
         if self.audio_stream is not None:
             print("audio_stream: ", self.audio_stream)
             
