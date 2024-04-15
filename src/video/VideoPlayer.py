@@ -11,7 +11,7 @@ class VideoPlayer:
         info = pygame.display.Info()
 
         # and create a borderless window that's as big as the entire screen
-        rotated_surface = pygame.Surface((1000, 1200))
+        rotated_surface = pygame.Surface((1200, 1100))
         rotated_surface = pygame.transform.rotate(rotated_surface, 90)
 
         self.window = pygame.display.set_mode((1200, 1080), pygame.SCALED | pygame.NOFRAME | pygame.FULLSCREEN)
@@ -55,8 +55,8 @@ class VideoPlayer:
             rotated_rect = rotated_image.get_rect()
 
             # Calculate the position to center the rotated image
-            x = (1000 - rotated_rect.width) // 2
-            y = (1200 - rotated_rect.height) // 2
+            x = (1200 - rotated_rect.width) // 2
+            y = (1000 - rotated_rect.height) // 2
 
             if hasattr(self, 'image_displayed'):  # Check if image has been displayed before
                 # Fill the screen with white
