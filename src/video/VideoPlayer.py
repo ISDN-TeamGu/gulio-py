@@ -17,18 +17,7 @@ class VideoPlayer:
 
         # Setup singleton
         singleton.video_player = self
-        GPIO.setup(23,GPIO.OUT)  
-        GPIO.setup(24,GPIO.OUT) 
-        p = GPIO.PWM(23, 50)  
-        t = GPIO.PWM(24, 50)   
-        p.start(0) 
-        t.start(0)    
-        # and create a borderless window that's as big as the entire screen
         
-        p.ChangeDutyCycle(8.5)
-        sleep(1)                 # Wait 1 second
-        t.ChangeDutyCycle(11.8)
-        sleep(1)
 
     def draw(self):
         pygame.event.pump() #MUST KEEP THIS TO PREVENT FREEZING
@@ -77,6 +66,18 @@ class VideoPlayer:
     def move(self, emotion):
         try:
             print("move called")
+            GPIO.setup(23,GPIO.OUT)  
+            GPIO.setup(24,GPIO.OUT) 
+            p = GPIO.PWM(23, 50)  
+            t = GPIO.PWM(24, 50)   
+            p.start(0) 
+            t.start(0)    
+            # and create a borderless window that's as big as the entire screen
+        
+            p.ChangeDutyCycle(8.5)
+            sleep(1)                 # Wait 1 second
+            t.ChangeDutyCycle(11.8)
+            sleep(1)
             if emotion == "happy":
             #happy
                 t.ChangeDutyCycle(12.2)
