@@ -136,6 +136,8 @@ def main_process():
         print("iteration: ", i)
         if i == 0:
             print("Initializing for first time")
+            new_question = singleton.speech_to_text_manager.detect_speech()
+
             singleton.video_player.display_image(image_path)
             #singleton.video_player.start()
 
@@ -143,7 +145,6 @@ def main_process():
             singleton.text_to_speech_manager.speak_text("Initializing Story")
         else:
             print("detecting Your Input:")
-            new_question = singleton.speech_to_text_manager.detect_speech()
             #new_question = input()
             print("You said: ", new_question)
         # STEP 2: Get response from GPT
