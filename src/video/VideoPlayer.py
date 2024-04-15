@@ -20,10 +20,7 @@ class VideoPlayer:
         self.t = GPIO.PWM(24, 50)   
         self.p.start(0) 
         self.t.start(0)  
-        self.p.ChangeDutyCycle(8.5)
-        sleep(1)                 # Wait 1 second
-        self.t.ChangeDutyCycle(11.8)
-        sleep(1)
+        
         
 
         # Setup singleton
@@ -74,6 +71,11 @@ class VideoPlayer:
             print("Error occurred while displaying the image.")
             # Quit Pygame
             pygame.quit()
+    def start(self):
+        self.p.ChangeDutyCycle(8.5)
+        sleep(1)                 # Wait 1 second
+        self.t.ChangeDutyCycle(11.8)
+        sleep(1)
     def move(self, emotion):
         try:
             print("move called")
