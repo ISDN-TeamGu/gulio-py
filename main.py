@@ -143,7 +143,7 @@ def main_process():
         # STEP 3: Speak the response
         final_result_text = singleton.text_to_speech_manager.process_text_stream(response_stream)
 
-        video_player.play("resources/videos/emojis/blinking.mp4")
+        singleton.video_player.display_image("resources/videos/emojis/1.jpg") 
         # add the new question and answer to the list of previous questions and answers
         previous_questions_and_answers.append((new_question, final_result_text))
 
@@ -190,7 +190,7 @@ def signal_handler(sig, frame):
 signal.signal(signal.SIGINT, signal_handler)
 
 def start_rendering():
-    video_player.play("resources/videos/emojis/joy.mp4")
+    singleton.video_player.display_image("resources/videos/emojis/1.jpg") 
     while running:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
