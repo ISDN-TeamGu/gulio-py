@@ -4,17 +4,17 @@ GPIO.setmode(GPIO.BOARD) # Sets the pin numbering system to use the physical lay
 
 # Set up  PWM
 GPIO.setup(23,GPIO.OUT)  
-p = GPIO.PWM(23, 50)     
+GPIO.setup(24,GPIO.OUT) 
+p = GPIO.PWM(23, 50)  
+t = GPIO.PWM(24, 50)   
 p.start(0) 
-             
+t.start(0)             
 
-def move(angle):
-    duty = 2.5 + (float(angle) / 18)
-    p.ChangeDutyCycle(duty)
+
 # Move the servo back and forth
-move(30)     # Changes the pulse width to 3 (so moves the servo)
+p.ChangeDutyCycle(12.5)
 sleep(1)                 # Wait 1 second
-move(90)    # Changes the pulse width to 12 (so moves the servo)
+p.ChangeDutyCycle(2.5)    # Changes the pulse width to 12 (so moves the servo)
 sleep(1)
 
 # Clean up everything
