@@ -14,6 +14,16 @@ class VideoPlayer:
         self.window = pygame.display.set_mode((1200, 1080), pygame.SCALED | pygame.NOFRAME | pygame.FULLSCREEN)
         # self.window = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
         self.video = None
+        p.ChangeDutyCycle(8.5)
+        sleep(1)                 # Wait 1 second
+        t.ChangeDutyCycle(11.8)
+        sleep(1)
+        GPIO.setup(23,GPIO.OUT)  
+        GPIO.setup(24,GPIO.OUT) 
+        p = GPIO.PWM(23, 50)  
+        t = GPIO.PWM(24, 50)   
+        p.start(0) 
+        t.start(0)  
 
         # Setup singleton
         singleton.video_player = self
@@ -66,67 +76,52 @@ class VideoPlayer:
     def move(self, emotion):
         try:
             print("move called")
-            GPIO.setup(23,GPIO.OUT)  
-            GPIO.setup(24,GPIO.OUT) 
-            p = GPIO.PWM(23, 50)  
-            t = GPIO.PWM(24, 50)   
-            p.start(0) 
-            t.start(0)    
+              
             # and create a borderless window that's as big as the entire screen
         
-            p.ChangeDutyCycle(8.5)
-            sleep(1)                 # Wait 1 second
-            t.ChangeDutyCycle(11.8)
-            sleep(1)
+            
             if emotion == "happy":
             #happy
-                t.ChangeDutyCycle(12.2)
-                sleep(1)
-                t.ChangeDutyCycle(11.8)
-                sleep(0.2)
+                
                 t.ChangeDutyCycle(11.4)
                 sleep(0.2)
                 t.ChangeDutyCycle(11)
                 sleep(0.2)
-                t.ChangeDutyCycle(10.6)
-                sleep(0.2)
                 t.ChangeDutyCycle(11.8)
-                sleep(3)
+                sleep(0.1)
             if emotion == "sad":
             #sad
                 p.ChangeDutyCycle(8)
                 sleep(0.2)
                 t.ChangeDutyCycle(12.5)
-                sleep(1.5)
-                p.ChangeDutyCycle(8.5)            
+                sleep(0.3)
+                p.ChangeDutyCycle(8.5) 
+                sleep(0.1)           
                 t.ChangeDutyCycle(11.8)
-                sleep(3)
+                sleep(0.1)
             if emotion == "angry":
             #angry
                 t.ChangeDutyCycle(12.5)
-                sleep(2)
+                sleep(0.5)
                 t.ChangeDutyCycle(11.8)
-                sleep(3)
+                sleep(0.1)
+                
             if emotion == "disgust":
             #disgust
-                t.ChangeDutyCycle(11.4)
-                sleep(0.2)
+                
                 p.ChangeDutyCycle(8.1)
                 sleep(0.2)
                 p.ChangeDutyCycle(8.9)
                 sleep(0.2)
-                p.ChangeDutyCycle(8.1)
-                sleep(0.2)
                 p.ChangeDutyCycle(8.5)
-                sleep(0.2)
-                t.ChangeDutyCycle(11.8)
-                sleep(3)
+                sleep(0.1)
+                
             if emotion == "fear":
             #fear
                 t.ChangeDutyCycle(11.4)
-                sleep(2)
+                sleep(0.5)
                 t.ChangeDutyCycle(11.8)
-                sleep(3)
+                sleep(0.1)
 
         except:
             print("Error occurred")
