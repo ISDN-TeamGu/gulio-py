@@ -40,21 +40,22 @@ class VideoPlayer:
     def display_image(self, image_path):
     # Initialize Pygame
         try:
-        # Set up the display window
+            # Set up the display window
             image = pygame.image.load(image_path)
 
-            # Main loop
-            
-
+            if hasattr(self, 'image_displayed'):  # Check if image has been displayed before
                 # Fill the screen with white
-            self.window.fill((255, 255, 255))
+                self.window.fill((255, 255, 255))
 
-                # Display the image on the screen
+            # Display the image on the screen
             self.window.blit(image, (0, 0))
 
-                # Update the display
+            # Update the display
             pygame.display.flip()
-        except:
-            print("error")
-            # Quit Pygame
 
+            # Store that an image has been displayed
+            self.image_displayed = True
+        except:
+            print("Error occurred while displaying the image.")
+            # Quit Pygame
+            pygame.quit()
