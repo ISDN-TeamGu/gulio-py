@@ -81,6 +81,14 @@ Please ONLY use the emotions given below: (all lower case)
 • default
 • sad
 • suprised
+For example, these are the only emotion you can output:
+Dumbledore][Male][100][angry] "Good morning harry"
+Dumbledore][Male][100][sad] "Good morning harry"
+Dumbledore][Male][100][deafult] "Good morning harry"
+Dumbledore][Male][100][fear] "Good morning harry"
+Dumbledore][Male][100][surprised] "Good morning harry"
+Dumbledore][Male][100][disgust] "Good morning harry"
+
 Do not create any extra emotion by yourself such as [serious] or [curious], only use the 7 emotions listed above
 IMPORTANT REMINDER:
 • For the major characters, always output their [Character Name] as [Dumbledore],[Harry],[Ron],[Hermione],[Snape]
