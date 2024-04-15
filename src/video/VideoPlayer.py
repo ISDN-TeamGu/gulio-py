@@ -67,4 +67,3 @@ class VideoPlayer:
             pygame.display.flip()
 
         # Quit Pygame
-        pygame.quit()
