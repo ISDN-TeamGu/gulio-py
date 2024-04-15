@@ -198,6 +198,7 @@ signal.signal(signal.SIGINT, signal_handler)
 
 def start_rendering():
     singleton.video_player.display_image(image_path)
+    singleton.video_player.start()
     while running:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
