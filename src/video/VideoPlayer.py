@@ -37,7 +37,7 @@ class VideoPlayer:
     def stop(self):
         self.video.release()
 
-    def display_image(image_path):
+    def display_image(self, image_path):
     # Initialize Pygame
         pygame.init()
 
