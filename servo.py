@@ -18,15 +18,10 @@ t.ChangeDutyCycle(11.8)
 sleep(1)
 
 #happy
-t.ChangeDutyCycle(12.2)
-sleep(1)
-t.ChangeDutyCycle(11.8)
-sleep(0.2)
+
 t.ChangeDutyCycle(11.4)
 sleep(0.2)
 t.ChangeDutyCycle(11)
-sleep(0.2)
-t.ChangeDutyCycle(10.6)
 sleep(0.2)
 t.ChangeDutyCycle(11.8)
 sleep(3)
@@ -35,34 +30,30 @@ sleep(3)
 p.ChangeDutyCycle(8)
 sleep(0.2)
 t.ChangeDutyCycle(12.5)
-sleep(1.5)
+sleep(0.3)
 p.ChangeDutyCycle(8.5)            
 t.ChangeDutyCycle(11.8)
 sleep(3)
 
 #angry
 t.ChangeDutyCycle(12.5)
-sleep(2)
+sleep(0.5)
 t.ChangeDutyCycle(11.8)
 sleep(3)
 
 #disgust
-t.ChangeDutyCycle(11.4)
-sleep(0.2)
+
 p.ChangeDutyCycle(8.1)
 sleep(0.2)
 p.ChangeDutyCycle(8.9)
 sleep(0.2)
-p.ChangeDutyCycle(8.1)
-sleep(0.2)
 p.ChangeDutyCycle(8.5)
 sleep(0.2)
-t.ChangeDutyCycle(11.8)
-sleep(3)
+
 
 #fear
 t.ChangeDutyCycle(11.4)
-sleep(2)
+sleep(0.5)
 t.ChangeDutyCycle(11.8)
 sleep(3)
 
