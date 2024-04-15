@@ -14,16 +14,17 @@ class VideoPlayer:
         self.window = pygame.display.set_mode((1200, 1080), pygame.SCALED | pygame.NOFRAME | pygame.FULLSCREEN)
         # self.window = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
         self.video = None
-        p.ChangeDutyCycle(8.5)
-        sleep(1)                 # Wait 1 second
-        t.ChangeDutyCycle(11.8)
-        sleep(1)
         GPIO.setup(23,GPIO.OUT)  
         GPIO.setup(24,GPIO.OUT) 
         p = GPIO.PWM(23, 50)  
         t = GPIO.PWM(24, 50)   
         p.start(0) 
         t.start(0)  
+        p.ChangeDutyCycle(8.5)
+        sleep(1)                 # Wait 1 second
+        t.ChangeDutyCycle(11.8)
+        sleep(1)
+        
 
         # Setup singleton
         singleton.video_player = self
