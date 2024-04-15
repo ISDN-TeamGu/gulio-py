@@ -1,5 +1,6 @@
 import src.singleton as singleton
 from src.video.VideoPlayer import *
+from src.video.ImageDisplaySingleton import *
 import sys
 class CommandProcessor:
     def __init__(self):
@@ -34,9 +35,9 @@ class CommandProcessor:
             emoji_name = name
             emoji = emotion
             print("Playing emoji:", emoji_name)
-            singleton.video_player.display_image("resources/videos/emojis/"+emoji_name.lower()+"/"+emoji.lower()+".jpg") 
+            ImageDisplaySingleton.display_image("resources/videos/emojis/"+emoji_name.lower()+"/"+emoji.lower()+".jpg") 
         else:
-            singleton.video_player.display_image("resources/videos/emojis/1.jpg")
+            ImageDisplaySingleton.display_image("resources/videos/emojis/1.jpg")
     
     def play_music(self, arguments):
         # Handle the playMusic command with its arguments
