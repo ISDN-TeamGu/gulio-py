@@ -16,7 +16,7 @@ from src.gpt.ChatGPT import *
 
 pygame.init()
 pygame.display.init()
-imgae_path = "resources/videos/emojis/1.jpg"
+image_path = "resources/videos/emojis/1.jpg"
 
 # SETUP SINGLETONS
 command_processor = CommandProcessor()
