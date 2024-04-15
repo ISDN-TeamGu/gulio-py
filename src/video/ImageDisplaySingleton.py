@@ -50,4 +50,4 @@ class ImageDisplaySingleton:
             pygame.display.flip()
 
         # Quit Pygame
-        pygame.QUIT
+        pygame.quit()
