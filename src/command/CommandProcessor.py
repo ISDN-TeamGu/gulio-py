@@ -30,7 +30,6 @@ class CommandProcessor:
             song_name = arguments[0]
             print("Playing music:", song_name)
     def play_emoji(self, name, emotion):
-        image = ImageDisplaySingleton.get_instance()
 
         # Handle the playMusic command with its arguments
         if name.lower() == "harry" or name.lower() == "dumbledore" or name.lower() == "ron" or name.lower() == "hermione":
