@@ -200,7 +200,7 @@ def start_rendering():
                 sys.exit(0)
         pygame.time.wait(30)
         image.draw()
-        video_player.draw()
+        #video_player.draw()
         pygame.display.update()
 
 # main
