@@ -130,7 +130,7 @@ def main_process():
         print("iteration: ", i)
         if i == 0:
             print("Initializing for first time")
-            video_player.play("resources/videos/emojis/loading.mp4")
+            singleton.video_player.display_image("resources/videos/emojis/1.jpg")
             new_question = "Initialize the story with random setting while related to the theme Harry Potter"
             singleton.text_to_speech_manager.speak_text("Initializing Story")
         else:
@@ -144,7 +144,7 @@ def main_process():
         # STEP 3: Speak the response
         final_result_text = singleton.text_to_speech_manager.process_text_stream(response_stream)
 
-        singleton.video_player.display_image(image_path) 
+        singleton.video_player.display_image("resources/videos/emojis/1.jpg")
         # add the new question and answer to the list of previous questions and answers
         previous_questions_and_answers.append((new_question, final_result_text))
 
