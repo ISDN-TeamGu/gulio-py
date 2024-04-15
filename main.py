@@ -16,6 +16,7 @@ from src.gpt.ChatGPT import *
 
 pygame.init()
 pygame.display.init()
+imgae_path = "resources/videos/emojis/1.jpg"
 
 # SETUP SINGLETONS
 command_processor = CommandProcessor()
@@ -143,7 +144,7 @@ def main_process():
         # STEP 3: Speak the response
         final_result_text = singleton.text_to_speech_manager.process_text_stream(response_stream)
 
-        singleton.video_player.display_image("resources/videos/emojis/1.jpg") 
+        singleton.video_player.display_image(image_path) 
         # add the new question and answer to the list of previous questions and answers
         previous_questions_and_answers.append((new_question, final_result_text))
 
@@ -190,7 +191,7 @@ def signal_handler(sig, frame):
 signal.signal(signal.SIGINT, signal_handler)
 
 def start_rendering():
-    singleton.video_player.display_image("resources/videos/emojis/1.jpg") 
+    singleton.video_player.display_image(image_path) 
     while running:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
