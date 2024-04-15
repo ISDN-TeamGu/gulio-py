@@ -75,8 +75,8 @@ class VideoPlayer:
             # Quit Pygame
             pygame.quit()
     def move(self, emotion):
-    # Initialize Pygame
         try:
+            print("move called")
             if emotion == "happy":
             #happy
                 t.ChangeDutyCycle(12.2)
