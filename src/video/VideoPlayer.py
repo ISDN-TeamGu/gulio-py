@@ -16,13 +16,13 @@ class VideoPlayer:
         self.video = None
         GPIO.setup(23,GPIO.OUT)  
         GPIO.setup(24,GPIO.OUT) 
-        p = GPIO.PWM(23, 50)  
-        t = GPIO.PWM(24, 50)   
-        p.start(0) 
-        t.start(0)  
-        p.ChangeDutyCycle(8.5)
+        self.p = GPIO.PWM(23, 50)  
+        self.t = GPIO.PWM(24, 50)   
+        self.p.start(0) 
+        self.t.start(0)  
+        self.p.ChangeDutyCycle(8.5)
         sleep(1)                 # Wait 1 second
-        t.ChangeDutyCycle(11.8)
+        self.t.ChangeDutyCycle(11.8)
         sleep(1)
         
 
