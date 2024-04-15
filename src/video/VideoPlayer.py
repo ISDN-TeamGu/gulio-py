@@ -11,10 +11,13 @@ class VideoPlayer:
         info = pygame.display.Info()
 
         # and create a borderless window that's as big as the entire screen
+        rotated_surface = pygame.Surface((1000, 1200))
+        rotated_surface = pygame.transform.rotate(rotated_surface, 90)
+
         self.window = pygame.display.set_mode((1200, 1080), pygame.SCALED | pygame.NOFRAME | pygame.FULLSCREEN)
         # self.window = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
         self.video = None
-        
+
 
         # Setup singleton
         singleton.video_player = self
@@ -47,13 +50,20 @@ class VideoPlayer:
         try:
             # Set up the display window
             image = pygame.image.load(image_path)
+            rotated_image = pygame.transform.rotate(image, 90)
+            # Get the rect of the rotated image
+            rotated_rect = rotated_image.get_rect()
+
+            # Calculate the position to center the rotated image
+            x = (1200 - rotated_rect.width) // 2
+            y = (1000 - rotated_rect.height) // 2
 
             if hasattr(self, 'image_displayed'):  # Check if image has been displayed before
                 # Fill the screen with white
                 self.window.fill((255, 255, 255))
 
             # Display the image on the screen
-            self.window.blit(image, (0, 0))
+            self.window.blit(rotated_image, (x, y))
 
             # Update the display
             pygame.display.flip()
@@ -131,7 +141,7 @@ class VideoPlayer:
                 sleep(0.5)
                 t.ChangeDutyCycle(11.8)
                 sleep(0.1)
-            self.stop_motors()
+            #self.stop_motors()
 
         except Exception as e:
             print("An error occurred:", str(e))
