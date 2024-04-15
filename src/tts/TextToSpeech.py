@@ -94,12 +94,8 @@ class SpeakTask:
         print("Playing SpeakTask: ", self.dialogue, self.speech_attribute)
         if self.audio_stream is not None:
             print("audio_stream: ", self.audio_stream)
-            print("Playing emoji: "+self.speech_attribute["emotion"].lower())
-            #self.video_lock.acquire()
-            #singleton.command_processor.play_emoji(self.speech_attribute["name"].lower(),self.speech_attribute["emotion"].lower())
-
+            
             await asyncio.wait_for(async_play_audio(self.audio_stream), 60)
-            #self.video_lock.release()
             self.audio_stream.close()
             self.audio_stream = None
             self.is_done = True
