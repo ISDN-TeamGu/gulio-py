@@ -26,7 +26,7 @@ openai.api_version = '2023-05-15'
 
 deployment_name='ISDN4001'
 
-
+video_lock = threading.lock()
 TEMPERATURE = 0.5
 MAX_TOKENS = 1000
 FREQUENCY_PENALTY = 0
@@ -91,7 +91,7 @@ class SpeakTask:
     
     async def play(self):
         print("Playing emoji: "+self.speech_attribute["emotion"].lower())
-        
+        video_lock.acquire()
         singleton.command_processor.play_emoji(self.speech_attribute["name"].lower(),self.speech_attribute["emotion"].lower())
 
         print("Playing SpeakTask: ", self.dialogue, self.speech_attribute)
@@ -101,6 +101,7 @@ class SpeakTask:
             self.audio_stream.close()
             self.audio_stream = None
             self.is_done = True
+            video_lock.release()
             print("Speak task is done!", self.is_done)
             
 
