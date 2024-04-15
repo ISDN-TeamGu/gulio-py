@@ -82,8 +82,8 @@ class VideoPlayer:
         except:
             print("error initalizing")
     def stop(self):
-        self.p.ChangeDutyCycle(0) 
-        self.t.ChangeDutyCycle(0)
+        self.p.pwm.stop() 
+        self.t.pwm.stop() 
            
     def move(self, emotion):
         try:
@@ -112,7 +112,6 @@ class VideoPlayer:
                 sleep(0.1)           
                 self.t.ChangeDutyCycle(11.8)
                 sleep(0.1)
-                self.stop
             if emotion == "angry":
             #angry
                 self.t.ChangeDutyCycle(12.5)
@@ -140,7 +139,7 @@ class VideoPlayer:
                 self.t.ChangeDutyCycle(11.8)
                 sleep(0.1)
                 self.stop
-
+            GPIO.cleanup()
         except:
             print("Error occurred")
             
