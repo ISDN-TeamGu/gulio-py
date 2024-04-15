@@ -7,7 +7,6 @@ import src.singleton as singleton
 import simpleaudio as sa
 import asyncio
 import pygame
-
 # from pydub import AudioSegment
 # from pydub.playback import play
 
@@ -71,12 +70,10 @@ class SpeechToTextManager:
                 while True:
                     partial_transcript, is_endpoint = self.cheetah.process(self.recorder.read())
                     result += partial_transcript
-                    for event in pygame.event.get():
-
-                        if event.key == pygame.K_SPACE:                        
-                            last = self.cheetah.flush()
-                            result += last
-                            self.recorder.stop()    
+                    if is_endpoint:
+                        last = self.cheetah.flush()
+                        result += last
+                        self.recorder.stop()
             finally:
                 self.recorder.stop()
                 print("stopped")
