@@ -1,6 +1,6 @@
 import RPi.GPIO as GPIO  # Imports the standard Raspberry Pi GPIO library
 from time import sleep   # Imports sleep (aka wait or pause) into the program
-GPIO.setmode(GPIO.BOARD) # Sets the pin numbering system to use the physical layout
+GPIO.setmode(GPIO.BCM) # Sets the pin numbering system to use the physical layout
 
 # Set up  PWM
 GPIO.setup(23,GPIO.OUT)  
@@ -12,11 +12,42 @@ t.start(0)
 
 
 # Move the servo back and forth
-p.ChangeDutyCycle(12.5)
+p.ChangeDutyCycle(8.5)
 sleep(1)                 # Wait 1 second
-p.ChangeDutyCycle(2.5)    # Changes the pulse width to 12 (so moves the servo)
+t.ChangeDutyCycle(11.8)
 sleep(1)
 
-# Clean up everything
-p.stop()                 # At the end of the program, stop the PWM
-GPIO.cleanup()   
+#happy
+t.ChangeDutyCycle(12.5)
+t.ChangeDutyCycle(11.8)
+t.ChangeDutyCycle(11.7)
+t.ChangeDutyCycle(11.6)
+t.ChangeDutyCycle(11.4)
+t.ChangeDutyCycle(11.8)
+sleep(3)
+
+#sad
+p.ChangeDutyCycle(8)
+t.ChangeDutyCycle(12.5)
+p.ChangeDutyCycle(8.5)            
+t.ChangeDutyCycle(11.8)
+sleep(3)
+
+#angry
+t.ChangeDutyCycle(12.5)
+t.ChangeDutyCycle(11.8)
+sleep(3)
+
+#disgust
+t.ChangeDutyCycle(11.4)
+p.ChangeDutyCycle(8.3)
+p.ChangeDutyCycle(8.7)
+p.ChangeDutyCycle(8.3)
+p.ChangeDutyCycle(8.5)
+t.ChangeDutyCycle(11.8)
+sleep(3)
+
+#fear
+t.ChangeDutyCycle(11.4)
+sleep(2)
+t.ChangeDutyCycle(11.8)
