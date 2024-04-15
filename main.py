@@ -18,7 +18,7 @@ from src.video.ImageDisplaySingleton import *
 pygame.init()
 pygame.display.init()
 image_path = "resources/videos/emojis/1.jpg"
-
+image = ImageDisplaySingleton.get_instance()
 # SETUP SINGLETONS
 command_processor = CommandProcessor()
 video_player = VideoPlayer()
@@ -131,7 +131,7 @@ def main_process():
         print("iteration: ", i)
         if i == 0:
             print("Initializing for first time")
-            ImageDisplaySingleton.display_image(image_path)
+            image.display_image(image_path)
             new_question = "Initialize the story with random setting while related to the theme Harry Potter"
             singleton.text_to_speech_manager.speak_text("Initializing Story")
         else:
@@ -145,7 +145,7 @@ def main_process():
         # STEP 3: Speak the response
         final_result_text = singleton.text_to_speech_manager.process_text_stream(response_stream)
 
-        ImageDisplaySingleton.display_image(image_path)
+        image.display_image(image_path)
         # add the new question and answer to the list of previous questions and answers
         previous_questions_and_answers.append((new_question, final_result_text))
 
@@ -192,7 +192,7 @@ def signal_handler(sig, frame):
 signal.signal(signal.SIGINT, signal_handler)
 
 def start_rendering():
-    ImageDisplaySingleton.display_image(image_path)
+    image.display_image(image_path)
     while running:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
