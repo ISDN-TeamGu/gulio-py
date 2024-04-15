@@ -42,7 +42,8 @@ class VideoPlayer:
         pygame.init()
 
         # Set up the display window
-        screen = pygame.display.set_mode((800, 600))
+        screen = pygame.display.set_mode((1200, 1080), pygame.SCALED | pygame.NOFRAME | pygame.FULLSCREEN)
+
         pygame.display.set_caption("Image Display")
 
         # Load the image
