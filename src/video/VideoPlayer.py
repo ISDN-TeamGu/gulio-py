@@ -11,7 +11,7 @@ class VideoPlayer:
         info = pygame.display.Info()
 
         # and create a borderless window that's as big as the entire screen
-        rotated_surface = pygame.Surface((1200, 1100))
+        rotated_surface = pygame.Surface((1200, 1000))
         rotated_surface = pygame.transform.rotate(rotated_surface, 90)
 
         self.window = pygame.display.set_mode((1200, 1080), pygame.SCALED | pygame.NOFRAME | pygame.FULLSCREEN)
@@ -63,7 +63,7 @@ class VideoPlayer:
                 self.window.fill((255, 255, 255))
 
             # Display the image on the screen
-            self.window.blit(rotated_image, (x, y))
+            self.window.blit(rotated_image, (1200, 1000))
 
             # Update the display
             pygame.display.flip()
