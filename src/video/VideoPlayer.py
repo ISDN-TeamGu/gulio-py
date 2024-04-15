@@ -63,7 +63,7 @@ class VideoPlayer:
                 self.window.fill((255, 255, 255))
 
             # Display the image on the screen
-            self.window.blit(rotated_image, (1200, 1000))
+            self.window.blit(rotated_image, (x, y))
 
             # Update the display
             pygame.display.flip()
