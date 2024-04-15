@@ -1,6 +1,7 @@
 import src.singleton as singleton
 from src.video.VideoPlayer import *
 from src.video.ImageDisplaySingleton import *
+from src.motor.servoc import *
 import sys
 class CommandProcessor:
     def __init__(self):
@@ -39,7 +40,11 @@ class CommandProcessor:
             singleton.video_player.display_image("resources/videos/emojis/"+emoji_name.lower()+"/"+emoji.lower()+".jpg") 
         else:
             singleton.video_player.display_image("resources/videos/emojis/1.jpg")
-    
+    def set_motor(self,emotion)
+        emoji = emotion
+        if emoji == "happy" or emoji == "sad" or emoji == "angry" or emoji == "fear" or emoji == "surprised" or emoji == "disgust":
+            singleton.motor.move(emoji)
+
     def play_music(self, arguments):
         # Handle the playMusic command with its arguments
         if len(arguments) == 0:
