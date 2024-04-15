@@ -64,6 +64,19 @@ class VideoPlayer:
             print("Error occurred while displaying the image.")
             # Quit Pygame
             pygame.quit()
+
+    def stop_motors(self):
+        try:
+            GPIO.output(23, GPIO.LOW)  # Set the GPIO pin 23 to LOW
+            GPIO.output(24, GPIO.LOW)  # Set the GPIO pin 24 to LOW
+            
+            # Optionally, if you were using PWM, you can stop the PWM signals:
+            # p.stop()
+            # t.stop()
+
+        except Exception as e:
+            print("An error occurred while stopping the motors:", str(e))
+
     def move(self, emotion):
         try:
             print("move called")
@@ -118,8 +131,7 @@ class VideoPlayer:
                 sleep(0.5)
                 t.ChangeDutyCycle(11.8)
                 sleep(0.1)
-            t.pwm.stop()
-            p.pwm.stop()
+            self.stop_motors
 
         except Exception as e:
             print("An error occurred:", str(e))
