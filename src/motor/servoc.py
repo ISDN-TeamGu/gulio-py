@@ -1,8 +1,9 @@
 import RPi.GPIO as GPIO  # Imports the standard Raspberry Pi GPIO library
 from time import sleep   # Imports sleep (aka wait or pause) into the program
 GPIO.setmode(GPIO.BCM) # Sets the pin numbering system to use the physical layout
+import src.singleton as singleton
 
-class VideoPlayer:
+class Motor:
     def __init__(self):
         GPIO.setup(23,GPIO.OUT)  
         GPIO.setup(24,GPIO.OUT) 
