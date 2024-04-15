@@ -26,7 +26,7 @@ openai.api_version = '2023-05-15'
 
 deployment_name='ISDN4001'
 
-video_lock = threading.lock()
+video_lock = threading.Lock()
 TEMPERATURE = 0.5
 MAX_TOKENS = 1000
 FREQUENCY_PENALTY = 0
