@@ -40,7 +40,7 @@ class CommandProcessor:
             singleton.video_player.display_image("resources/videos/emojis/"+emoji_name.lower()+"/"+emoji.lower()+".jpg") 
         else:
             singleton.video_player.display_image("resources/videos/emojis/1.jpg")
-    def set_motor(self,emotion)
+    def set_motor(self,emotion):
         emoji = emotion
         if emoji == "happy" or emoji == "sad" or emoji == "angry" or emoji == "fear" or emoji == "surprised" or emoji == "disgust":
             singleton.motor.move(emoji)
