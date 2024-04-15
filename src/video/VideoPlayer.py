@@ -72,10 +72,14 @@ class VideoPlayer:
             # Quit Pygame
             pygame.quit()
     def start(self):
-        self.p.ChangeDutyCycle(8.5)
-        sleep(1)                 # Wait 1 second
-        self.t.ChangeDutyCycle(11.8)
-        sleep(1)
+        try:
+            self.p.ChangeDutyCycle(8.5)
+            sleep(1)                 # Wait 1 second
+            self.t.ChangeDutyCycle(11.8)
+            sleep(1)
+            print("motor initialized")
+        except:
+            print("error initalizing")
     def move(self, emotion):
         try:
             print("move called")
