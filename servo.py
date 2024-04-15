@@ -6,7 +6,7 @@ GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
 
 # Configure GPIO pin
-servo_pin = 18
+servo_pin = 23
 GPIO.setup(servo_pin, GPIO.OUT)
 
 # Create PWM object
