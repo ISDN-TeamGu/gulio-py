@@ -92,6 +92,7 @@ class SpeakTask:
     async def play(self):
 
         print("Playing SpeakTask: ", self.dialogue, self.speech_attribute)
+        singleton.command_processor.play_emoji(self.speech_attribute["name"].lower(),self.speech_attribute["emotion"].lower())
         if self.audio_stream is not None:
             print("audio_stream: ", self.audio_stream)
             
