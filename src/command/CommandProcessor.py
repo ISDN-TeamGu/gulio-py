@@ -37,9 +37,9 @@ class CommandProcessor:
             emoji_name = name
             emoji = emotion
             print("Playing emoji:", emoji_name)
-            image.display_image("resources/videos/emojis/"+emoji_name.lower()+"/"+emoji.lower()+".jpg") 
+            singleton.video_player.display_image("resources/videos/emojis/"+emoji_name.lower()+"/"+emoji.lower()+".jpg") 
         else:
-            image.display_image("resources/videos/emojis/1.jpg")
+            singleton.video_player.display_image("resources/videos/emojis/1.jpg")
     
     def play_music(self, arguments):
         # Handle the playMusic command with its arguments
