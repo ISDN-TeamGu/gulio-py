@@ -118,7 +118,6 @@ class VideoPlayer:
                 sleep(0.5)
                 t.ChangeDutyCycle(11.8)
                 sleep(0.1)
-            GPIO.cleanup()
-        except:
-            print("Error occurred")
-            
+
+        except Exception as e:
+            print("An error occurred:", str(e))
