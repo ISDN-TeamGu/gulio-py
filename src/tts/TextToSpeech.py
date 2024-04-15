@@ -90,18 +90,20 @@ class SpeakTask:
         semaphore.release()
     
     async def play(self):
-        print("Playing emoji: "+self.speech_attribute["emotion"].lower())
-        video_lock.acquire()
-        singleton.command_processor.play_emoji(self.speech_attribute["name"].lower(),self.speech_attribute["emotion"].lower())
 
         print("Playing SpeakTask: ", self.dialogue, self.speech_attribute)
         if self.audio_stream is not None:
             print("audio_stream: ", self.audio_stream)
+            print("Playing emoji: "+self.speech_attribute["emotion"].lower())
+            self.video_lock.acquire()
+            singleton.command_processor.play_emoji(self.speech_attribute["name"].lower(),self.speech_attribute["emotion"].lower())
+
             await asyncio.wait_for(async_play_audio(self.audio_stream), 60)
+            self.video_lock.release()
             self.audio_stream.close()
             self.audio_stream = None
             self.is_done = True
-            video_lock.release()
+            
             print("Speak task is done!", self.is_done)
             
 
@@ -223,7 +225,6 @@ class TextToSpeechManager:
             self.current_task = self.tasks.pop(0)
             while self.current_task.audio_stream == None:
                 time.sleep(0.1)
-                singleton.video_player.stop()
             self.playing_thread = threading.Thread(target=self.play_current_task)
             self.playing_thread.daemon = True
             self.playing_thread.start()
