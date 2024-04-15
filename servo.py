@@ -12,9 +12,9 @@ def move(angle):
     duty = 2.5 + (float(angle) / 18)
     p.ChangeDutyCycle(duty)
 # Move the servo back and forth
-p.move(30)     # Changes the pulse width to 3 (so moves the servo)
+move(30)     # Changes the pulse width to 3 (so moves the servo)
 sleep(1)                 # Wait 1 second
-p.move(90)    # Changes the pulse width to 12 (so moves the servo)
+move(90)    # Changes the pulse width to 12 (so moves the servo)
 sleep(1)
 
 # Clean up everything
