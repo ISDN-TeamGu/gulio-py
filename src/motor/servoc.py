@@ -17,9 +17,11 @@ class Motor:
         sleep(1)                 # Wait 1 second
         t.ChangeDutyCycle(11.8)
         sleep(1)
-
+        if motor is None:
+            motor = Motor()
         # Setup singleton
         singleton.motor = self
+        
 
 
     def move(self, emotion):
