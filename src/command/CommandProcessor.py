@@ -43,7 +43,7 @@ class CommandProcessor:
     def set_motor(self,emotion):
         emoji = emotion
         if emoji == "happy" or emoji == "sad" or emoji == "angry" or emoji == "fear" or emoji == "surprised" or emoji == "disgust":
-            singleton.motor.move(emoji)
+            singleton.video_player.move(emoji)
 
     def play_music(self, arguments):
         # Handle the playMusic command with its arguments
