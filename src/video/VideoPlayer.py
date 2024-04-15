@@ -39,27 +39,22 @@ class VideoPlayer:
 
     def display_image(self, image_path):
     # Initialize Pygame
-        
+        try:
         # Set up the display window
-        image = pygame.image.load(image_path)
+            image = pygame.image.load(image_path)
 
-        # Main loop
-        running = True
-        while running:
-            # Handle events
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    running = False
+            # Main loop
+            
 
-            # Fill the screen with white
+                # Fill the screen with white
             self.window.fill((255, 255, 255))
 
-            # Display the image on the screen
+                # Display the image on the screen
             self.window.blit(image, (0, 0))
 
-            # Update the display
+                # Update the display
             pygame.display.flip()
-
-        # Quit Pygame
-        pygame.quit()
+        except:
+            print("error")
+            # Quit Pygame
 
