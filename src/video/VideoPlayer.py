@@ -36,34 +36,34 @@ class VideoPlayer:
             print("Error playing video: ", videoPath)
     def stop(self):
         self.video.release()
-        
+
     def display_image(image_path):
     # Initialize Pygame
-    pygame.init()
+        pygame.init()
 
-    # Set up the display window
-    screen = pygame.display.set_mode((800, 600))
-    pygame.display.set_caption("Image Display")
+        # Set up the display window
+        screen = pygame.display.set_mode((800, 600))
+        pygame.display.set_caption("Image Display")
 
-    # Load the image
-    image = pygame.image.load(image_path)
+        # Load the image
+        image = pygame.image.load(image_path)
 
-    # Main loop
-    running = True
-    while running:
-        # Handle events
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                running = False
+        # Main loop
+        running = True
+        while running:
+            # Handle events
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    running = False
 
-        # Fill the screen with white
-        screen.fill((255, 255, 255))
+            # Fill the screen with white
+            screen.fill((255, 255, 255))
 
-        # Display the image on the screen
-        screen.blit(image, (0, 0))
+            # Display the image on the screen
+            screen.blit(image, (0, 0))
 
-        # Update the display
-        pygame.display.flip()
+            # Update the display
+            pygame.display.flip()
 
-    # Quit Pygame
-    pygame.quit()
+        # Quit Pygame
+        pygame.quit()
