@@ -14,13 +14,6 @@ class VideoPlayer:
         self.window = pygame.display.set_mode((1200, 1080), pygame.SCALED | pygame.NOFRAME | pygame.FULLSCREEN)
         # self.window = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
         self.video = None
-        GPIO.setup(23,GPIO.OUT)  
-        GPIO.setup(24,GPIO.OUT) 
-        self.p = GPIO.PWM(23, 50)  
-        self.t = GPIO.PWM(24, 50)   
-        self.p.start(0) 
-        self.t.start(0)  
-        
         
 
         # Setup singleton
@@ -71,74 +64,60 @@ class VideoPlayer:
             print("Error occurred while displaying the image.")
             # Quit Pygame
             pygame.quit()
-    def start(self):
-        try:
-            self.p.ChangeDutyCycle(8.5)
-            sleep(1)                 # Wait 1 second
-            self.t.ChangeDutyCycle(11.8)
-            sleep(1)
-            self.stop()
-            print("motor initialized")
-        except:
-            print("error initalizing")
-    def stop(self):
-        self.p.pwm.stop() 
-        self.t.pwm.stop() 
-           
     def move(self, emotion):
         try:
             print("move called")
-              
+            GPIO.setup(23,GPIO.OUT)  
+            GPIO.setup(24,GPIO.OUT) 
+            p = GPIO.PWM(23, 50)  
+            t = GPIO.PWM(24, 50)   
+            p.start(0) 
+            t.start(0)    
             # and create a borderless window that's as big as the entire screen
         
             
             if emotion == "happy":
             #happy
                 
-                self.t.ChangeDutyCycle(11.4)
+                t.ChangeDutyCycle(11.4)
                 sleep(0.2)
-                self.t.ChangeDutyCycle(11)
+                t.ChangeDutyCycle(11)
                 sleep(0.2)
-                self.t.ChangeDutyCycle(11.8)
+                t.ChangeDutyCycle(11.8)
                 sleep(0.1)
-                self.stop
             if emotion == "sad":
             #sad
-                self.p.ChangeDutyCycle(8)
+                p.ChangeDutyCycle(8)
                 sleep(0.2)
-                self.t.ChangeDutyCycle(12.5)
+                t.ChangeDutyCycle(12.5)
                 sleep(0.3)
-                self.p.ChangeDutyCycle(8.5) 
+                p.ChangeDutyCycle(8.5) 
                 sleep(0.1)           
-                self.t.ChangeDutyCycle(11.8)
+                t.ChangeDutyCycle(11.8)
                 sleep(0.1)
             if emotion == "angry":
             #angry
-                self.t.ChangeDutyCycle(12.5)
+                t.ChangeDutyCycle(12.5)
                 sleep(0.5)
-                self.t.ChangeDutyCycle(11.8)
+                t.ChangeDutyCycle(11.8)
                 sleep(0.1)
-                self.stop
-
                 
             if emotion == "disgust":
             #disgust
                 
-                self.p.ChangeDutyCycle(8.1)
+                p.ChangeDutyCycle(8.1)
                 sleep(0.2)
-                self.p.ChangeDutyCycle(8.9)
+                p.ChangeDutyCycle(8.9)
                 sleep(0.2)
-                self.p.ChangeDutyCycle(8.5)
+                p.ChangeDutyCycle(8.5)
                 sleep(0.1)
-                self.stop
                 
             if emotion == "fear":
             #fear
-                self.t.ChangeDutyCycle(11.4)
+                t.ChangeDutyCycle(11.4)
                 sleep(0.5)
-                self.t.ChangeDutyCycle(11.8)
+                t.ChangeDutyCycle(11.8)
                 sleep(0.1)
-                self.stop
             GPIO.cleanup()
         except:
             print("Error occurred")
