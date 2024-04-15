@@ -74,10 +74,7 @@ class VideoPlayer:
             t.start(0)    
             # and create a borderless window that's as big as the entire screen
         
-            p.ChangeDutyCycle(8.5)
-            sleep(1)                 # Wait 1 second
-            t.ChangeDutyCycle(11.8)
-            sleep(1)
+            
             if emotion == "happy":
             #happy
                 
