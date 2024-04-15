@@ -1,5 +1,5 @@
 import os
-import sounddevice as sd
+import pyaudio
 from google.cloud import speech_v1p1beta1 as speech
 
 def transcribe_streaming():
@@ -15,17 +15,17 @@ def transcribe_streaming():
     streaming_config = speech.StreamingRecognitionConfig(config=config, interim_results=True)
 
     # Start streaming audio from the microphone
-    with sd.InputStream(callback=process_microphone_chunk):
-        print("Listening... (Press Ctrl+C to stop)")
-        while True:
-            pass
-
-def process_microphone_chunk(indata, frames, time, status):
-    # Process the microphone audio chunk
-    if status:
-        print("Error:", status)
-    else:
-        audio_chunk = indata.tobytes()
+    audio_format = pyaudio.paInt16
+    sample_rate = 16000
+    chunk_size = 1024
+    audio_stream = pyaudio.PyAudio().open(format=audio_format,
+                                          channels=1,
+                                          rate=sample_rate,
+                                          input=True,
+                                          frames_per_buffer=chunk_size)
+    print("Listening... (Press Ctrl+C to stop)")
+    while True:
+        audio_chunk = audio_stream.read(chunk_size)
 
         # Send the streaming request with the audio chunk
         response = client.streaming_recognize(
