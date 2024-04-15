@@ -36,7 +36,7 @@ class CommandProcessor:
             print("Playing emoji:", emoji_name)
             singleton.video_player.display_image("resources/videos/emojis/1.jpg") 
         else:
-            singleton.video_player.play("resources/videos/emojis/blinking.mp4")
+            singleton.video_player.display_image("resources/videos/emojis/1.jpg") 
     
     def play_music(self, arguments):
         # Handle the playMusic command with its arguments
