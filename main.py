@@ -199,6 +199,7 @@ def start_rendering():
                 # Add your code here to perform any necessary cleanup or termination actions
                 sys.exit(0)
         pygame.time.wait(30)
+        image.draw()
         video_player.draw()
         pygame.display.update()
 
