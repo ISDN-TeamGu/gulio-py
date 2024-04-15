@@ -50,7 +50,7 @@ class VideoPlayer:
         try:
             # Set up the display window
             image = pygame.image.load(image_path)
-            rotated_image = pygame.transform.rotate(image, 90)
+            rotated_image = pygame.transform.rotate(image, 270)
             # Get the rect of the rotated image
             rotated_rect = rotated_image.get_rect()
 
