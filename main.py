@@ -107,6 +107,8 @@ IMPORTANT REMINDER:
   For example: 
   [Dumbledore][Male][100][angry] "Hello, Harry. I am Matthew. How are you today?";
   [Harry][Male][9][angry] "I do not want to talk to you right now! You don't know anything about me..";
+• For the start of the story, please start with these 5 characters if possible: Dumbledore, Snape, Harry, Ron, Hermione
+• Also, for the emotion, use more emotions like: happy, sad, surprised, fear, disgust
 """
 
 
@@ -136,7 +138,7 @@ def main_process():
         print("iteration: ", i)
         if i == 0:
             print("Initializing for first time")
-            new_question = singleton.speech_to_text_manager.detect_speech()
+            #new_question = singleton.speech_to_text_manager.detect_speech()
 
             singleton.video_player.display_image(image_path)
             #singleton.video_player.start()
@@ -145,7 +147,7 @@ def main_process():
             singleton.text_to_speech_manager.speak_text("Initializing Story")
         else:
             print("detecting Your Input:")
-            #new_question = input()
+            new_question = "continue"
             print("You said: ", new_question)
         # STEP 2: Get response from GPT
         response_stream = singleton.chat_gpt_manager.get_response_stream(INSTRUCTIONS, previous_questions_and_answers, new_question)
