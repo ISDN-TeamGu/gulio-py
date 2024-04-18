@@ -102,7 +102,7 @@ class VideoPlayer:
             if emotion == "happy":
             #happy
                 
-                t.ChangeDutyCycle(11.4)
+                t.ChangeDutyCycle(11.5)
                 sleep(0.2)
                 t.ChangeDutyCycle(11)
                 sleep(0.2)
@@ -137,7 +137,7 @@ class VideoPlayer:
                 
             if emotion == "fear":
             #fear
-                t.ChangeDutyCycle(11.4)
+                t.ChangeDutyCycle(11.5)
                 sleep(0.5)
                 t.ChangeDutyCycle(11.7)
                 sleep(0.1)
