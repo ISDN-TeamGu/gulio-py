@@ -14,31 +14,31 @@ t.start(0)
 # Move the servo back and forth
 p.ChangeDutyCycle(8.5)
 sleep(1)                 # Wait 1 second
-t.ChangeDutyCycle(11.8)
+t.ChangeDutyCycle(11.7)
 sleep(1)
 
 #happy
 
-t.ChangeDutyCycle(11.4)
+t.ChangeDutyCycle(11.5)
 sleep(0.2)
 t.ChangeDutyCycle(11)
 sleep(0.2)
-t.ChangeDutyCycle(11.8)
+t.ChangeDutyCycle(11.7)
 sleep(3)
 
 #sad
 p.ChangeDutyCycle(8)
 sleep(0.2)
-t.ChangeDutyCycle(12.5)
+t.ChangeDutyCycle(12.2)
 sleep(0.3)
 p.ChangeDutyCycle(8.5)            
-t.ChangeDutyCycle(11.8)
+t.ChangeDutyCycle(11.7)
 sleep(3)
 
 #angry
-t.ChangeDutyCycle(12.5)
+t.ChangeDutyCycle(12.2)
 sleep(0.5)
-t.ChangeDutyCycle(11.8)
+t.ChangeDutyCycle(11.7)
 sleep(3)
 
 #disgust
@@ -54,6 +54,6 @@ sleep(0.2)
 #fear
 t.ChangeDutyCycle(11.4)
 sleep(0.5)
-t.ChangeDutyCycle(11.8)
+t.ChangeDutyCycle(11.7)
 sleep(3)
 
