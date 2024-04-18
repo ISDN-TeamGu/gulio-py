@@ -83,7 +83,7 @@ Please ONLY use the emotions given below: (all lower case)
 • default
 • sad
 • suprised
-For example, these are the only emotion you can output:
+For example, these are the only emotion you can output，ONLY use these emotions:
 [Dumbledore][Male][100][angry] "Good morning harry";
 [Dumbledore][Male][100][sad] "Good morning harry";
 [Dumbledore][Male][100][deafult] "Good morning harry";
