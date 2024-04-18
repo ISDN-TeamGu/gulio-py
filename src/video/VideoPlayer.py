@@ -1,9 +1,9 @@
 import pygame
 import asyncio
 from src.etc.pygamevideo import Video
-import RPi.GPIO as GPIO  # Imports the standard Raspberry Pi GPIO library
+#import RPi.GPIO as GPIO  # Imports the standard Raspberry Pi GPIO library
 from time import sleep   # Imports sleep (aka wait or pause) into the program
-GPIO.setmode(GPIO.BCM) # Sets the pin numbering system to use the physical layout
+#GPIO.setmode(GPIO.BCM) # Sets the pin numbering system to use the physical layout
 import src.singleton as singleton
 
 class VideoPlayer:
@@ -106,7 +106,7 @@ class VideoPlayer:
                 sleep(0.2)
                 t.ChangeDutyCycle(11)
                 sleep(0.2)
-                t.ChangeDutyCycle(11.8)
+                t.ChangeDutyCycle(11.7)
                 sleep(0.1)
             if emotion == "sad":
             #sad
@@ -116,13 +116,13 @@ class VideoPlayer:
                 sleep(0.3)
                 p.ChangeDutyCycle(8.5) 
                 sleep(0.1)           
-                t.ChangeDutyCycle(11.8)
+                t.ChangeDutyCycle(11.1)
                 sleep(0.1)
             if emotion == "angry":
             #angry
                 t.ChangeDutyCycle(12.5)
                 sleep(0.5)
-                t.ChangeDutyCycle(11.8)
+                t.ChangeDutyCycle(11.7)
                 sleep(0.1)
                 
             if emotion == "disgust":
@@ -139,7 +139,7 @@ class VideoPlayer:
             #fear
                 t.ChangeDutyCycle(11.4)
                 sleep(0.5)
-                t.ChangeDutyCycle(11.8)
+                t.ChangeDutyCycle(11.7)
                 sleep(0.1)
             #self.stop_motors()
 
