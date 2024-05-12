@@ -52,8 +52,8 @@ class VideoPlayer:
         button_hover_color = (0, 200, 0)
 
         # Create the first button
-        button1_x = (screen_width / 2) - (button_width / 2)
-        button1_y = (screen_height / 2) - (button_height / 2) - 50
+        button1_x = (1200 / 2) - (button_width / 2)
+        button1_y = (1000 / 2) - (button_height / 2) - 50
         button1_rect = pygame.Rect(button1_x, button1_y, button_width, button_height)
         button1_text = "Button 1"
         button1_font = pygame.font.Font(None, 36)
@@ -61,8 +61,8 @@ class VideoPlayer:
         button1_hover = False
 
         # Create the second button
-        button2_x = (screen_width / 2) - (button_width / 2)
-        button2_y = (screen_height / 2) - (button_height / 2) + 50
+        button2_x = (1200 / 2) - (button_width / 2)
+        button2_y = (1000 / 2) - (button_height / 2) + 50
         button2_rect = pygame.Rect(button2_x, button2_y, button_width, button_height)
         button2_text = "Button 2"
         button2_font = pygame.font.Font(None, 36)
