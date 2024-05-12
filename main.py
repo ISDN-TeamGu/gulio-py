@@ -139,8 +139,9 @@ def main_process():
         if i == 0:
             print("Initializing for first time")
             #new_question = singleton.speech_to_text_manager.detect_speech()
+            singleton.video_player.home()
 
-            singleton.video_player.display_image(image_path)
+            #singleton.video_player.display_image(image_path)
             #singleton.video_player.start()
 
             new_question = "Initialize the story with random setting while related to the theme Harry Potter"
