@@ -44,6 +44,76 @@ class VideoPlayer:
             print("Error playing video: ", videoPath)
     def stop(self):
         self.video.release()
+    
+    def home(self):
+        button_width = 200
+        button_height = 50
+        button_color = (0, 255, 0)
+        button_hover_color = (0, 200, 0)
+
+        # Create the first button
+        button1_x = (screen_width / 2) - (button_width / 2)
+        button1_y = (screen_height / 2) - (button_height / 2) - 50
+        button1_rect = pygame.Rect(button1_x, button1_y, button_width, button_height)
+        button1_text = "Button 1"
+        button1_font = pygame.font.Font(None, 36)
+        button1_surface = button1_font.render(button1_text, True, (255, 255, 255))
+        button1_hover = False
+
+        # Create the second button
+        button2_x = (screen_width / 2) - (button_width / 2)
+        button2_y = (screen_height / 2) - (button_height / 2) + 50
+        button2_rect = pygame.Rect(button2_x, button2_y, button_width, button_height)
+        button2_text = "Button 2"
+        button2_font = pygame.font.Font(None, 36)
+        button2_surface = button2_font.render(button2_text, True, (255, 255, 255))
+        button2_hover = False
+        try:
+            self.window.fill((255, 255, 255))
+            # Set the button dimensions and colors
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    running = False
+                elif event.type == pygame.MOUSEMOTION:
+                    mouse_pos = event.pos
+                    if button1_rect.collidepoint(mouse_pos):
+                        button1_hover = True
+                    else:
+                        button1_hover = False
+                    if button2_rect.collidepoint(mouse_pos):
+                        button2_hover = True
+                    else:
+                        button2_hover = False
+                elif event.type == pygame.MOUSEBUTTONDOWN:
+                    mouse_pos = event.pos
+                    if button1_rect.collidepoint(mouse_pos):
+                        print("Button 1 clicked!")
+                    elif button2_rect.collidepoint(mouse_pos):
+                        print("Button 2 clicked!")
+
+        # Draw the buttons
+            if button1_hover:
+                pygame.draw.rect(screen, button_hover_color, button1_rect)
+            else:
+                pygame.draw.rect(screen, button_color, button1_rect)
+            screen.blit(button1_surface, (button1_x + 10, button1_y + 10))
+
+            if button2_hover:
+                pygame.draw.rect(screen, button_hover_color, button2_rect)
+            else:
+                pygame.draw.rect(screen, button_color, button2_rect)
+            screen.blit(button2_surface, (button2_x + 10, button2_y + 10))
+
+            # Update the screen
+            pygame.display.flip()
+
+        # Quit Pygame
+            pygame.quit()
+   
+        except:
+            print("Error occurred while displaying home screen")
+            # Quit Pygame
+            pygame.quit()
 
     def display_image(self, image_path):
     # Initialize Pygame
