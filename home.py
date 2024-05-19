@@ -194,12 +194,12 @@ def main_process():
             new_question = "continue"
             print("You said: ", new_question)
         # STEP 2: Get response from GPT
-        response_stream = singleton.chat_gpt_manager.get_response_stream(INSTRUCTIONS, previous_questions_and_answers, new_question)
+        #response_stream = singleton.chat_gpt_manager.get_response_stream(INSTRUCTIONS, previous_questions_and_answers, new_question)
                 
         # STEP 3: Speak the response
         final_result_text = singleton.text_to_speech_manager.process_text_stream(response_stream)
         #newstr = string_to_stream(STORY)
-        #final_result_text = singleton.text_to_speech_manager.process_text_stream(newstr)
+        final_result_text = singleton.text_to_speech_manager.process_text_string(STORY)
         singleton.video_player.display_image(image_path)
         # add the new question and answer to the list of previous questions and answers
         previous_questions_and_answers.append((new_question, final_result_text))
