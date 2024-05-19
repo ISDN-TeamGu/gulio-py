@@ -147,21 +147,20 @@ class TextToSpeechManager:
     def process_text_string(self, text_string):
         sentences = []
         temp = ""
+        content = text_string
     
         for char in text_string:
-            if char in ['.', '!', '?', ',', '\n']:
-                if temp:
-                    dialogue = self.process_dialogue(temp)
-                    sentences.append(dialogue)
-                    self.speak_text(dialogue)
-                    temp = ""
-            else:
-                temp += char
-    
-        if temp:
-            dialogue = self.process_dialogue(temp)
-            sentences.append(dialogue)
-            self.speak_text(dialogue)
+            if content is not None:
+                temp += content
+            # when detected full stop, question mark, exclamation mark, comma or new line, process the text
+            if(";" in temp or "!" in temp or "?" in temp or "\n" in temp):
+                # print("sentence: ", temp)
+                # If the text detected flag like [Narration] or [Character name], update current attribute
+                dialogue = self.process_dialogue(temp)
+                sentences.append(dialogue)
+                # Process text
+                self.speak_text(dialogue)
+                temp = ""
     
         return "".join(sentences)
         
