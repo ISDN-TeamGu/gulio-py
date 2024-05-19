@@ -96,7 +96,7 @@ command_prompt_thread.running = True
 # Main Process
 previous_questions_and_answers = []
 def storymode():
-    
+    singleton.text_to_speech_manager.process_text_string(line1)
 def main_process():
     singleton.text_to_speech_manager.process_text_string(line1)
     
