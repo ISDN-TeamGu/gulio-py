@@ -63,7 +63,7 @@ STORY = """
 INSTRUCTIONS = """
 
 """
-line1= """[Vernon][Male][50][Default]"Vernon Dursley speaking." """
+line1= """[Vernon][Male][50][Default]Vernon Dursley speaking. """
 
 # User Input Command
 def command_prompt():
