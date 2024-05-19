@@ -82,7 +82,7 @@ command_prompt_thread.running = True
 # Main Process
 previous_questions_and_answers = []
 def main_process():
-    singleton.text_to_speech_manager.process_dialogue(line1)
+    singleton.text_to_speech_manager.process_text_string(line1)
     
 main_process_thread = None
 def start_main_process_thread():
