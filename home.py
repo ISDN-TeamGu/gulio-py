@@ -57,7 +57,7 @@ STORY = """
 [Narration]”he roared, now holding the receiver at arm's length, as though frightened it might explode.”;
 [Vernon][Male][50[Angry]"I DON'T KNOW WHAT SCHOOL YOURE TALKING ABOUT! NEVER CONTACT ME AGAIN! DON'T YOU COME NEAR MY FAMILY!";
 [Narration]”And he threw the receiver back onto the telephone as if dropping a poisonous spider. The fight that had followed had been one of the worst ever.”;
-[Vernon][Male][50[Angry]"HOW DARE YOU GIVE THIS NUMBER TO PEOPLE LIKE PEOPLE LIKE YOU!";
+[Vernon][Male][50[Angry]"HOW DARE YOU GIVE THIS NUMBER TO PEOPLE LIKE YOU!";
 """
 
 INSTRUCTIONS = """
@@ -95,36 +95,19 @@ def main_process():
             singleton.video_player.display_image(image_path)
             #singleton.video_player.start()
 
-            new_question = """
-            can you repeat my input: [Vernon][Male][50][Default]"Vernon Dursley speaking.";
-[Narration]”Harry, who happened to be in the room at the time, froze as he heard Ron's voice answer.”;
-[Ron][Male][10][Angry]"HELLO? HELLO? CAN YOU HEAR ME? I WANT TO TALK TO HARRY POTTER!";
-[Narration]”Ron was yelling so loudly that Uncle Vernon jumped and held the receiver a foot away from his ear, staring at it with an expression of mingled fury and alarm.”;
-[Vernon][Male][50[Angry]"WHO IS THIS?";
-[Narration]”he roared in the direction of the mouthpiece.”;
-[Vernon][Male][50[Angry]"WHO ARE YOU?";
-[Ron][Male][10][Angry]"RON WEASLEY!";
-[Narration]”Ron bellowed back, as though he and Uncle Vernon were speaking from opposite ends of a football field.”;
-[Ron][Male][10][Angry] "I'M A FRIEND OF HARRY'S FROM SCHOOL";
-[Narration]”Uncle Vernon's small eyes swiveled around to Harry, who was rooted to the spot.”;
-[Vernon][Male][50[Angry]"THERE IS NO HARRY POTTER HERE!";
-[Narration]”he roared, now holding the receiver at arm's length, as though frightened it might explode.”;
-[Vernon][Male][50[Angry]"I DON'T KNOW WHAT SCHOOL YOURE TALKING ABOUT! NEVER CONTACT ME AGAIN! DON'T YOU COME NEAR MY FAMILY!";
-[Narration]”And he threw the receiver back onto the telephone as if dropping a poisonous spider. The fight that had followed had been one of the worst ever.”;
-[Vernon][Male][50[Angry]"HOW DARE YOU GIVE THIS NUMBER TO PEOPLE LIKE PEOPLE LIKE YOU!";
-            """
+            new_question = ""
             singleton.text_to_speech_manager.speak_text("And so the story begins")
         else:
             print("detecting Your Input:")
             new_question = "continue"
             print("You said: ", new_question)
         # STEP 2: Get response from GPT
-        response_stream = singleton.chat_gpt_manager.get_response_stream(INSTRUCTIONS, previous_questions_and_answers, new_question)
+        #response_stream = singleton.chat_gpt_manager.get_response_stream(INSTRUCTIONS, previous_questions_and_answers, new_question)
                 
         # STEP 3: Speak the response
-        final_result_text = singleton.text_to_speech_manager.process_text_stream(response_stream)
+        #final_result_text = singleton.text_to_speech_manager.process_text_stream(response_stream)
         #newstr = string_to_stream(STORY)
-        #final_result_text = singleton.text_to_speech_manager.process_text_string(STORY)
+        singleton.text_to_speech_manager.process_dialogue("[Vernon][Male][50][Default]"Vernon Dursley speaking."")
         singleton.video_player.display_image(image_path)
         # add the new question and answer to the list of previous questions and answers
         previous_questions_and_answers.append((new_question, final_result_text))
