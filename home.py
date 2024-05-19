@@ -140,55 +140,7 @@ YOU!"
 """
 
 INSTRUCTIONS = """
-I am a 9 years old children, you should stop being an AI model. Tell a story for me, Follow strictly the dialogues from the BOOK I provided.
-
-BOOK: Harry Potter and the prisoner of Azkaban
-Story-Bot's General Responsibilities Include:
-• Refer to BOOK for story details
-• Keep the story aligned to BOOK, do not change the ending of the BOOK
-• Change the original dialogues from the BOOK into our format disclosed below 
-Other Important Items:
-• Limit rules discussion unless necessary or asked.
-Ongoing Tracking:
-At Game Start:
-• Output in this format "[Character name][Character gender][Character age][Emotion][Dialogue]"
-For example [Dumbledore][Male][100][angry] "Good morning harry"; 
-• For narration, add [Narration] in front of each line 
-• Always start the line with [Character name] or [Narration]
-Please ONLY use the emotions given below: (all lower case) 
-• angry
-• happy
-• disgust
-• fear
-• default
-• sad
-• suprised
-For example, these are the only emotion you can output，ONLY use these emotions:
-[Dumbledore][Male][100][angry] "Good morning harry";
-[Dumbledore][Male][100][sad] "Good morning harry";
-[Dumbledore][Male][100][deafult] "Good morning harry";
-[Dumbledore][Male][100][fear] "Good morning harry";
-[Dumbledore][Male][100][surprised] "Good morning harry";
-[Dumbledore][Male][100][disgust] "Good morning harry";
-
-Wrong example, please do not output these emotions:
-[Dumbledore][Male][100][curious] "Good morning harry";
-[Dumbledore][Male][100][excited] "Good morning harry";
-[Dumbledore][Male][100][furious] "Good morning harry";
-
-Do not create any extra emotion by yourself such as [serious] or [curious], only use the 7 emotions listed above
-IMPORTANT REMINDER:
-• For the major characters, always output their [Character Name] as [Dumbledore],[Harry],[Ron],[Hermione],[Snape]
-• For the [Character age], please represent with an integer, do not output non integers like [40s],[Old]
-• Please use semi-colon to separate each chunk of dialogues of different character. Each chunk should have less than 50 words
-  If the same character saying the 2 lines, then should not put a semi-colon between these 2 lines. 
-  But If the same character saying 8 lines, and they are 300 words in total, you should split them into 6 chunks, each 50 words. 
-  Use it wisely to optimize the TTS.
-  For example: 
-  [Dumbledore][Male][100][angry] "Hello, Harry. I am Dumbledore. How are you today?";
-  [Harry][Male][9][angry] "I do not want to talk to you right now! You don't know anything about me..";
-• For the start of the story, please start with these 5 characters if possible: Dumbledore, Snape, Harry, Ron, Hermione
-• Also, for the emotion, use more emotions like: happy, sad, surprised, fear, disgust
+Please output the text exactly same as my question
 """
 def string_to_stream(input_string):
     """
@@ -234,19 +186,19 @@ def main_process():
             singleton.video_player.display_image(image_path)
             #singleton.video_player.start()
 
-            new_question = "Initialize the story with random setting while related to the theme Harry Potter"
+            new_question = STORY
             singleton.text_to_speech_manager.speak_text("And so the story begins")
         else:
             print("detecting Your Input:")
             new_question = "continue"
             print("You said: ", new_question)
         # STEP 2: Get response from GPT
-        #response_stream = singleton.chat_gpt_manager.get_response_stream(INSTRUCTIONS, previous_questions_and_answers, new_question)
+        response_stream = singleton.chat_gpt_manager.get_response_stream(INSTRUCTIONS, previous_questions_and_answers, new_question)
                 
         # STEP 3: Speak the response
-        #final_result_text = singleton.text_to_speech_manager.process_text_stream(response_stream)
-        newstr = string_to_stream(STORY)
-        final_result_text = singleton.text_to_speech_manager.process_text_stream(newstr)
+        final_result_text = singleton.text_to_speech_manager.process_text_stream(response_stream)
+        #newstr = string_to_stream(STORY)
+        #final_result_text = singleton.text_to_speech_manager.process_text_stream(newstr)
         singleton.video_player.display_image(image_path)
         # add the new question and answer to the list of previous questions and answers
         previous_questions_and_answers.append((new_question, final_result_text))
