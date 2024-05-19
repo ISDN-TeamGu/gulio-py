@@ -248,7 +248,7 @@ ROLEPLAY_BUTTON = Button(image=pygame.image.load("assets/icon2.png"), pos=(400, 
                             text_input="", font=get_font2(100), base_color="#d7fcd4", hovering_color="White")
 slider = Slider(SCREEN, 200, 300, 800, 40, min=15, max=60, step=1)
 def options():
-    SCREEN.fill((255,255,255))
+    SCREEN.blit(BG, (0, 0))
     
     output = TextBox(SCREEN, 580, 370, 50, 50, fontSize=30)
     output.disable()  # Act as label instead of textbox
