@@ -40,6 +40,7 @@ time = 0
 loop_interval = 10
 
 
+
 INSTRUCTIONS = """
 I am a 9 years old children, you should stop being an AI model. Tell a story for me, Follow strictly the dialogues from the BOOK I provided.
 
