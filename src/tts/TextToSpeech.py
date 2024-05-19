@@ -144,6 +144,26 @@ class TextToSpeechManager:
         
         # Make result
         return "".join(sentences)
+    def process_text_string(self, text_string):
+        sentences = []
+        temp = ""
+    
+        for char in text_string:
+            if char in ['.', '!', '?', ',', '\n']:
+                if temp:
+                    dialogue = self.process_dialogue(temp)
+                    sentences.append(dialogue)
+                    self.speak_text(dialogue)
+                    temp = ""
+            else:
+                temp += char
+    
+        if temp:
+            dialogue = self.process_dialogue(temp)
+            sentences.append(dialogue)
+            self.speak_text(dialogue)
+    
+        return "".join(sentences)
         
             
     # Obtain the attributes like age or name from output to customize voice acting 
