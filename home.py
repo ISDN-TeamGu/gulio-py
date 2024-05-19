@@ -42,22 +42,22 @@ time = 0
 loop_interval = 10
 
 STORY = """
-[Vernon][Male][50][Default]"Vernon Dursley speaking."
-[Narration]”Harry, who happened to be in the room at the time, froze as he heard Ron's voice answer.”
-[Ron][Male][10][Angry]"HELLO? HELLO? CAN YOU HEAR ME? I WANT TO TALK TO HARRY POTTER!"
-[Narration]”Ron was yelling so loudly that Uncle Vernon jumped and held the receiver a foot away from his ear, staring at it with an expression of mingled fury and alarm.”
-[Vernon][Male][50[Angry]"WHO IS THIS?" 
-[Narration]”he roared in the direction of the mouthpiece.” 
-[Vernon][Male][50[Angry]"WHO ARE YOU?" 
-[Ron][Male][10][Angry]"RON WEASLEY!" 
-[Narration]”Ron bellowed back, as though he and Uncle Vernon were speaking from opposite ends of a football field.”
-[Ron][Male][10][Angry] "I'M  A  FRIEND OF HARRY'S FROM SCHOOL"
-[Narration]”Uncle Vernon's small eyes swiveled around to Harry, who was rooted tothe spot.”
-[Vernon][Male][50[Angry]"THERE IS NO HARRY POTTER HERE!" 
-[Narration]”he roared, now holding the receiver at arm's length, as though frightened it might explode.”
-[Vernon][Male][50[Angry]"I DON'T KNOW WHAT SCHOOL YOURE TALKING ABOUT! NEVER CONTACT ME AGAIN! DON'T YOU COME NEAR MY FAMILY!"
-[Narration]”And he threw the receiver back onto the telephone as if dropping a poisonous spider. The fight that had followed had been one of the worst ever.”
-[Vernon][Male][50[Angry]"HOW DARE YOU GIVE THIS NUMBER TO PEOPLE LIKE PEOPLE LIKE YOU!"
+[Vernon][Male][50][Default]"Vernon Dursley speaking.";
+[Narration]”Harry, who happened to be in the room at the time, froze as he heard Ron's voice answer.”;
+[Ron][Male][10][Angry]"HELLO? HELLO? CAN YOU HEAR ME? I WANT TO TALK TO HARRY POTTER!";
+[Narration]”Ron was yelling so loudly that Uncle Vernon jumped and held the receiver a foot away from his ear, staring at it with an expression of mingled fury and alarm.”;
+[Vernon][Male][50[Angry]"WHO IS THIS?";
+[Narration]”he roared in the direction of the mouthpiece.”;
+[Vernon][Male][50[Angry]"WHO ARE YOU?"; 
+[Ron][Male][10][Angry]"RON WEASLEY!"; 
+[Narration]”Ron bellowed back, as though he and Uncle Vernon were speaking from opposite ends of a football field.”;
+[Ron][Male][10][Angry] "I'M  A  FRIEND OF HARRY'S FROM SCHOOL";
+[Narration]”Uncle Vernon's small eyes swiveled around to Harry, who was rooted tothe spot.”;
+[Vernon][Male][50[Angry]"THERE IS NO HARRY POTTER HERE!"; 
+[Narration]”he roared, now holding the receiver at arm's length, as though frightened it might explode.”;
+[Vernon][Male][50[Angry]"I DON'T KNOW WHAT SCHOOL YOURE TALKING ABOUT! NEVER CONTACT ME AGAIN! DON'T YOU COME NEAR MY FAMILY!";
+[Narration]”And he threw the receiver back onto the telephone as if dropping a poisonous spider. The fight that had followed had been one of the worst ever.”;
+[Vernon][Male][50[Angry]"HOW DARE YOU GIVE THIS NUMBER TO PEOPLE LIKE PEOPLE LIKE YOU!";
 """
 
 INSTRUCTIONS = """
