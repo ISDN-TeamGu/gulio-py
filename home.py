@@ -63,6 +63,7 @@ STORY = """
 INSTRUCTIONS = """
 
 """
+line1= """[Vernon][Male][50][Default]"Vernon Dursley speaking." """
 
 # User Input Command
 def command_prompt():
@@ -107,7 +108,7 @@ def main_process():
         # STEP 3: Speak the response
         #final_result_text = singleton.text_to_speech_manager.process_text_stream(response_stream)
         #newstr = string_to_stream(STORY)
-        singleton.text_to_speech_manager.process_dialogue("""[Vernon][Male][50][Default]"Vernon Dursley speaking."""")
+        singleton.text_to_speech_manager.process_dialogue(line1)
         singleton.video_player.display_image(image_path)
         # add the new question and answer to the list of previous questions and answers
         previous_questions_and_answers.append((new_question, final_result_text))
