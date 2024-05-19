@@ -259,7 +259,6 @@ def options():
      
 
         OPTIONS_MOUSE_POS = pygame.mouse.get_pos()
-        SCREEN.fill("white")
         OPTIONS_TEXT = get_font2(100).render("SETTINGS", True, "Black")
         OPTIONS_RECT = OPTIONS_TEXT.get_rect(center=(640, 80))
         TEXT1 = get_font(70).render("Story Duration", True, "Black")
