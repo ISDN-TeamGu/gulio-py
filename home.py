@@ -111,7 +111,7 @@ def main_process():
         singleton.text_to_speech_manager.process_dialogue(line1)
         singleton.video_player.display_image(image_path)
         # add the new question and answer to the list of previous questions and answers
-        previous_questions_and_answers.append((new_question, final_result_text))
+        #previous_questions_and_answers.append((new_question, final_result_text))
 
 
         # Wait until finish speaking
