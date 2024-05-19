@@ -141,6 +141,7 @@ YOU!"
 
 INSTRUCTIONS = """
 Please output the text exactly same as my question
+NO NEED TO CHANGE ANYTHING, JUST REPEAT MY PREVIOUS INPUT
 """
 def string_to_stream(input_string):
     """
