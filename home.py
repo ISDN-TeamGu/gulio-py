@@ -19,6 +19,8 @@ from src.video.ImageDisplaySingleton import *
 import pygame_widgets
 from pygame_widgets.slider import Slider
 from pygame_widgets.textbox import TextBox
+from io import StringIO
+
 
 
 pygame.init()
@@ -188,7 +190,18 @@ IMPORTANT REMINDER:
 • For the start of the story, please start with these 5 characters if possible: Dumbledore, Snape, Harry, Ron, Hermione
 • Also, for the emotion, use more emotions like: happy, sad, surprised, fear, disgust
 """
-
+def string_to_stream(input_string):
+    """
+    Converts a string into a stream object.
+    
+    Args:
+        input_string (str): The input string to be converted to a stream.
+    
+    Returns:
+        stream: A stream object representing the input string.
+    """
+    stream = StringIO(input_string)
+    return stream
 
 # User Input Command
 def command_prompt():
@@ -232,7 +245,8 @@ def main_process():
                 
         # STEP 3: Speak the response
         #final_result_text = singleton.text_to_speech_manager.process_text_stream(response_stream)
-        final_result_text = singleton.text_to_speech_manager.process_text_string(STORY)
+        newstr = string_to_stream(STORY)
+        final_result_text = singleton.text_to_speech_manager.process_text_stream(newstr)
         singleton.video_player.display_image(image_path)
         # add the new question and answer to the list of previous questions and answers
         previous_questions_and_answers.append((new_question, final_result_text))
