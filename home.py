@@ -64,7 +64,21 @@ INSTRUCTIONS = """
 
 """
 line1= """[Vernon][Male][50][Default]Vernon Dursley speaking. """
-
+line2 = """[Narration]Harry, who happened to be in the room at the time, froze as he heard Ron's voice answer."""
+line3 =  """[Ron][Male][10][Angry]HELLO? HELLO? CAN YOU HEAR ME? I WANT TO TALK TO HARRY POTTER!"""
+line4 = """ [Narration]Ron was yelling so loudly that Uncle Vernon jumped and held the receiver a foot away from his ear, staring at it with an expression of mingled fury and alarm."""
+line5 = """[Vernon][Male][50[Angry]WHO IS THIS?" """
+line6 = """[Narration]he roared in the direction of the mouthpiece."""
+line7 =""" [Vernon][Male][50[Angry]WHO ARE YOU?"""
+line8 = """[Ron][Male][10][Angry]RON WEASLEY!"""
+line9 = """[Narration]Ron bellowed back, as though he and Uncle Vernon were speaking from opposite ends of a football field."""
+line10 = """[Ron][Male][10][Angry] I'M  A  FRIEND OF HARRY'S FROM SCHOOL"""
+lien11 = """[Narration]Uncle Vernon's small eyes swiveled around to Harry, who was rooted tothe spot."""
+line12 = """[Vernon][Male][50[Angry]THERE IS NO HARRY POTTER HERE! """
+line13 = """[Narration]he roared, now holding the receiver at arm's length, as though frightened it might explode."""
+line14 = """[Vernon][Male][50[Angry]I DON'T KNOW WHAT SCHOOL YOURE TALKING ABOUT! NEVER CONTACT ME AGAIN! DON'T YOU COME NEAR MY FAMILY!"""
+line15 = """[Narration]And he threw the receiver back onto the telephone as if dropping a poisonous spider. The fight that had followed had been one of the worst ever."""
+line16 = """[Vernon][Male][50[Angry]HOW DARE YOU GIVE THIS NUMBER TO PEOPLE LIKE YOU!"""
 # User Input Command
 def command_prompt():
     t = threading.currentThread()
@@ -81,8 +95,13 @@ command_prompt_thread.running = True
 
 # Main Process
 previous_questions_and_answers = []
-def main_process():
+def storymode():
     singleton.text_to_speech_manager.process_text_string(line1)
+
+def main_process():
+    for i in range(15):
+        singleton.text_to_speech_manager.process_text_string(line+str(i))
+    
     
 main_process_thread = None
 def start_main_process_thread():
