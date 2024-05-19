@@ -64,18 +64,6 @@ INSTRUCTIONS = """
 Please output the text exactly same as my question
 NO NEED TO CHANGE ANYTHING, JUST REPEAT MY PREVIOUS INPUT
 """
-def string_to_stream(input_string):
-    """
-    Converts a string into a stream object.
-    
-    Args:
-        input_string (str): The input string to be converted to a stream.
-    
-    Returns:
-        stream: A stream object representing the input string.
-    """
-    stream = StringIO(input_string)
-    return stream
 
 # User Input Command
 def command_prompt():
