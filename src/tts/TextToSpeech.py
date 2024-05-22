@@ -61,6 +61,8 @@ class SpeakTask:
     def preload(self, semaphore: threading.Semaphore):
         semaphore.acquire()
         print("Start preloading audio: ", self.dialogue)
+        if self.speech_attribute["name"] == "options":
+            self.audio_stream = asyncio.run(preload_playht(user="Wip26iViI4fvUgFHjj9oaIFQjWA2",key=os.getenv("PLAYHT_API_KEY"),text=[self.speech_attribute["gender"]],quality="faster",interactive=False,use_async=True,voice="s3://mockingbird-prod/abigail_vo_6661b91f-4012-44e3-ad12-589fbdee9948/voices/speaker/manifest.json"))
         if self.speech_attribute["gender"] == "Narration":
             self.audio_stream = asyncio.run(preload_playht(user="Wip26iViI4fvUgFHjj9oaIFQjWA2",key=os.getenv("PLAYHT_API_KEY"),text=[self.dialogue],quality="faster",interactive=False,use_async=True,voice="s3://mockingbird-prod/abigail_vo_6661b91f-4012-44e3-ad12-589fbdee9948/voices/speaker/manifest.json"))
         elif self.speech_attribute["gender"] == "Male":
@@ -153,8 +155,10 @@ class TextToSpeechManager:
                 
     
       
+
+   
         
-            
+        
     # Obtain the attributes like age or name from output to customize voice acting 
     def process_dialogue(self, line):
         try:
@@ -187,8 +191,15 @@ class TextToSpeechManager:
             if load_attribute:
                 print(substrings)
                 self.current_speech_attribute["name"] = substrings[0]
-                self.current_speech_attribute["gender"] = substrings[1]
+                if (self.current_speech_attribute["name"]=="options"):
+                    self.current_speech_attribute["gender"] = substrings[1]
+                    return dialogue
+          
+                    
 
+                
+                self.current_speech_attribute["gender"] = substrings[1]
+                
                 try:
                     self.current_speech_attribute["age"] = int(substrings[2])
                 except:
