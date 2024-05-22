@@ -286,7 +286,7 @@ def play():
         
 OPTIONS_BACK = Button(image=None, pos=(640, 1000), 
                     text_input="OK", font=get_font(75), base_color="Black", hovering_color="Green")
-STORY_BUTTON = Button(image=pygame.image.load("assets/icon1.png"), pos=(850, 600), 
+STORY_BUTTON = Button(image=pygame.image.load("assets/icon1A.png"), pos=(850, 600), 
                             text_input="", font=get_font2(100), base_color="#d7fcd4", hovering_color="White")
 ROLEPLAY_BUTTON = Button(image=pygame.image.load("assets/icon2.png"), pos=(400, 600), 
                             text_input="", font=get_font2(100), base_color="#d7fcd4", hovering_color="White")
