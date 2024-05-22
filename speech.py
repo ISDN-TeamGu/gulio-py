@@ -5,6 +5,8 @@ from pvrecorder import PvRecorder
 import os
 from pydub import AudioSegment
 from pydub.playback import play
+from dotenv import load_dotenv
+
 
 
 def speech():
