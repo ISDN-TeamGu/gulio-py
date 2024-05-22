@@ -3,8 +3,8 @@ from time import sleep   # Imports sleep (aka wait or pause) into the program
 GPIO.setmode(GPIO.BCM) # Sets the pin numbering system to use the physical layout
 
 # Set up  PWM
-GPIO.setup(35,GPIO.OUT)  
-GPIO.setup(37,GPIO.OUT) 
+GPIO.setup(19,GPIO.OUT)  
+GPIO.setup(26,GPIO.OUT) 
 p = GPIO.PWM(23, 50)  
 t = GPIO.PWM(24, 50)   
 p.start(0) 
