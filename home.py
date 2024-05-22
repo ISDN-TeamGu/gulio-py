@@ -272,10 +272,10 @@ def get_font2(size): # Returns Press-Start-2P in the desired size
 
 def play():
     while True:
-      if(story_mode = True and roleplay_mode = False):
+      if(story_mode == True and roleplay_mode == False):
         pygame.display.update()
         start_main_process_thread()
-      elif(story_mode = False and roleplay_mode = True):
+      elif(story_mode == False and roleplay_mode == True):
         pygame.display.update()
         start_main_process_thread()
 
