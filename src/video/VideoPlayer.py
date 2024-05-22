@@ -120,9 +120,8 @@ class VideoPlayer:
         try:
             # Set up the display window
             image = pygame.image.load(image_path)
-            rotated_image = pygame.transform.rotate(image, 270)
             # Get the rect of the rotated image
-            rotated_rect = rotated_image.get_rect()
+            rotated_rect = image.get_rect()
 
             # Calculate the position to center the rotated image
             x = (1200 - rotated_rect.width) // 2
@@ -133,7 +132,7 @@ class VideoPlayer:
                 self.window.fill((255, 255, 255))
 
             # Display the image on the screen
-            self.window.blit(rotated_image, (x, y))
+            self.window.blit(image, (x, y))
 
             # Update the display
             pygame.display.flip()
