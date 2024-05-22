@@ -6,6 +6,9 @@ import os
 from pydub import AudioSegment
 from pydub.playback import play
 from dotenv import load_dotenv
+import simpleaudio as sa
+import asyncio
+import pygame
 
 
 
