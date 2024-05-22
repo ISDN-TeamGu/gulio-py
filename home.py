@@ -165,7 +165,7 @@ def storymode():
         s = str(i)
         singleton.text_to_speech_manager.process_text_string(line)
     while text_to_speech_manager.is_speaking():
-            pass
+        pass
         if i==0:
             #Initial wait
             pygame.time.wait(5000)
