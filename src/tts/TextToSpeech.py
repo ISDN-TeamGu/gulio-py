@@ -193,21 +193,15 @@ class TextToSpeechManager:
                 self.current_speech_attribute["name"] = substrings[0]
                 if (self.current_speech_attribute["name"]=="options"):
                     self.current_speech_attribute["gender"] = substrings[1]
-                    return dialogue
-          
-                    
-
-                
-                self.current_speech_attribute["gender"] = substrings[1]
-                
-                try:
-                    self.current_speech_attribute["age"] = int(substrings[2])
-                except:
-                    pass
-
-                self.current_speech_attribute["emotion"] = substrings[3]
-                if self.current_speech_attribute["emotion"] != "happy" and self.current_speech_attribute["emotion"] != "default" and self.current_speech_attribute["emotion"] != "sad" and self.current_speech_attribute["emotion"] != "fear" and self.current_speech_attribute["emotion"] != "disgust" and self.current_speech_attribute["emotion"] != "surprised":
-                    self.current_speech_attribute["emotion"] = "default"
+                else:
+                     self.current_speech_attribute["gender"] = substrings[1]
+                     try:
+                         self.current_speech_attribute["age"] = int(substrings[2])
+                     except:
+                         pass
+                     self.current_speech_attribute["emotion"] = substrings[3]
+                     if self.current_speech_attribute["emotion"] != "happy" and self.current_speech_attribute["emotion"] != "default" and self.current_speech_attribute["emotion"] != "sad" and self.current_speech_attribute["emotion"] != "fear" and self.current_speech_attribute["emotion"] != "disgust" and self.current_speech_attribute["emotion"] != "surprised":
+                         self.current_speech_attribute["emotion"] = "default"
                 
                 # print("Loaded speech attribute: ", self.current_speech_attribute)
             return dialogue
