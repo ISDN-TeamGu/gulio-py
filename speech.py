@@ -9,3 +9,5 @@ with speech as source:
 try:
     recog = r.recognize_google(audio, language = 'en-US')
     print("You said: " + recog)
+except:
+    print("error")
