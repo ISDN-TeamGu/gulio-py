@@ -205,6 +205,7 @@ def main_process():
     
     
 main_process_thread = None
+storymode_thread = None
 def start_main_process_thread():
     global main_process_thread
     if main_process_thread is not None:
