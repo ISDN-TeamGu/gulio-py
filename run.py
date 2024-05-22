@@ -1,16 +1,18 @@
-from NewServo import Servo
-import time# Create a servo instance
-servo = Servo(18)
+import RPi.GPIO as GPIO  # Imports the standard Raspberry Pi GPIO library
+from time import sleep   # Imports sleep (aka wait or pause) into the program
+GPIO.setmode(GPIO.BCM) # Sets the pin numbering system to use the physical layout
 
-# Move the servo to 0 degrees at slow speed
-servo.move(0, 0.1)
+# Set up  PWM
+GPIO.setup(19,GPIO.OUT)  
+GPIO.setup(26,GPIO.OUT) 
+p = GPIO.PWM(19, 50)  
+t = GPIO.PWM(26, 50)   
+p.start(0) 
+t.start(0)             
 
-# Move the servo to 90 degrees at medium speed
-servo.move(30, 0.05)
 
-# Move the servo to 180 degrees at fast speed
-servo.move(50, 0.02)
-
-# Cleanup
-servo.pwm.stop()
-GPIO.cleanup()
+# Move the servo back and forth
+p.ChangeDutyCycle(8.5)
+sleep(1)                 # Wait 1 second
+t.ChangeDutyCycle(11.7)
+sleep(1)
