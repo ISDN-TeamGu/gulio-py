@@ -123,6 +123,8 @@ IMPORTANT REMINDER:
   [Harry][Male][9][angry] "I do not want to talk to you right now! You don't know anything about me..";
 • For the start of the story, please start with these 5 characters if possible: Dumbledore, Snape, Harry, Ron, Hermione
 • Also, for the emotion, use more emotions like: happy, sad, surprised, fear, disgust
+• When the story reaches a point that need me to do a decision, output the options for me to choose in this format: [options]["Go find Dumbledore for advices"]["Meet up with Ron and Hermione"]["Search for clues alone"], always output only 3 options. 
+
 """
 lines = [
   """[Vernon][Male][50][Default]Vernon Dursley speaking. """,
