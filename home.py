@@ -159,7 +159,7 @@ previous_questions_and_answers = []
 def storymode():
     for i in range(16):
         s = str(i)
-        singleton.text_to_speech_manager.process_text_string(line+""+s)
+        singleton.text_to_speech_manager.process_text_string(line1)
 
 def main_process():
     t = threading.currentThread()
