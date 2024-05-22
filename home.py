@@ -274,7 +274,7 @@ def play():
     while True:
       if(story_mode == True and roleplay_mode == False):
         pygame.display.update()
-        start_main_process_thread()
+        start_storymode_thread()
       elif(story_mode == False and roleplay_mode == True):
         pygame.display.update()
         start_main_process_thread()
