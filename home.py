@@ -190,7 +190,7 @@ def main_process():
             singleton.video_player.display_image(image_path)
             #singleton.video_player.start()
 
-            new_question = "Initialize the story with random setting while related to the theme Harry Potter"
+            new_question = "Start"
             singleton.text_to_speech_manager.speak_text("Initializing Story")
         else:
             print("detecting Your Input:")
