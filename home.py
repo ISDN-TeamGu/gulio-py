@@ -37,7 +37,8 @@ video_player = VideoPlayer()
 text_to_speech_manager = TextToSpeechManager()
 speech_to_text_manager = SpeechToTextManager()
 chat_gpt_manager = ChatGPTManager()
-
+story_mode = False
+roleplay_mode = False 
 time = 0
 loop_interval = 10
 
@@ -156,8 +157,8 @@ command_prompt_thread.running = True
 # Main Process
 previous_questions_and_answers = []
 def storymode():
-    s = str(i)
     for i in range(16):
+        s = str(i)
         singleton.text_to_speech_manager.process_text_string(line+""+s)
 
 def main_process():
@@ -212,6 +213,15 @@ def start_main_process_thread():
     main_process_thread.daemon = True
     main_process_thread.running = True
     main_process_thread.start()
+  
+def start_storymode_thread():
+    global storymode_thread
+    if storymode_thread is not None:
+        return
+    storymode_thread = threading.Thread(target=storymode)
+    storymode_thread.daemon = True
+    storymode_thread.running = True
+    storymode_thread.start()
 
 
 # Speak Process
@@ -262,8 +272,13 @@ def get_font2(size): # Returns Press-Start-2P in the desired size
 
 def play():
     while True:
+      if(story_mode = True and roleplay_mode = False):
         pygame.display.update()
         start_main_process_thread()
+      elif(story_mode = False and roleplay_mode = True):
+        pygame.display.update()
+        start_main_process_thread()
+
         
 OPTIONS_BACK = Button(image=None, pos=(640, 1000), 
                     text_input="OK", font=get_font(75), base_color="Black", hovering_color="Green")
@@ -318,10 +333,14 @@ def options():
                 if STORY_BUTTON.checkForInput(OPTIONS_MOUSE_POS):
                     STORY_BUTTON.changeImage(OPTIONS_MOUSE_POS,pygame.image.load("assets/icon1A.png"),SCREEN)
                     ROLEPLAY_BUTTON.changeImage(OPTIONS_MOUSE_POS,pygame.image.load("assets/icon2.png"),SCREEN)
+                    story_mode = True
+                    roleplay_mode = False
                     pygame.display.update()
                 if ROLEPLAY_BUTTON.checkForInput(OPTIONS_MOUSE_POS):
                     ROLEPLAY_BUTTON.changeImage(OPTIONS_MOUSE_POS,pygame.image.load("assets/icon2A.png"),SCREEN)
                     STORY_BUTTON.changeImage(OPTIONS_MOUSE_POS,pygame.image.load("assets/icon1.png"),SCREEN)
+                    story_mode = False
+                    roleplay_mode = True
                     pygame.display.update()
 
         
