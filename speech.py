@@ -40,7 +40,7 @@ def speech():
 
 
     cheetah = create(
-        access_key='key',
+        access_key=os.getenv("PVCHEETAH_API_KEY"),
         library_path=args.library_path,
         model_path=args.model_path,
         endpoint_duration_sec=args.endpoint_duration_sec,
