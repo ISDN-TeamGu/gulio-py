@@ -160,9 +160,16 @@ command_prompt_thread.running = True
 # Main Process
 previous_questions_and_answers = []
 def storymode():
+    t = threading.currentThread()
     for i, line in enumerate(lines):
         s = str(i)
         singleton.text_to_speech_manager.process_text_string(line)
+    while text_to_speech_manager.is_speaking():
+            pass
+        if i==0:
+            #Initial wait
+            pygame.time.wait(5000)
+        i += 1 
 
 def main_process():
     t = threading.currentThread()
