@@ -194,8 +194,13 @@ def main_process():
             new_question = "Start"
             singleton.text_to_speech_manager.speak_text("Initializing Story")
         else:
-            print("detecting Your Input:")
+            print("Detecting your input:")
+            new_question = ""
+            while response == "":
+                # Wait for the response to be updated
+                pass
             new_question = response
+            
             print("You said: ", new_question)
         # STEP 2: Get response from GPT
         response_stream = singleton.chat_gpt_manager.get_response_stream(INSTRUCTIONS, previous_questions_and_answers, new_question)
