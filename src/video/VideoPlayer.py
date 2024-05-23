@@ -48,34 +48,34 @@ class VideoPlayer:
     
     def home(self, line1, line2):
         while True:
-        SCREEN.blit(BG, (0, 0))
-
-        MENU_MOUSE_POS = pygame.mouse.get_pos()
-
-        
-
-        PLAY_BUTTON = Button(image=pygame.image.load("assets/Play Rect.png"), pos=(640, 250), 
-                            text_input=line1, font=get_font2(130), base_color="#d7fcd4", hovering_color="White")
-        OPTIONS_BUTTON = Button(image=pygame.image.load("assets/Options Rect.png"), pos=(640, 550), 
-                            text_input=line2, font=get_font2(130), base_color="#d7fcd4", hovering_color="White")
-        
-
-
-        for button in [PLAY_BUTTON, OPTIONS_BUTTON]:
-            button.changeColor(MENU_MOUSE_POS)
-            button.update(SCREEN)
-        
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                sys.exit()
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                if PLAY_BUTTON.checkForInput(MENU_MOUSE_POS):
-                    response = line1
-                if OPTIONS_BUTTON.checkForInput(MENU_MOUSE_POS):
-                    response = line2 
-                
-        pygame.display.update()
+            SCREEN.blit(BG, (0, 0))
+    
+            MENU_MOUSE_POS = pygame.mouse.get_pos()
+    
+            
+    
+            PLAY_BUTTON = Button(image=pygame.image.load("assets/Play Rect.png"), pos=(640, 250), 
+                                text_input=line1, font=get_font2(130), base_color="#d7fcd4", hovering_color="White")
+            OPTIONS_BUTTON = Button(image=pygame.image.load("assets/Options Rect.png"), pos=(640, 550), 
+                                text_input=line2, font=get_font2(130), base_color="#d7fcd4", hovering_color="White")
+            
+    
+    
+            for button in [PLAY_BUTTON, OPTIONS_BUTTON]:
+                button.changeColor(MENU_MOUSE_POS)
+                button.update(SCREEN)
+            
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    sys.exit()
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    if PLAY_BUTTON.checkForInput(MENU_MOUSE_POS):
+                        response = line1
+                    if OPTIONS_BUTTON.checkForInput(MENU_MOUSE_POS):
+                        response = line2 
+                    
+            pygame.display.update()
     def display_image(self, image_path):
     # Initialize Pygame
         try:
