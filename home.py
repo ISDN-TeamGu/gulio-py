@@ -204,7 +204,7 @@ def main_process():
                 
         # STEP 3: Speak the response
         final_result_text = singleton.text_to_speech_manager.process_text_stream(response_stream)
-        print(final_result_text)
+        #print(final_result_text)
 
         singleton.video_player.display_image(image_path)
         # add the new question and answer to the list of previous questions and answers
