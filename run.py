@@ -12,7 +12,7 @@ t.start(0)
 
 
 # Move the servo back and forth
-p.ChangeDutyCycle(8.5)
+p.ChangeDutyCycle(8.9)
 sleep(1)                 # Wait 1 second
-t.ChangeDutyCycle(11.4)
+t.ChangeDutyCycle(11.3)
 sleep(1)
