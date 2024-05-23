@@ -143,8 +143,8 @@ class TextToSpeechManager:
                 dialogue = self.process_dialogue(temp)
                 sentences.append(dialogue)
                 # Process text
-                #self.speak_text(dialogue)
-                print(dialogue)
+                self.speak_text(dialogue)
+                #print(dialogue)
                 temp = ""
         
         # Make result
