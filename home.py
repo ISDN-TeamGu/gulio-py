@@ -290,10 +290,10 @@ def start_rendering():
 #     # new_question = singleton.speech_to_text_manager.detect_speech()
 #     # print("You said: ", new_question)
 def get_font(size): # Returns Press-Start-2P in the desired size
-    return pygame.font.Font("assets/font.ttf", size)
+    return pygame.font.Font("assets/font1.ttf", size)
 
 def get_font2(size): # Returns Press-Start-2P in the desired size
-    return pygame.font.Font("assets/font2.otf", size)
+    return pygame.font.Font("assets/font1.ttf", size)
 
 def play():
     while True:
