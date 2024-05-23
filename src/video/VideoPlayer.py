@@ -38,6 +38,10 @@ class VideoPlayer:
 
         # Update pygame display
         pygame.display.flip()
+    def update_reponse(self):
+        resposne = "continue"
+    def reset_response(self):
+        response = ""
     def play(self, videoPath, loop=True):
         try:
             # Load the video from the specified path
