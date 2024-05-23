@@ -5,8 +5,8 @@ GPIO.setmode(GPIO.BCM) # Sets the pin numbering system to use the physical layou
 # Set up  PWM
 GPIO.setup(19,GPIO.OUT)  
 GPIO.setup(26,GPIO.OUT) 
-p = GPIO.PWM(19, 50)  
-t = GPIO.PWM(26, 50)   
+t = GPIO.PWM(19, 50)  
+p = GPIO.PWM(26, 50)   
 p.start(0) 
 t.start(0)             
 
@@ -14,5 +14,5 @@ t.start(0)
 # Move the servo back and forth
 p.ChangeDutyCycle(8.5)
 sleep(1)                 # Wait 1 second
-t.ChangeDutyCycle(12)
+t.ChangeDutyCycle(11.4)
 sleep(1)
