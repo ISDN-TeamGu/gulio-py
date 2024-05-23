@@ -195,7 +195,7 @@ class TextToSpeechManager:
                     self.current_speech_attribute["gender"] = substrings[1]
                     self.current_speech_attribute["age"] = substrings[2]
                     self.current_speech_attribute["emotion"] = substrings[3]
-                    dialogue = substrings[1]+substring[2]+substring[3]
+                    dialogue = f"{substrings[1]} {substrings[2]} {substrings[3]}"
                 else:
                      self.current_speech_attribute["gender"] = substrings[1]
                      try:
