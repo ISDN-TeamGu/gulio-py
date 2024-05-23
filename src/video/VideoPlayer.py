@@ -5,7 +5,8 @@ import RPi.GPIO as GPIO  # Imports the standard Raspberry Pi GPIO library
 from time import sleep   # Imports sleep (aka wait or pause) into the program
 GPIO.setmode(GPIO.BCM) # Sets the pin numbering system to use the physical layout
 import src.singleton as singleton
-
+from button import *
+BG = pygame.image.load("assets/Background.jpg")
 response = "" 
 class VideoPlayer:
     def __init__(self):
