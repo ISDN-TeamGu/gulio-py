@@ -365,7 +365,7 @@ def main_menu():
 
         MENU_MOUSE_POS = pygame.mouse.get_pos()
 
-        MENU_TEXT = get_font2(100).render("MAIN MENU", True, "#FFFFFF")
+        MENU_TEXT = get_font2(100).render("MAIN MENU", True, "#000000")
         MENU_RECT = MENU_TEXT.get_rect(center=(640, 100))
 
         PLAY_BUTTON = Button(image=pygame.image.load("assets/Play Rect.png"), pos=(640, 250), 
