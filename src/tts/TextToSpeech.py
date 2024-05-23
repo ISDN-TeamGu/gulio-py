@@ -193,7 +193,7 @@ class TextToSpeechManager:
             if load_attribute:
                 print(substrings)
                 self.current_speech_attribute["name"] = substrings[0]
-                if (self.current_speech_attribute["name"]=="options1"  or self.current_speech_attribute["name"]=="options1"):
+                if (self.current_speech_attribute["name"]=="options1"  or self.current_speech_attribute["name"]=="options2"):
                    
                     dialogue = substrings[1]
                 else:
