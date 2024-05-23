@@ -127,7 +127,6 @@ IMPORTANT REMINDER:
 • Always give the options line before asking for my response, never end your response without the options line 
 • Here is an example: [options1]["Go find Dumbledore for advices"];
 [options2]["Meet up with Ron and Hermione"];
-• DO NOT do something like this: [Dumbledore][Male][100][default] "Harry you have a few choices, go find ron and hermione, search for clues alone";
 • options should not be given by characters in the story
 • Here is one example for you output: 
   [Dumbledore][Male][100][default] "Hello, Harry. I am Dumbledore. How are you today?";
