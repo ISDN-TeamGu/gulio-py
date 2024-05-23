@@ -24,7 +24,12 @@ class VideoPlayer:
         # Setup singleton
         singleton.video_player = self
         
+    def get_font(size): # Returns Press-Start-2P in the desired size
+        return pygame.font.Font("assets/font.ttf", size)
 
+    def get_font2(size): # Returns Press-Start-2P in the desired size
+        return pygame.font.Font("assets/font2.otf", size)
+        
     def draw(self):
         pygame.event.pump() #MUST KEEP THIS TO PREVENT FREEZING
         if self.video is None:
