@@ -202,10 +202,13 @@ def main_process():
         else:
             print("Detecting your input:")
             new_question = ""
-            while response == "":
-                # Wait for the response to be updated
-                pass
-            new_question = response
+            if (option == True):
+                while response == "":
+                    # Wait for the response to be updated
+                    pass
+                new_question = response
+            else: 
+                new_question = "Continue"
             
             print("You said: ", new_question)
         # STEP 2: Get response from GPT
