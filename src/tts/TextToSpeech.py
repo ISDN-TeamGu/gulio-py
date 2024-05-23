@@ -61,7 +61,7 @@ class SpeakTask:
     def preload(self, semaphore: threading.Semaphore):
         semaphore.acquire()
         print("Start preloading audio: ", self.dialogue)
-        if self.speech_attribute["name"] == "options1":
+        if self.speech_attribute["name"] == "options":
             option = True
             self.audio_stream = asyncio.run(preload_playht(user="Wip26iViI4fvUgFHjj9oaIFQjWA2",key=os.getenv("PLAYHT_API_KEY"),text=["Harry, how will you act? Here are your choices"+""+self.dialogue],quality="faster",interactive=False,use_async=True,voice="s3://mockingbird-prod/abigail_vo_6661b91f-4012-44e3-ad12-589fbdee9948/voices/speaker/manifest.json"))
             singleton.video_player.home("option1","option2")
@@ -194,7 +194,7 @@ class TextToSpeechManager:
             if load_attribute:
                 print(substrings)
                 self.current_speech_attribute["name"] = substrings[0]
-                if (self.current_speech_attribute["name"]=="options1"  or self.current_speech_attribute["name"]=="options2"):
+                if (self.current_speech_attribute["name"]=="options"):
                     option = True 
                     dialogue = substrings[1]
                 else:
