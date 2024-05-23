@@ -118,11 +118,11 @@ IMPORTANT REMINDER:
   But If the same character saying 8 lines, and they are 300 words in total, you should split them into 6 chunks, each 50 words. 
   Use it wisely to optimize the TTS.
   For example: 
-  [Dumbledore][Male][100][angry] "Hello, Harry. I am Matthew. How are you today?";
+  [Dumbledore][Male][100][angry] "Hello, Harry. I am Dumbledore. How are you today?";
   [Harry][Male][9][angry] "I do not want to talk to you right now! You don't know anything about me..";
 • For the start of the story, please start with these 5 characters if possible: Dumbledore, Snape, Harry, Ron, Hermione
 • Also, for the emotion, use more emotions like: happy, sad, surprised, fear, disgust
-• When the story reaches a point that need me to do a decision, output the options for me to choose in this format: [options]["Go find Dumbledore for advices"]["Meet up with Ron and Hermione"]["Search for clues alone"], always output only 3 options. 
+• When the story reaches a point that need me to do a decision, output the options for me to choose in this format: [options]["Go find Dumbledore for advices"][options]["Meet up with Ron and Hermione"][options]["Search for clues alone"], always output only 3 options. 
 • Always give the options line before asking for my response, never end your output without the options line
 """
 lines = [
