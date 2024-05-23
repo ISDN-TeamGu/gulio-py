@@ -6,6 +6,7 @@ from time import sleep   # Imports sleep (aka wait or pause) into the program
 GPIO.setmode(GPIO.BCM) # Sets the pin numbering system to use the physical layout
 import src.singleton as singleton
 
+response = "" 
 class VideoPlayer:
     def __init__(self):
         info = pygame.display.Info()
@@ -45,76 +46,36 @@ class VideoPlayer:
     def stop(self):
         self.video.release()
     
-    def home(self):
-        button_width = 200
-        button_height = 50
-        button_color = (0, 255, 0)
-        button_hover_color = (0, 200, 0)
+    def home(self, line1, line2):
+        while True:
+        SCREEN.blit(BG, (0, 0))
 
-        # Create the first button
-        button1_x = (1200 / 2) - (button_width / 2)
-        button1_y = (1000 / 2) - (button_height / 2) - 50
-        button1_rect = pygame.Rect(button1_x, button1_y, button_width, button_height)
-        button1_text = "Button 1"
-        button1_font = pygame.font.Font(None, 36)
-        button1_surface = button1_font.render(button1_text, True, (255, 255, 255))
-        button1_hover = False
+        MENU_MOUSE_POS = pygame.mouse.get_pos()
 
-        # Create the second button
-        button2_x = (1200 / 2) - (button_width / 2)
-        button2_y = (1000 / 2) - (button_height / 2) + 50
-        button2_rect = pygame.Rect(button2_x, button2_y, button_width, button_height)
-        button2_text = "Button 2"
-        button2_font = pygame.font.Font(None, 36)
-        button2_surface = button2_font.render(button2_text, True, (255, 255, 255))
-        button2_hover = False
-        try:
-            self.window.fill((255, 255, 255))
-            # Set the button dimensions and colors
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    running = False
-                elif event.type == pygame.MOUSEMOTION:
-                    mouse_pos = event.pos
-                    if button1_rect.collidepoint(mouse_pos):
-                        button1_hover = True
-                    else:
-                        button1_hover = False
-                    if button2_rect.collidepoint(mouse_pos):
-                        button2_hover = True
-                    else:
-                        button2_hover = False
-                elif event.type == pygame.MOUSEBUTTONDOWN:
-                    mouse_pos = event.pos
-                    if button1_rect.collidepoint(mouse_pos):
-                        print("Button 1 clicked!")
-                    elif button2_rect.collidepoint(mouse_pos):
-                        print("Button 2 clicked!")
+        
 
-        # Draw the buttons
-            if button1_hover:
-                pygame.draw.rect(screen, button_hover_color, button1_rect)
-            else:
-                pygame.draw.rect(screen, button_color, button1_rect)
-            screen.blit(button1_surface, (button1_x + 10, button1_y + 10))
+        PLAY_BUTTON = Button(image=pygame.image.load("assets/Play Rect.png"), pos=(640, 250), 
+                            text_input=line1, font=get_font2(130), base_color="#d7fcd4", hovering_color="White")
+        OPTIONS_BUTTON = Button(image=pygame.image.load("assets/Options Rect.png"), pos=(640, 550), 
+                            text_input=line2, font=get_font2(130), base_color="#d7fcd4", hovering_color="White")
+        
 
-            if button2_hover:
-                pygame.draw.rect(screen, button_hover_color, button2_rect)
-            else:
-                pygame.draw.rect(screen, button_color, button2_rect)
-            screen.blit(button2_surface, (button2_x + 10, button2_y + 10))
 
-            # Update the screen
-            pygame.display.flip()
-
-        # Quit Pygame
-            pygame.quit()
-   
-        except:
-            print("Error occurred while displaying home screen")
-            # Quit Pygame
-            pygame.quit()
-
+        for button in [PLAY_BUTTON, OPTIONS_BUTTON]:
+            button.changeColor(MENU_MOUSE_POS)
+            button.update(SCREEN)
+        
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BUTTON.checkForInput(MENU_MOUSE_POS):
+                    response = line1
+                if OPTIONS_BUTTON.checkForInput(MENU_MOUSE_POS):
+                    response = line2 
+                
+        pygame.display.update()
     def display_image(self, image_path):
     # Initialize Pygame
         try:
