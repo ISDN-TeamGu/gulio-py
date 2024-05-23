@@ -6,7 +6,7 @@ import signal
 load_dotenv(".env")  # take environment variables from .env.
 import pygame
 import os
-from src.video.VideoPlayer import VideoPlayer
+from src.video.VideoPlayer import *
 from src.command.CommandProcessor import CommandProcessor
 from multiprocessing import Process
 import asyncio
