@@ -146,8 +146,8 @@ class VideoPlayer:
 
     def stop_motors(self):
         try:
-            GPIO.output(23, GPIO.LOW)  # Set the GPIO pin 23 to LOW
-            GPIO.output(24, GPIO.LOW)  # Set the GPIO pin 24 to LOW
+            GPIO.output(19, GPIO.LOW)  # Set the GPIO pin 23 to LOW
+            GPIO.output(26, GPIO.LOW)  # Set the GPIO pin 24 to LOW
             
             # Optionally, if you were using PWM, you can stop the PWM signals:
             # p.stop()
@@ -159,10 +159,10 @@ class VideoPlayer:
     def move(self, emotion):
         try:
             print("move called")
-            GPIO.setup(23,GPIO.OUT)  
-            GPIO.setup(24,GPIO.OUT) 
-            p = GPIO.PWM(23, 50)  
-            t = GPIO.PWM(24, 50)   
+            GPIO.setup(19,GPIO.OUT)  
+            GPIO.setup(26,GPIO.OUT) 
+            p = GPIO.PWM(26, 50)  
+            t = GPIO.PWM(19, 50)   
             p.start(0) 
             t.start(0)    
             # and create a borderless window that's as big as the entire screen
