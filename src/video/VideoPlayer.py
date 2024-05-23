@@ -48,7 +48,7 @@ class VideoPlayer:
     
     def home(self, line1, line2):
         while True:
-            SCREEN.blit(BG, (0, 0))
+            self.window.blit(BG, (0, 0))
     
             MENU_MOUSE_POS = pygame.mouse.get_pos()
     
@@ -63,7 +63,7 @@ class VideoPlayer:
     
             for button in [PLAY_BUTTON, OPTIONS_BUTTON]:
                 button.changeColor(MENU_MOUSE_POS)
-                button.update(SCREEN)
+                button.update(self.window)
             
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
