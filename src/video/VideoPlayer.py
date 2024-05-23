@@ -171,27 +171,27 @@ class VideoPlayer:
             if emotion == "happy":
             #happy
                 
-                t.ChangeDutyCycle(11.4)
+                t.ChangeDutyCycle(11.3)
                 sleep(0.2)
-                t.ChangeDutyCycle(11.2)
+                t.ChangeDutyCycle(11.5)
                 sleep(0.2)
-                t.ChangeDutyCycle(11.6)
+                t.ChangeDutyCycle(11.7)
                 sleep(0.1)
             if emotion == "sad":
             #sad
                 p.ChangeDutyCycle(8)
                 sleep(0.2)
-                t.ChangeDutyCycle(11.7)
+                t.ChangeDutyCycle(11.4)
                 sleep(0.3)
                 p.ChangeDutyCycle(8.5) 
                 sleep(0.1)           
-                t.ChangeDutyCycle(11.4)
+                t.ChangeDutyCycle(11.7)
                 sleep(0.1)
             if emotion == "angry":
             #angry
-                t.ChangeDutyCycle(11.7)
+                t.ChangeDutyCycle(12)
                 sleep(0.5)
-                t.ChangeDutyCycle(11.4)
+                t.ChangeDutyCycle(11.7)
                 sleep(0.1)
                 
             if emotion == "disgust":
@@ -208,7 +208,7 @@ class VideoPlayer:
             #fear
                 t.ChangeDutyCycle(11.2)
                 sleep(0.5)
-                t.ChangeDutyCycle(11.4)
+                t.ChangeDutyCycle(11.7)
                 sleep(0.1)
             #self.stop_motors()
 
