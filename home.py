@@ -210,10 +210,7 @@ def main_process():
             print("Detecting your input:")
             new_question = ""
             if (option == True):
-                while response == "":
-                    # Wait for the response to be updated
-                    pass
-                new_question = response
+                new_question = "Continue"
             else: 
                 new_question = "Continue"
             
