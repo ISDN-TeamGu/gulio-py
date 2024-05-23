@@ -34,7 +34,7 @@ FREQUENCY_PENALTY = 0
 PRESENCE_PENALTY = 0.6
 # limits how many questions we include in the prompt
 MAX_CONTEXT_QUESTIONS = 100
-
+option = False
 def listToString(s):
  
     # initialize an empty string
@@ -62,6 +62,7 @@ class SpeakTask:
         semaphore.acquire()
         print("Start preloading audio: ", self.dialogue)
         if self.speech_attribute["name"] == "options1":
+            option = True
             self.audio_stream = asyncio.run(preload_playht(user="Wip26iViI4fvUgFHjj9oaIFQjWA2",key=os.getenv("PLAYHT_API_KEY"),text=["Harry, how will you act? Here are your choices"+""+self.dialogue],quality="faster",interactive=False,use_async=True,voice="s3://mockingbird-prod/abigail_vo_6661b91f-4012-44e3-ad12-589fbdee9948/voices/speaker/manifest.json"))
             singleton.video_player.home("option1","option2")
         elif self.speech_attribute["gender"] == "Narration":
@@ -130,7 +131,7 @@ class TextToSpeechManager:
     def process_text_stream(self, stream):
         temp = ""
         sentences = []
-
+        option = False
         for chunk in stream:
             content = chunk["choices"][0].get("delta", {}).get("content") 
             if content is not None:
@@ -194,7 +195,7 @@ class TextToSpeechManager:
                 print(substrings)
                 self.current_speech_attribute["name"] = substrings[0]
                 if (self.current_speech_attribute["name"]=="options1"  or self.current_speech_attribute["name"]=="options2"):
-                   
+                    option = True 
                     dialogue = substrings[1]
                 else:
                      self.current_speech_attribute["gender"] = substrings[1]
