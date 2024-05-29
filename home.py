@@ -329,7 +329,7 @@ def options():
     
     while True:
         events = pygame.event.get()
-    
+        SCREEN.blit(logo, (640, 100))
      
 
         OPTIONS_MOUSE_POS = pygame.mouse.get_pos()
