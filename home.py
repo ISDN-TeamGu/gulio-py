@@ -385,10 +385,10 @@ def main_menu():
         SCREEN.fill("white")
         MENU_MOUSE_POS = pygame.mouse.get_pos()
 
-        LOGO_BUTTON = Button(image=logo, pos=(640, 250), 
+        LOGO_BUTTON = Button(image=logo, pos=(640, 150), 
                             text_input="    ", font=get_font2(130), base_color="#d7fcd4", hovering_color="White")
 
-        PLAY_BUTTON = Button(image=pygame.image.load("assets/Play Rect.png"), pos=(640, 250), 
+        PLAY_BUTTON = Button(image=pygame.image.load("assets/Play Rect.png"), pos=(640, 300), 
                             text_input="    ", font=get_font2(130), base_color="#d7fcd4", hovering_color="White")
         OPTIONS_BUTTON = Button(image=pygame.image.load("assets/Options Rect.png"), pos=(640, 550), 
                             text_input="OPTIONS", font=get_font2(130), base_color="#d7fcd4", hovering_color="White")
