@@ -28,7 +28,8 @@ pygame.init()
 SCREEN = pygame.display.set_mode((1280, 720))
 pygame.display.set_caption("Menu")
 BG = pygame.image.load("assets/Background.jpg")
-
+logo = pygame.image.load("assets/logo.png")
+options_text = pygame.image.load("assets/options.png")
 image_path = "resources/videos/emojis/1.jpg"
 image = ImageDisplaySingleton.get_instance()
 # SETUP SINGLETONS
@@ -333,8 +334,7 @@ def options():
      
 
         OPTIONS_MOUSE_POS = pygame.mouse.get_pos()
-        OPTIONS_TEXT = get_font2(100).render("SETTINGS", True, "Black")
-        OPTIONS_RECT = OPTIONS_TEXT.get_rect(center=(640, 80))
+        SCREEN.blit(options_text, (0, 0))
         TEXT1 = get_font(70).render("Story Duration", True, "Black")
         RECT1 = TEXT1.get_rect(center=(640, 250))
         TEXT2 = get_font(30).render("Story Mode", True, "Black")
@@ -383,21 +383,19 @@ def options():
 
 def main_menu():
     while True:
-        SCREEN.blit(BG, (0, 0))
-
+        SCREEN.blit(logo, (640, 100))
+        SCREEN.fill("white")
         MENU_MOUSE_POS = pygame.mouse.get_pos()
 
-        MENU_TEXT = get_font2(100).render("MAIN MENU", True, "#000000")
-        MENU_RECT = MENU_TEXT.get_rect(center=(640, 100))
+        
 
         PLAY_BUTTON = Button(image=pygame.image.load("assets/Play Rect.png"), pos=(640, 250), 
-                            text_input="PLAY", font=get_font2(130), base_color="#d7fcd4", hovering_color="White")
+                            text_input="    ", font=get_font2(130), base_color="#d7fcd4", hovering_color="White")
         OPTIONS_BUTTON = Button(image=pygame.image.load("assets/Options Rect.png"), pos=(640, 550), 
                             text_input="OPTIONS", font=get_font2(130), base_color="#d7fcd4", hovering_color="White")
         QUIT_BUTTON = Button(image=pygame.image.load("assets/Quit Rect.png"), pos=(640, 850), 
                             text_input="QUIT", font=get_font2(130), base_color="#d7fcd4", hovering_color="White")
 
-        SCREEN.blit(MENU_TEXT, MENU_RECT)
 
         for button in [PLAY_BUTTON, OPTIONS_BUTTON, QUIT_BUTTON]:
             button.changeColor(MENU_MOUSE_POS)
