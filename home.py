@@ -317,9 +317,9 @@ def play():
         
 OPTIONS_BACK = Button(image=None, pos=(640, 1000), 
                     text_input="OK", font=get_font(75), base_color="Black", hovering_color="Green")
-STORY_BUTTON = Button(image=pygame.image.load("assets/icon1A.png"), pos=(850, 800), 
+STORY_BUTTON = Button(image=pygame.image.load("assets/icon1A.png"), pos=(850, 700), 
                             text_input="", font=get_font2(100), base_color="#d7fcd4", hovering_color="White")
-ROLEPLAY_BUTTON = Button(image=pygame.image.load("assets/icon2.png"), pos=(400, 800), 
+ROLEPLAY_BUTTON = Button(image=pygame.image.load("assets/icon2.png"), pos=(400, 700), 
                             text_input="", font=get_font2(100), base_color="#d7fcd4", hovering_color="White")
 slider = Slider(SCREEN, 200, 300, 800, 40, min=15, max=60, step=1)
 def options():
@@ -331,7 +331,7 @@ def options():
         events = pygame.event.get()     
         SCREEN.fill("white")
         OPTIONS_MOUSE_POS = pygame.mouse.get_pos()
-        SCREEN.blit(options_text, (640, 200))
+        SCREEN.blit(options_text, (500, 100))
         TEXT1 = get_font(70).render("Story Duration", True, "Black")
         RECT1 = TEXT1.get_rect(center=(640, 250))
         TEXT2 = get_font(30).render("Story Mode", True, "Black")
