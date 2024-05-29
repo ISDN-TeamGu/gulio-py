@@ -329,7 +329,6 @@ def options():
     
     while True:
         events = pygame.event.get()
-        SCREEN.blit(#000000, (0, 0))
     
      
 
