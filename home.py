@@ -202,7 +202,7 @@ def main_process():
             #new_question = singleton.speech_to_text_manager.detect_speech()
             #singleton.video_player.home()
 
-            singleton.video_player.display_image(image_path)
+            singleton.video_player.play(image_path)
             #singleton.video_player.start()
 
             new_question = "Start"
