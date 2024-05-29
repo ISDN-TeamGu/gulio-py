@@ -30,7 +30,7 @@ pygame.display.set_caption("Menu")
 BG = pygame.image.load("assets/Background.jpg")
 logo = pygame.image.load("assets/logo.png")
 options_text = pygame.image.load("assets/options.png")
-image_path = "assets/loading.gif"
+image_path = "assets/loading.mp4"
 image = ImageDisplaySingleton.get_instance()
 # SETUP SINGLETONS
 command_processor = CommandProcessor()
