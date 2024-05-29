@@ -223,7 +223,6 @@ def main_process():
         final_result_text = singleton.text_to_speech_manager.process_text_stream(response_stream)
         #print(final_result_text)
 
-        singleton.video_player.play(image_path)
         # add the new question and answer to the list of previous questions and answers
         previous_questions_and_answers.append((new_question, final_result_text))
 
@@ -282,7 +281,6 @@ def signal_handler(sig, frame):
 signal.signal(signal.SIGINT, signal_handler)
 
 def start_rendering():
-    singleton.video_player.play(image_path)
     while running:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
