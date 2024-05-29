@@ -13,7 +13,7 @@ import asyncio
 import threading
 import src.singleton as singleton
 from src.tts.TextToSpeech import *
-#from src.stt.SpeechToText import *
+from src.stt.SpeechToText import *
 from src.gpt.ChatGPT import *
 from src.video.ImageDisplaySingleton import *
 import pygame_widgets
@@ -36,7 +36,7 @@ image = ImageDisplaySingleton.get_instance()
 command_processor = CommandProcessor()
 video_player = VideoPlayer()
 text_to_speech_manager = TextToSpeechManager()
-#speech_to_text_manager = SpeechToTextManager()
+speech_to_text_manager = SpeechToTextManager()
 chat_gpt_manager = ChatGPTManager()
 story_mode = False
 roleplay_mode = True 
