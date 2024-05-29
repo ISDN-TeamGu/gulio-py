@@ -42,17 +42,20 @@ class VideoPlayer:
         resposne = "continue"
     def reset_response(self):
         response = ""
-    def play(self, videoPath, loop=True):
-        try:
-            # Load the video from the specified path
-            self.video = Video(videoPath)
-
-            # Start the video
-            self.video.play(loop)
-
-            print("playing video: ", self.video.frame_width)
-        except:
-            print("Error playing video: ", videoPath)
+    def play(self, videoPath):
+        for i in range(3):
+            self.display_image(assets/img1)
+            sleep(0.5)
+            self.display_image(assets/img2)
+            sleep(0.5)
+            self.display_image(assets/img3)
+            sleep(0.5)
+            self.display_image(assets/img4)
+            sleep(0.5)
+            self.display_image(assets/img5)
+            sleep(0.5)
+            self.display_image(assets/img6)
+            sleep(0.5)
     def stop(self):
         self.video.release()
     
