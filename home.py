@@ -321,7 +321,7 @@ STORY_BUTTON = Button(image=pygame.image.load("assets/icon1A.png"), pos=(850, 70
                             text_input="", font=get_font2(100), base_color="#d7fcd4", hovering_color="White")
 ROLEPLAY_BUTTON = Button(image=pygame.image.load("assets/icon2.png"), pos=(400, 700), 
                             text_input="", font=get_font2(100), base_color="#d7fcd4", hovering_color="White")
-slider = Slider(SCREEN, 150, 300, 800, 40, min=15, max=60, step=1)
+slider = Slider(SCREEN, 200, 300, 500, 40, min=15, max=60, step=1)
 def options():
     
     output = slider.getValue()
