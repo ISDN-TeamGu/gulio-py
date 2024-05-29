@@ -344,7 +344,6 @@ def options():
         SCREEN.blit(TEXT1, RECT1)
         SCREEN.blit(TEXT2, RECT2)
         SCREEN.blit(TEXT3, RECT3)
-        SCREEN.blit(OPTIONS_TEXT, OPTIONS_RECT)
         
         for button in [ROLEPLAY_BUTTON, STORY_BUTTON]:
             button.changeColor(OPTIONS_MOUSE_POS)
