@@ -388,11 +388,11 @@ def main_menu():
         LOGO_BUTTON = Button(image=logo, pos=(640, 150), 
                             text_input="    ", font=get_font2(130), base_color="#d7fcd4", hovering_color="White")
 
-        PLAY_BUTTON = Button(image=pygame.image.load("assets/Play Rect.png"), pos=(640, 300), 
+        PLAY_BUTTON = Button(image=pygame.image.load("assets/Play Rect.png"), pos=(640, 350), 
                             text_input="    ", font=get_font2(130), base_color="#d7fcd4", hovering_color="White")
-        OPTIONS_BUTTON = Button(image=pygame.image.load("assets/Options Rect.png"), pos=(640, 550), 
+        OPTIONS_BUTTON = Button(image=pygame.image.load("assets/Options Rect.png"), pos=(640, 650), 
                             text_input="OPTIONS", font=get_font2(130), base_color="#d7fcd4", hovering_color="White")
-        QUIT_BUTTON = Button(image=pygame.image.load("assets/Quit Rect.png"), pos=(640, 850), 
+        QUIT_BUTTON = Button(image=pygame.image.load("assets/Quit Rect.png"), pos=(640, 950), 
                             text_input="QUIT", font=get_font2(130), base_color="#d7fcd4", hovering_color="White")
 
 
