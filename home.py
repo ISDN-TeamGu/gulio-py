@@ -328,9 +328,8 @@ def options():
     output.disable()  # Act as label instead of textbox
     
     while True:
-        events = pygame.event.get()
-        SCREEN.blit(logo, (640, 100))
-     
+        events = pygame.event.get()     
+        SCREEN.blit(BG, (0, 0))
 
         OPTIONS_MOUSE_POS = pygame.mouse.get_pos()
         SCREEN.blit(options_text, (0, 0))
