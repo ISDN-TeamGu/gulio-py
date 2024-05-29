@@ -385,7 +385,8 @@ def main_menu():
         SCREEN.fill("white")
         MENU_MOUSE_POS = pygame.mouse.get_pos()
 
-        
+        LOGO_BUTTON = Button(image=logo, pos=(640, 250), 
+                            text_input="    ", font=get_font2(130), base_color="#d7fcd4", hovering_color="White")
 
         PLAY_BUTTON = Button(image=pygame.image.load("assets/Play Rect.png"), pos=(640, 250), 
                             text_input="    ", font=get_font2(130), base_color="#d7fcd4", hovering_color="White")
@@ -395,7 +396,7 @@ def main_menu():
                             text_input="QUIT", font=get_font2(130), base_color="#d7fcd4", hovering_color="White")
 
 
-        for button in [PLAY_BUTTON, OPTIONS_BUTTON, QUIT_BUTTON]:
+        for button in [PLAY_BUTTON, OPTIONS_BUTTON, QUIT_BUTTON,LOGO_BUTTON]:
             button.changeColor(MENU_MOUSE_POS)
             button.update(SCREEN)
         
