@@ -329,8 +329,7 @@ def options():
     
     while True:
         events = pygame.event.get()     
-        SCREEN.blit(BG, (0, 0))
-
+        SCREEN.fill("white")
         OPTIONS_MOUSE_POS = pygame.mouse.get_pos()
         SCREEN.blit(options_text, (0, 0))
         TEXT1 = get_font(70).render("Story Duration", True, "Black")
