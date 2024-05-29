@@ -44,17 +44,17 @@ class VideoPlayer:
         response = ""
     def play(self, videoPath):
         for i in range(3):
-            self.display_image("assets/img1")
+            self.display_image("assets/img1.png")
             sleep(0.5)
-            self.display_image("assets/img2")
+            self.display_image("assets/img2.png")
             sleep(0.5)
-            self.display_image("assets/img3")
+            self.display_image("assets/img3.png")
             sleep(0.5)
-            self.display_image("assets/img4")
+            self.display_image("assets/img4.png")
             sleep(0.5)
-            self.display_image("assets/img5")
+            self.display_image("assets/img5.png")
             sleep(0.5)
-            self.display_image("assets/img6")
+            self.display_image("assets/img6.png")
             sleep(0.5)
     def stop(self):
         self.video.release()
