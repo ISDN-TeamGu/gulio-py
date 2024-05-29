@@ -321,17 +321,16 @@ STORY_BUTTON = Button(image=pygame.image.load("assets/icon1A.png"), pos=(850, 70
                             text_input="", font=get_font2(100), base_color="#d7fcd4", hovering_color="White")
 ROLEPLAY_BUTTON = Button(image=pygame.image.load("assets/icon2.png"), pos=(400, 700), 
                             text_input="", font=get_font2(100), base_color="#d7fcd4", hovering_color="White")
-slider = Slider(SCREEN, 200, 300, 800, 40, min=15, max=60, step=1)
+slider = Slider(SCREEN, 150, 300, 800, 40, min=15, max=60, step=1)
 def options():
     
-    output = TextBox(SCREEN, 580, 370, 50, 50, fontSize=30)
-    output.disable()  # Act as label instead of textbox
+    output = slider.getValue()
     
     while True:
         events = pygame.event.get()     
         SCREEN.fill("white")
         OPTIONS_MOUSE_POS = pygame.mouse.get_pos()
-        SCREEN.blit(options_text, (500, 100))
+        SCREEN.blit(options_text, (400, 100))
         TEXT1 = get_font(70).render("Story Duration", True, "Black")
         RECT1 = TEXT1.get_rect(center=(640, 250))
         TEXT2 = get_font(30).render("Story Mode", True, "Black")
@@ -348,7 +347,6 @@ def options():
             button.update(SCREEN)
         OPTIONS_BACK.changeColor(OPTIONS_MOUSE_POS)
         OPTIONS_BACK.update(SCREEN)
-        output.setText(slider.getValue())
         pygame_widgets.update(events)
         pygame.display.update()
         
@@ -386,11 +384,11 @@ def main_menu():
         LOGO_BUTTON = Button(image=logo, pos=(640, 150), 
                             text_input="    ", font=get_font2(130), base_color="#d7fcd4", hovering_color="White")
 
-        PLAY_BUTTON = Button(image=pygame.image.load("assets/Play Rect.png"), pos=(640, 350), 
+        PLAY_BUTTON = Button(image=pygame.image.load("assets/Play Rect.png"), pos=(640, 450), 
                             text_input="    ", font=get_font2(130), base_color="#d7fcd4", hovering_color="White")
         OPTIONS_BUTTON = Button(image=pygame.image.load("assets/Options rect.png"), pos=(640, 650), 
                             text_input="    ", font=get_font2(130), base_color="#d7fcd4", hovering_color="White")
-        QUIT_BUTTON = Button(image=pygame.image.load("assets/Quit Rect.png"), pos=(640, 950), 
+        QUIT_BUTTON = Button(image=pygame.image.load("assets/Quit Rect.png"), pos=(640, 850), 
                             text_input="    ", font=get_font2(130), base_color="#d7fcd4", hovering_color="White")
 
 
