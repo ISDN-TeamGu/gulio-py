@@ -2,6 +2,8 @@ import src.singleton as singleton
 from src.video.VideoPlayer import *
 from src.video.ImageDisplaySingleton import *
 from src.motor.servoc import *
+from playsound import playsound
+
 import sys
 class CommandProcessor:
     def __init__(self):
@@ -30,6 +32,9 @@ class CommandProcessor:
         else:
             song_name = arguments[0]
             print("Playing music:", song_name)
+
+    def playsft(self, audio):
+        playsound(audio)
     def play_emoji(self, name, emotion):
 
         # Handle the playMusic command with its arguments
