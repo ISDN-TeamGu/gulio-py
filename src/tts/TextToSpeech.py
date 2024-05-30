@@ -170,11 +170,10 @@ class TextToSpeechManager:
             if(";" in temp or "!" in temp or "?" in temp or "\n" in temp):
                 # print("sentence: ", temp)
                 # If the text detected flag like [Narration] or [Character name], update current attribute
-                dialogue1,dialogue2 = self.getoption(temp)
+                dialogue1 = self.getoption(temp)
                 
-        self.speak_text(dialogue1)
-        # Make result
-        return dialogue1, dialogue2 
+
+        return dialogue1
       
 
    
@@ -264,16 +263,16 @@ class TextToSpeechManager:
                  print(substrings)
                  self.current_speech_attribute["name"] = substrings[0]
                  if (self.current_speech_attribute["name"]=="Option"):
-                     if (option1 == ""):
-                      option1 = substring[1]
-                     else:
-                      option2 = substring[1]
-                     return option1,option2
+                     
+                     option1 = substring[1]
+                     
+           
+                     return option1
                  else:
-                     return "continue","continue"
+                     return "continue"
      except Exception as e:
       print("Error in parsing the output option", e)
-     return option1,option2
+     return option1
     # Add the speak task according to text
     def speak_text(self, text):
         # print("speak_text: ", text)
