@@ -268,6 +268,7 @@ class TextToSpeechManager:
                       option1 = substring[1]
                      else:
                       option2 = substring[1]
+                     return option1,option2
                  else:
                      return "continue","continue"
      except Exception as e:
