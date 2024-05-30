@@ -156,7 +156,23 @@ class TextToSpeechManager:
      
         self.speak_text(dialogue)
                 
-    
+    def process_option_stream(self, stream):
+        temp = ""
+        sentences = []
+        option = False
+        for chunk in stream:
+            content = chunk["choices"][0].get("delta", {}).get("content") 
+            if content is not None:
+                temp += content
+            # when detected full stop, question mark, exclamation mark, comma or new line, process the text
+            if(";" in temp or "!" in temp or "?" in temp or "\n" in temp):
+                # print("sentence: ", temp)
+                # If the text detected flag like [Narration] or [Character name], update current attribute
+                dialogue1,dialoue2 = self.process_option(temp)
+                
+        
+        # Make result
+        return dialogue1, dialogue2 
       
 
    
@@ -214,7 +230,46 @@ class TextToSpeechManager:
         except Exception as e:
             print("Error in parsing the output", e)
         return ""
-
+    def getoption(self, line):
+     try:
+             
+             substrings = ["Narrator", "Narration", "35", "blinking", "", "" ,"" ,""]
+             load_attribute = False
+             in_brackets = False
+             current_substring = ""
+             dialogue = ""
+             
+             argIndex = 0
+             for c in line:
+                 if c == "[":
+                     in_brackets = True
+                     load_attribute = True
+                 elif c == "]" and in_brackets:
+                     substrings[argIndex] = current_substring
+                     argIndex += 1
+                     current_substring = ""
+                     in_brackets = False
+                 elif in_brackets:
+                     current_substring += c
+                 elif in_brackets == False:
+                     dialogue += c
+             if current_substring:
+                 substrings[argIndex] = current_substring
+                 argIndex += 1
+             
+             # Load the attributes
+             if load_attribute:
+                 print(substrings)
+                 self.current_speech_attribute["name"] = substrings[0]
+                 if (self.current_speech_attribute["name"]=="Option"):
+                     self.current_speech_attribute["gender"] = substrings[1]
+                     self.current_speech_attribute["age"] = substrings[2]
+                     option1 = substring[1]
+                     option2 = substring[2]
+                     self.current_speech_attribute["emotion"] = "temp"
+                     return option1, option2
+                 else:
+                     return "continue","continue"
     # Add the speak task according to text
     def speak_text(self, text):
         # print("speak_text: ", text)
