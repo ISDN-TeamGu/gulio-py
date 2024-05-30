@@ -245,9 +245,7 @@ def setquestion():
         for button in [ROLEPLAY_BUTTON, STORY_BUTTON]:
             button.changeColor(OPTIONS_MOUSE_POS)
             button.update(SCREEN)
-        OPTIONS_BACK.changeColor(OPTIONS_MOUSE_POS)
-        OPTIONS_BACK.update(SCREEN)
-        pygame_widgets.update(events)
+        
         pygame.display.update()
         
         for event in pygame.event.get():
@@ -255,9 +253,7 @@ def setquestion():
                 pygame.quit()
                 sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
-                if OPTIONS_BACK.checkForInput(OPTIONS_MOUSE_POS):
-                        
-                    main_menu()
+                
                 if STORY_BUTTON.checkForInput(OPTIONS_MOUSE_POS):
                     STORY_BUTTON.changeImage(OPTIONS_MOUSE_POS,pygame.image.load("assets/icon1A.png"),SCREEN)
                     ROLEPLAY_BUTTON.changeImage(OPTIONS_MOUSE_POS,pygame.image.load("assets/icon2.png"),SCREEN)
