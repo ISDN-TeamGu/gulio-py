@@ -195,11 +195,12 @@ def main_process():
     t = threading.currentThread()
     generating_speech = False
     i = 0
+    optiontxt1 = "option1"
+    optiontxt2 = "option2"
     while True:
         # STEP 1: Listen to user input
         new_question = ""
-        optiontxt1 = "option1"
-        optiontxt2 = "option2"
+        
         print("iteration: ", i)
         if i == 0:
             print("Initializing for first time")
@@ -217,7 +218,7 @@ def main_process():
             print("Detecting your input:")
             new_question = setquestion(optiontxt1, optiontxt2)
             
-            
+            new_question = "continue"
             print("You said: ", new_question)
         # STEP 2: Get response from GPT
         response_stream = singleton.chat_gpt_manager.get_response_stream(INSTRUCTIONS, previous_questions_and_answers, new_question)
@@ -244,7 +245,7 @@ def main_process():
 def setquestion(choice1, choice2):
     question = ""
     print("set")
-
+    
     SCREEN.fill("white")
     OPTIONS_MOUSE_POS = pygame.mouse.get_pos()
     CHOICE_BUTTON = Button(image=pygame.image.load("assets/square.png"), pos=(850, 500), 
@@ -253,9 +254,7 @@ def setquestion(choice1, choice2):
                         text_input=choice2, font=get_font2(40), base_color="#d7fcd4", hovering_color="White")
     
     while True:
-        pygame.time.delay(100)
         for button in [CHOICE_BUTTON, CHOICE2_BUTTON]:
-            button.changeColor(OPTIONS_MOUSE_POS)
             button.update(SCREEN)
         
         pygame.display.update()
