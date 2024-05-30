@@ -197,6 +197,8 @@ def main_process():
     while True:
         # STEP 1: Listen to user input
         new_question = ""
+        optiontxt1 = ""
+        optiontxt2 = ""
         print("iteration: ", i)
         if i == 0:
             print("Initializing for first time")
@@ -212,7 +214,7 @@ def main_process():
 
         else:
             print("Detecting your input:")
-            new_question = setquestion()
+            new_question = setquestion(optiontxt1, optiontxt2)
             
             
             print("You said: ", new_question)
@@ -221,8 +223,9 @@ def main_process():
                 
         # STEP 3: Speak the response
         final_result_text = singleton.text_to_speech_manager.process_text_stream(response_stream)
-        optiontxt = singleton.text_to_speech_manager.process_option_stream(response_stream)
-        print(optiontxt)
+        optiontxt1, optiontxt2 = singleton.text_to_speech_manager.process_option_stream(response_stream)
+        print(optiontxt1)
+        print(optiontxt2)
         #print(final_result_text)
 
         # add the new question and answer to the list of previous questions and answers
@@ -237,16 +240,16 @@ def main_process():
             pygame.time.wait(5000)
         i += 1 
     
-def setquestion(choice1 = "continue", choice2 = "continue"):
+def setquestion(choice1, choice2):
     question = ""
     print("set")
 
     SCREEN.fill("white")
     OPTIONS_MOUSE_POS = pygame.mouse.get_pos()
     CHOICE_BUTTON = Button(image=pygame.image.load("assets/icon1A.png"), pos=(850, 500), 
-                        text_input="", font=get_font2(100), base_color="#d7fcd4", hovering_color="White")
+                        text_input=choice1, font=get_font2(100), base_color="#d7fcd4", hovering_color="White")
     CHOICE2_BUTTON = Button(image=pygame.image.load("assets/icon2.png"), pos=(400, 500), 
-                        text_input="", font=get_font2(100), base_color="#d7fcd4", hovering_color="White")
+                        text_input=choice2, font=get_font2(100), base_color="#d7fcd4", hovering_color="White")
     
     while True:
         for button in [CHOICE_BUTTON, CHOICE2_BUTTON]:
@@ -263,11 +266,11 @@ def setquestion(choice1 = "continue", choice2 = "continue"):
                 if CHOICE_BUTTON.checkForInput(OPTIONS_MOUSE_POS):
                     CHOICE_BUTTON.changeImage(OPTIONS_MOUSE_POS,pygame.image.load("assets/icon1A.png"),SCREEN)
                     CHOICE2_BUTTON.changeImage(OPTIONS_MOUSE_POS,pygame.image.load("assets/icon2.png"),SCREEN)
-                    return "1"
+                    return choice1
                 if CHOICE2_BUTTON.checkForInput(OPTIONS_MOUSE_POS):
                     CHOICE2_BUTTON.changeImage(OPTIONS_MOUSE_POS,pygame.image.load("assets/icon2A.png"),SCREEN)
                     CHOICE_BUTTON.changeImage(OPTIONS_MOUSE_POS,pygame.image.load("assets/icon1.png"),SCREEN)
-                    return "2"
+                    return choice2
     
 main_process_thread = None
 storymode_thread = None
