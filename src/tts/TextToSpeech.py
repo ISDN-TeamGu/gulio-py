@@ -34,7 +34,7 @@ FREQUENCY_PENALTY = 0
 PRESENCE_PENALTY = 0.6
 # limits how many questions we include in the prompt
 MAX_CONTEXT_QUESTIONS = 100
-option = False
+option = ""
 def listToString(s):
  
     # initialize an empty string
@@ -131,7 +131,6 @@ class TextToSpeechManager:
     def process_text_stream(self, stream):
         temp = ""
         sentences = []
-        option = False
         for chunk in stream:
             content = chunk["choices"][0].get("delta", {}).get("content") 
             if content is not None:
@@ -181,6 +180,7 @@ class TextToSpeechManager:
         
     # Obtain the attributes like age or name from output to customize voice acting 
     def process_dialogue(self, line):
+        global option
         try:
             
             substrings = ["Narrator", "Narration", "35", "blinking", "", "" ,"" ,""]
@@ -213,7 +213,7 @@ class TextToSpeechManager:
                 self.current_speech_attribute["name"] = substrings[0]
                 if (self.current_speech_attribute["name"]=="Option"):
                     self.current_speech_attribute["gender"] = substring[1]
-                                  
+                    option = substring[1]            
                     
                 else:
                      self.current_speech_attribute["gender"] = substrings[1]
@@ -230,6 +230,9 @@ class TextToSpeechManager:
         except Exception as e:
             print("Error in parsing the output", e)
         return ""
+    def option1(self):
+     global option
+     return option
     def getoption(self, line):
      try:
              option1 = ""
