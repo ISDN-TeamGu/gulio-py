@@ -130,7 +130,7 @@ class TextToSpeechManager:
         self.playing_thread = None
         self.semaphore = threading.Semaphore(3)  # Limiting preloads to 3 at same time
 
-    def 
+   
     def process_text_stream(self, stream):
         temp = ""
         sentences = []
