@@ -217,7 +217,7 @@ def main_process():
 
         else:
             print("Detecting your input:")
-            new_question = setquestion(optiontxt1, optiontxt2)
+            
             
             new_question = "continue"
             print("You said: ", new_question)
