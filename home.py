@@ -239,16 +239,16 @@ def main_process():
     
 def setquestion(choice1 = "continue", choice2 = "continue"):
     question = ""
-    print ("set")
+    print("set")
+
+    SCREEN.fill("white")
+    OPTIONS_MOUSE_POS = pygame.mouse.get_pos()
+    CHOICE_BUTTON = Button(image=pygame.image.load("assets/icon1A.png"), pos=(850, 500), 
+                        text_input="", font=get_font2(100), base_color="#d7fcd4", hovering_color="White")
+    CHOICE2_BUTTON = Button(image=pygame.image.load("assets/icon2.png"), pos=(400, 500), 
+                        text_input="", font=get_font2(100), base_color="#d7fcd4", hovering_color="White")
+    
     while True:
-        events = pygame.event.get()     
-        SCREEN.fill("white")
-        OPTIONS_MOUSE_POS = pygame.mouse.get_pos()
-        CHOICE_BUTTON = Button(image=pygame.image.load("assets/icon1A.png"), pos=(850, 500), 
-                            text_input="", font=get_font2(100), base_color="#d7fcd4", hovering_color="White")
-        CHOICE2_BUTTON = Button(image=pygame.image.load("assets/icon2.png"), pos=(400, 500), 
-                            text_input="", font=get_font2(100), base_color="#d7fcd4", hovering_color="White")
-        
         for button in [CHOICE_BUTTON, CHOICE2_BUTTON]:
             button.changeColor(OPTIONS_MOUSE_POS)
             button.update(SCREEN)
@@ -260,17 +260,14 @@ def setquestion(choice1 = "continue", choice2 = "continue"):
                 pygame.quit()
                 sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
-                
                 if CHOICE_BUTTON.checkForInput(OPTIONS_MOUSE_POS):
                     CHOICE_BUTTON.changeImage(OPTIONS_MOUSE_POS,pygame.image.load("assets/icon1A.png"),SCREEN)
                     CHOICE2_BUTTON.changeImage(OPTIONS_MOUSE_POS,pygame.image.load("assets/icon2.png"),SCREEN)
                     return "1"
-                    pygame.display.update()
-                if CHOICE_BUTTON.checkForInput(OPTIONS_MOUSE_POS):
+                if CHOICE2_BUTTON.checkForInput(OPTIONS_MOUSE_POS):
                     CHOICE2_BUTTON.changeImage(OPTIONS_MOUSE_POS,pygame.image.load("assets/icon2A.png"),SCREEN)
                     CHOICE_BUTTON.changeImage(OPTIONS_MOUSE_POS,pygame.image.load("assets/icon1.png"),SCREEN)
                     return "2"
-                    pygame.display.update()
     
 main_process_thread = None
 storymode_thread = None
