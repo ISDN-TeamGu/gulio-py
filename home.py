@@ -210,7 +210,7 @@ def main_process():
 
         else:
             print("Detecting your input:")
-            new_question = set_question()
+            new_question = setquestion()
             
             
             print("You said: ", new_question)
@@ -447,5 +447,5 @@ def main_menu():
 
         pygame.display.update()
 
-main_menu()
+setquestion()
 # User Input Command
