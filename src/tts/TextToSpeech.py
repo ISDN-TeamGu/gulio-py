@@ -273,7 +273,7 @@ class TextToSpeechManager:
                  else:
                      return "continue","continue"
      except Exception as e:
-      print("Error in parsing the output", e)
+      print("Error in parsing the output option", e)
      return option1,option2
     # Add the speak task according to text
     def speak_text(self, text):
