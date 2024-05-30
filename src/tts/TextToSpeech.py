@@ -160,6 +160,8 @@ class TextToSpeechManager:
         temp = ""
         sentences = []
         option = False
+        dialogue1 = ""
+        dialogue2 = ""
         for chunk in stream:
             content = chunk["choices"][0].get("delta", {}).get("content") 
             if content is not None:
