@@ -245,7 +245,7 @@ def setquestion():
         CHOICE2_BUTTON = Button(image=pygame.image.load("assets/icon2.png"), pos=(400, 500), 
                             text_input="", font=get_font2(100), base_color="#d7fcd4", hovering_color="White")
         
-        for button in CHOICE_BUTTON[, CHOICE2_BUTTON]:
+        for button in [CHOICE_BUTTON, CHOICE2_BUTTON]:
             button.changeColor(OPTIONS_MOUSE_POS)
             button.update(SCREEN)
         
