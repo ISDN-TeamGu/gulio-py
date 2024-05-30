@@ -216,8 +216,8 @@ class TextToSpeechManager:
                 print(substrings)
                 self.current_speech_attribute["name"] = substrings[0]
                 if (self.current_speech_attribute["name"]=="Option"):
-                    self.current_speech_attribute["gender"] = substring[1]
-                    option = substring[1]            
+                    self.current_speech_attribute["gender"] = substrings[1]
+                    option = substrings[1]            
                     
                 else:
                      self.current_speech_attribute["gender"] = substrings[1]
@@ -226,7 +226,7 @@ class TextToSpeechManager:
                      except:
                          pass
                      self.current_speech_attribute["emotion"] = substrings[3]
-                     self.current_speech_attribute["SFX"] = substring[4]
+                     self.current_speech_attribute["SFX"] = substrings[4]
                      if self.current_speech_attribute["emotion"] != "happy" and self.current_speech_attribute["emotion"] != "default" and self.current_speech_attribute["emotion"] != "sad" and self.current_speech_attribute["emotion"] != "fear" and self.current_speech_attribute["emotion"] != "disgust" and self.current_speech_attribute["emotion"] != "surprised":
                         self.current_speech_attribute["emotion"] = "default"
                 
