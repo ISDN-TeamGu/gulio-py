@@ -219,6 +219,8 @@ def main_process():
                 
         # STEP 3: Speak the response
         final_result_text = singleton.text_to_speech_manager.process_text_stream(response_stream)
+        optiontxt = singleton.text_to_speech_manager.process_option_stream(response_stream)
+        print(optiontxt)
         #print(final_result_text)
 
         # add the new question and answer to the list of previous questions and answers
@@ -233,7 +235,7 @@ def main_process():
             pygame.time.wait(5000)
         i += 1 
     
-def setquestion():
+def setquestion(choice1 = "continue", choice2 = "continue"):
     question = ""
     print ("set")
     while True:
