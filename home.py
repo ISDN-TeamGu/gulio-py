@@ -146,13 +146,13 @@ IMPORTANT REMINDER:
   
 """
 lines = [
-  """[Snape][Male][50][default][Door]Vernon Dursley speaking. """,
+  """[Snape][Male][50][default][none]Vernon Dursley speaking. """,
   """[Narration]Harry, who happened to be in the room at the time, froze as he heard Ron's voice answer.""",
   """[Ron][Male][10][angry][none]HELLO? HELLO? CAN YOU HEAR ME? I WANT TO TALK TO HARRY POTTER!""",
   """[Narration]Ron was yelling so loudly that Uncle Vernon jumped and held the receiver a foot away from his ear, staring at it with an expression of mingled fury and alarm.""",
   """[Snape][Male][50][angry][none]WHO IS THIS?" """,
   """[Narration]he roared in the direction of the mouthpiece.""",
-  """[Snape][Male][50][angry][Door]WHO ARE YOU?""",
+  """[Snape][Male][50][angry][none]WHO ARE YOU?""",
   """[Ron][Male][10][angry][none]RON WEASLEY!""",
   """[Narration]Ron bellowed back, as though he and Uncle Vernon were speaking from opposite ends of a football field.""",
   """[Ron][Male][10][angry][none] I'M  A  FRIEND OF HARRY'S FROM SCHOOL""",
