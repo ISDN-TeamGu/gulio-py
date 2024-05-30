@@ -64,7 +64,7 @@ class SpeakTask:
         print("Start preloading audio: ", self.dialogue)
         
             
-        elif self.speech_attribute["gender"] == "Narration":
+        if self.speech_attribute["gender"] == "Narration":
             self.audio_stream = asyncio.run(preload_playht(user="Wip26iViI4fvUgFHjj9oaIFQjWA2",key=os.getenv("PLAYHT_API_KEY"),text=[self.dialogue],quality="faster",interactive=False,use_async=True,voice="s3://mockingbird-prod/abigail_vo_6661b91f-4012-44e3-ad12-589fbdee9948/voices/speaker/manifest.json"))
         elif self.speech_attribute["gender"] == "Male":
             if self.speech_attribute["name"] == "Harry":
