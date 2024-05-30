@@ -62,9 +62,7 @@ class SpeakTask:
     def preload(self, semaphore: threading.Semaphore):
         semaphore.acquire()
         print("Start preloading audio: ", self.dialogue)
-        if self.speech_attribute["SFX"] != "none":
-            if self.speech_attribute["SFX"] == "Door":
-                singleton.command_processor.playsfx("soundeffects/start.wav")
+        
             
         elif self.speech_attribute["gender"] == "Narration":
             self.audio_stream = asyncio.run(preload_playht(user="Wip26iViI4fvUgFHjj9oaIFQjWA2",key=os.getenv("PLAYHT_API_KEY"),text=[self.dialogue],quality="faster",interactive=False,use_async=True,voice="s3://mockingbird-prod/abigail_vo_6661b91f-4012-44e3-ad12-589fbdee9948/voices/speaker/manifest.json"))
@@ -99,7 +97,9 @@ class SpeakTask:
 
         print("Playing SpeakTask: ", self.dialogue, self.speech_attribute)
         singleton.command_processor.play_emoji(self.speech_attribute["name"].lower(),self.speech_attribute["emotion"].lower())
-       
+        if self.speech_attribute["SFX"] != "none":
+            if self.speech_attribute["SFX"] == "Door":
+                singleton.command_processor.playsfx("soundeffects/start.wav")
         singleton.command_processor.set_motor(self.speech_attribute["emotion"])
         if self.audio_stream is not None:
             print("audio_stream: ", self.audio_stream)
