@@ -33,7 +33,7 @@ class CommandProcessor:
             song_name = arguments[0]
             print("Playing music:", song_name)
 
-    def playsft(self, audio):
+    def playsfx(self, audio):
         playsound(audio)
     def play_emoji(self, name, emotion):
 
