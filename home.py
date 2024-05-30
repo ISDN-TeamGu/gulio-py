@@ -240,9 +240,12 @@ def setquestion():
         events = pygame.event.get()     
         SCREEN.fill("white")
         OPTIONS_MOUSE_POS = pygame.mouse.get_pos()
+        CHOICE_BUTTON = Button(image=pygame.image.load("assets/icon1A.png"), pos=(850, 500), 
+                            text_input="", font=get_font2(100), base_color="#d7fcd4", hovering_color="White")
+        CHOICE2_BUTTON = Button(image=pygame.image.load("assets/icon2.png"), pos=(400, 500), 
+                            text_input="", font=get_font2(100), base_color="#d7fcd4", hovering_color="White")
         
-        
-        for button in [ROLEPLAY_BUTTON, STORY_BUTTON]:
+        for button in CHOICE_BUTTON[, CHOICE2_BUTTON]:
             button.changeColor(OPTIONS_MOUSE_POS)
             button.update(SCREEN)
         
@@ -254,14 +257,14 @@ def setquestion():
                 sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 
-                if STORY_BUTTON.checkForInput(OPTIONS_MOUSE_POS):
-                    STORY_BUTTON.changeImage(OPTIONS_MOUSE_POS,pygame.image.load("assets/icon1A.png"),SCREEN)
-                    ROLEPLAY_BUTTON.changeImage(OPTIONS_MOUSE_POS,pygame.image.load("assets/icon2.png"),SCREEN)
+                if CHOICE_BUTTON.checkForInput(OPTIONS_MOUSE_POS):
+                    CHOICE_BUTTON.changeImage(OPTIONS_MOUSE_POS,pygame.image.load("assets/icon1A.png"),SCREEN)
+                    CHOICE2_BUTTON.changeImage(OPTIONS_MOUSE_POS,pygame.image.load("assets/icon2.png"),SCREEN)
                     return "1"
                     pygame.display.update()
-                if ROLEPLAY_BUTTON.checkForInput(OPTIONS_MOUSE_POS):
-                    ROLEPLAY_BUTTON.changeImage(OPTIONS_MOUSE_POS,pygame.image.load("assets/icon2A.png"),SCREEN)
-                    STORY_BUTTON.changeImage(OPTIONS_MOUSE_POS,pygame.image.load("assets/icon1.png"),SCREEN)
+                if CHOICE_BUTTON.checkForInput(OPTIONS_MOUSE_POS):
+                    CHOICE2_BUTTON.changeImage(OPTIONS_MOUSE_POS,pygame.image.load("assets/icon2A.png"),SCREEN)
+                    CHOICE_BUTTON.changeImage(OPTIONS_MOUSE_POS,pygame.image.load("assets/icon1.png"),SCREEN)
                     return "2"
                     pygame.display.update()
     
