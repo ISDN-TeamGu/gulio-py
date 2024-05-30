@@ -446,5 +446,5 @@ def main_menu():
 
         pygame.display.update()
 
-setquestion()
+main_menu()
 # User Input Command
