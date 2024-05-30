@@ -226,7 +226,7 @@ def main_process():
                 
         # STEP 3: Speak the response
         final_result_text = singleton.text_to_speech_manager.process_text_stream(response_stream)
-        optiontxt1 = singleton.text_to_speech_manager.process_option_stream(response_stream)
+        optiontxt1 = singleton.text_to_speech_manager.option1()
         print(optiontxt1)
         print(optiontxt2)
         #print(final_result_text)
