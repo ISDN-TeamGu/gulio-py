@@ -13,6 +13,8 @@ import time
 import threading
 import select
 import sys
+from playsound import playsound
+
 
 
 
@@ -61,10 +63,10 @@ class SpeakTask:
     def preload(self, semaphore: threading.Semaphore):
         semaphore.acquire()
         print("Start preloading audio: ", self.dialogue)
-        if self.speech_attribute["name"] == "Option":
+        if self.speech_attribute["SFX"] != "none":
+            if self.speech_attribute["SFX"] == "Door":
+                self.playsfx("soundeffects/start.wav")
             
-            self.audio_stream = asyncio.run(preload_playht(user="Wip26iViI4fvUgFHjj9oaIFQjWA2",key=os.getenv("PLAYHT_API_KEY"),text=["Harry, how will you act? Here are your choices"+""+self.dialogue],quality="faster",interactive=False,use_async=True,voice="s3://mockingbird-prod/abigail_vo_6661b91f-4012-44e3-ad12-589fbdee9948/voices/speaker/manifest.json"))
-            #singleton.video_player.home("option1","option2")
         elif self.speech_attribute["gender"] == "Narration":
             self.audio_stream = asyncio.run(preload_playht(user="Wip26iViI4fvUgFHjj9oaIFQjWA2",key=os.getenv("PLAYHT_API_KEY"),text=[self.dialogue],quality="faster",interactive=False,use_async=True,voice="s3://mockingbird-prod/abigail_vo_6661b91f-4012-44e3-ad12-589fbdee9948/voices/speaker/manifest.json"))
         elif self.speech_attribute["gender"] == "Male":
@@ -119,6 +121,7 @@ class TextToSpeechManager:
             "gender": "Female",
             "age": "35",
             "emotion": "blinking"
+            "SFX" : "none"
         }
         # Multithreading
         self.lock = threading.Lock()
@@ -127,7 +130,7 @@ class TextToSpeechManager:
         self.playing_thread = None
         self.semaphore = threading.Semaphore(3)  # Limiting preloads to 3 at same time
 
-
+    def 
     def process_text_stream(self, stream):
         temp = ""
         sentences = []
@@ -154,7 +157,8 @@ class TextToSpeechManager:
                
      
         self.speak_text(dialogue)
-                
+    def playsfx(self, audio)
+        playsound(audio)
     def process_option_stream(self, stream):
         temp = ""
         sentences = []
@@ -183,7 +187,7 @@ class TextToSpeechManager:
         global option
         try:
             
-            substrings = ["Narrator", "Narration", "35", "blinking", "", "" ,"" ,""]
+            substrings = ["Narrator", "Narration", "35", "blinking", "None" ,"", "" ,"" ,""]
             load_attribute = False
             in_brackets = False
             current_substring = ""
@@ -222,7 +226,8 @@ class TextToSpeechManager:
                      except:
                          pass
                      self.current_speech_attribute["emotion"] = substrings[3]
-                     if self.current_speech_attribute["emotion"] != "happy" and self.current_speech_attribute["emotion"] != "default" and self.current_speech_attribute["emotion"] != "sad" and self.current_speech_attribute["emotion"] != "fear" and self.current_speech_attribute["emotion"] != "disgust" and self.current_speech_attribute["emotion"] != "surprised":
+                     self.current_speech_attribute["SFX"] = substring[4]
+                      if self.current_speech_attribute["emotion"] != "happy" and self.current_speech_attribute["emotion"] != "default" and self.current_speech_attribute["emotion"] != "sad" and self.current_speech_attribute["emotion"] != "fear" and self.current_speech_attribute["emotion"] != "disgust" and self.current_speech_attribute["emotion"] != "surprised":
                          self.current_speech_attribute["emotion"] = "default"
                 
                 # print("Loaded speech attribute: ", self.current_speech_attribute)
