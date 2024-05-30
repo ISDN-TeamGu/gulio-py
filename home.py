@@ -117,6 +117,7 @@ IMPORTANT REMINDER:
 • Also, for the emotion, use more emotions like: happy, sad, surprised, fear, disgust
 • This is the format for every last line you output: [Option][choice1];[Option][choice2];
 • Always output only 2 options. 
+• Please do not end your response without [Option][choice1];[Option][choice2];
 • Always give the options line before asking for my response, never end your response without the options line 
 • Here is an example: [Option]["Go find Dumbledore for advices"];
 [Option]["Meet up with Ron and Hermione"];
@@ -252,6 +253,7 @@ def setquestion(choice1, choice2):
                         text_input=choice2, font=get_font2(100), base_color="#d7fcd4", hovering_color="White")
     
     while True:
+        pygame.time.delay(100)
         for button in [CHOICE_BUTTON, CHOICE2_BUTTON]:
             button.changeColor(OPTIONS_MOUSE_POS)
             button.update(SCREEN)
