@@ -356,7 +356,8 @@ ROLEPLAY_BUTTON = Button(image=pygame.image.load("assets/icon2.png"), pos=(400, 
                             text_input="", font=get_font2(100), base_color="#d7fcd4", hovering_color="White")
 slider = Slider(SCREEN, 400, 400, 500, 40, min=15, max=60, step=1)
 def options():
-    
+    global story_mode
+    global roleplay_mode
     output = slider.getValue()
     
     while True:
