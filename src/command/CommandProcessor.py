@@ -3,6 +3,9 @@ from src.video.VideoPlayer import *
 from src.video.ImageDisplaySingleton import *
 from src.motor.servoc import *
 from playsound import playsound
+from pydub import AudioSegment
+from pydub.playback import play
+
 
 import sys
 class CommandProcessor:
@@ -33,8 +36,9 @@ class CommandProcessor:
             song_name = arguments[0]
             print("Playing music:", song_name)
 
-    def playsfx(self, audio):
-        playsound(audio)
+    def playsfx(self, filepath):
+        audio = AudioSegment.from_file(filepath)  # Load the audio file
+        play(audio) 
     def play_emoji(self, name, emotion):
 
         # Handle the playMusic command with its arguments
