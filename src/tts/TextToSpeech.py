@@ -157,7 +157,7 @@ class TextToSpeechManager:
                
      
         self.speak_text(dialogue)
-    def playsfx(self, audio)
+    def playsfx(self, audio):
         playsound(audio)
     def process_option_stream(self, stream):
         temp = ""
