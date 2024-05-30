@@ -272,7 +272,7 @@ class TextToSpeechManager:
                  self.current_speech_attribute["name"] = substrings[0]
                  if (self.current_speech_attribute["name"]=="Option"):
                      
-                     option1 = substring[1]
+                     option1 = substrings[1]
                      
            
                      return option1
