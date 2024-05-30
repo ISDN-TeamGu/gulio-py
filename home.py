@@ -24,7 +24,8 @@ from io import StringIO
 
 
 pygame.init()
-
+optiontxt1 = "option1"
+optiontxt2 = "option2"
 SCREEN = pygame.display.set_mode((1280, 720))
 pygame.display.set_caption("Menu")
 BG = pygame.image.load("assets/Background.jpg")
@@ -195,8 +196,8 @@ def main_process():
     t = threading.currentThread()
     generating_speech = False
     i = 0
-    optiontxt1 = "option1"
-    optiontxt2 = "option2"
+    global optiontxt1
+    global optiontxt2
     while True:
         # STEP 1: Listen to user input
         new_question = ""
@@ -212,7 +213,7 @@ def main_process():
 
             new_question = "Start"
             singleton.text_to_speech_manager.speak_text("Initializing Story")
-            #singleton.video_player.play(image_path)
+            singleton.video_player.play(image_path)
 
         else:
             print("Detecting your input:")
@@ -225,7 +226,7 @@ def main_process():
                 
         # STEP 3: Speak the response
         final_result_text = singleton.text_to_speech_manager.process_text_stream(response_stream)
-        optiontxt1, optiontxt2 = singleton.text_to_speech_manager.process_option_stream(response_stream)
+        optiontxt1 = singleton.text_to_speech_manager.process_option_stream(response_stream)
         print(optiontxt1)
         print(optiontxt2)
         #print(final_result_text)
