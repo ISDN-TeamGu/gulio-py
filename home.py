@@ -115,11 +115,10 @@ IMPORTANT REMINDER:
   [Harry][Male][9][angry] "I do not want to talk to you right now! You don't know anything about me..";
 • For the start of the story, please start with these 5 characters if possible: Dumbledore, Snape, Harry, Ron, Hermione
 • Also, for the emotion, use more emotions like: happy, sad, surprised, fear, disgust
-• This is the format for every last line you output: [options][choice1];[options][choice2];
+• This is the format for every last line you output: [Option][choice1][choice2];
 • Always output only 2 options. 
 • Always give the options line before asking for my response, never end your response without the options line 
-• Here is an example: [options]["Go find Dumbledore for advices"];
-[options]["Meet up with Ron and Hermione"];
+• Here is an example: [Option]["Go find Dumbledore for advices"]["Meet up with Ron and Hermione"];
 • options should not be given by characters in the story
 • Here is one example for you output: 
   [Vernon][Male][50][Default]Vernon Dursley speaking.";
@@ -138,7 +137,7 @@ IMPORTANT REMINDER:
   [Vernon][Male][50][Angry]I DON'T KNOW WHAT SCHOOL YOURE TALKING ABOUT! NEVER CONTACT ME AGAIN! DON'T YOU COME NEAR MY FAMILY!";
   [Narration]And he threw the receiver back onto the telephone as if dropping a poisonous spider. The fight that had followed had been one of the worst ever.";
   [Vernon][Male][50][Angry]"HOW DARE YOU GIVE THIS NUMBER TO PEOPLE LIKE YOU!";
-  [options]["Call Ron back"]["Confront Uncle Vernon"]
+  [Option]["Call Ron back"]["Confront Uncle Vernon"]
 
   
 """
@@ -202,18 +201,17 @@ def main_process():
             #new_question = singleton.speech_to_text_manager.detect_speech()
             #singleton.video_player.home()
 
-            singleton.video_player.play(image_path)
+            
             #singleton.video_player.start()
 
             new_question = "Start"
             singleton.text_to_speech_manager.speak_text("Initializing Story")
+            #singleton.video_player.play(image_path)
+
         else:
             print("Detecting your input:")
-            new_question = ""
-            if (option == True):
-                new_question = "Continue"
-            else: 
-                new_question = "Continue"
+            new_question = setquestion()
+            
             
             print("You said: ", new_question)
         # STEP 2: Get response from GPT
@@ -225,8 +223,7 @@ def main_process():
 
         # add the new question and answer to the list of previous questions and answers
         previous_questions_and_answers.append((new_question, final_result_text))
-
-
+        
         # Wait until finish speaking
         # wait for 2 seconds
         while text_to_speech_manager.is_speaking():
@@ -236,9 +233,46 @@ def main_process():
             pygame.time.wait(5000)
         i += 1 
     
+def setquestion():
+    question = ""
+    print ("set")
+    while True:
+        events = pygame.event.get()     
+        SCREEN.fill("white")
+        OPTIONS_MOUSE_POS = pygame.mouse.get_pos()
+        SCREEN.blit(options_text, (400, 100))
+        
+        
+        for button in [ROLEPLAY_BUTTON, STORY_BUTTON]:
+            button.changeColor(OPTIONS_MOUSE_POS)
+            button.update(SCREEN)
+        OPTIONS_BACK.changeColor(OPTIONS_MOUSE_POS)
+        OPTIONS_BACK.update(SCREEN)
+        pygame_widgets.update(events)
+        pygame.display.update()
+        
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if OPTIONS_BACK.checkForInput(OPTIONS_MOUSE_POS):
+                        
+                    main_menu()
+                if STORY_BUTTON.checkForInput(OPTIONS_MOUSE_POS):
+                    STORY_BUTTON.changeImage(OPTIONS_MOUSE_POS,pygame.image.load("assets/icon1A.png"),SCREEN)
+                    ROLEPLAY_BUTTON.changeImage(OPTIONS_MOUSE_POS,pygame.image.load("assets/icon2.png"),SCREEN)
+                    return "1"
+                    pygame.display.update()
+                if ROLEPLAY_BUTTON.checkForInput(OPTIONS_MOUSE_POS):
+                    ROLEPLAY_BUTTON.changeImage(OPTIONS_MOUSE_POS,pygame.image.load("assets/icon2A.png"),SCREEN)
+                    STORY_BUTTON.changeImage(OPTIONS_MOUSE_POS,pygame.image.load("assets/icon1.png"),SCREEN)
+                    return "2"
+                    pygame.display.update()
     
 main_process_thread = None
 storymode_thread = None
+    
 def start_main_process_thread():
     global main_process_thread
     if main_process_thread is not None:
@@ -369,8 +403,13 @@ def options():
                     roleplay_mode = True
                     pygame.display.update()
 
-        
-
+def process_option(option1, age):
+    # Process the option1 value and age here
+    print("Received option1:", option1)
+    print("Received age:", age)
+    another_function(option1)  # Pass option1 to another_function
+    # ... (perform further processing based on the values)
+    
             
 
 def main_menu():
