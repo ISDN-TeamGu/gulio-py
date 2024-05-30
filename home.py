@@ -39,8 +39,8 @@ video_player = VideoPlayer()
 text_to_speech_manager = TextToSpeechManager()
 speech_to_text_manager = SpeechToTextManager()
 chat_gpt_manager = ChatGPTManager()
-story_mode = False
-roleplay_mode = True 
+story_mode = True
+roleplay_mode = False
 time = 0
 loop_interval = 10
 
@@ -146,22 +146,22 @@ IMPORTANT REMINDER:
   
 """
 lines = [
-  """[Vernon][Male][50][Default]Vernon Dursley speaking. """,
+  """[Vernon][Male][50][Default][Door]Vernon Dursley speaking. """,
   """[Narration]Harry, who happened to be in the room at the time, froze as he heard Ron's voice answer.""",
-  """[Ron][Male][10][Angry]HELLO? HELLO? CAN YOU HEAR ME? I WANT TO TALK TO HARRY POTTER!""",
+  """[Ron][Male][10][Angry][none]HELLO? HELLO? CAN YOU HEAR ME? I WANT TO TALK TO HARRY POTTER!""",
   """ [Narration]Ron was yelling so loudly that Uncle Vernon jumped and held the receiver a foot away from his ear, staring at it with an expression of mingled fury and alarm.""",
-  """[Vernon][Male][50][Angry]WHO IS THIS?" """,
+  """[Vernon][Male][50][Angry][none]WHO IS THIS?" """,
   """[Narration]he roared in the direction of the mouthpiece.""",
-  """ [Vernon][Male][50][Angry]WHO ARE YOU?""",
-  """[Ron][Male][10][Angry]RON WEASLEY!""",
+  """ [Vernon][Male][50][Angry][Door]WHO ARE YOU?""",
+  """[Ron][Male][10][Angry][none]RON WEASLEY!""",
   """[Narration]Ron bellowed back, as though he and Uncle Vernon were speaking from opposite ends of a football field.""",
-  """[Ron][Male][10][Angry] I'M  A  FRIEND OF HARRY'S FROM SCHOOL""",
+  """[Ron][Male][10][Angry][none] I'M  A  FRIEND OF HARRY'S FROM SCHOOL""",
   """[Narration]Uncle Vernon's small eyes swiveled around to Harry, who was rooted tothe spot.""",
-  """[Vernon][Male][50][Angry]THERE IS NO HARRY POTTER HERE! """,
+  """[Vernon][Male][50][Angry][none]THERE IS NO HARRY POTTER HERE! """,
   """[Narration]he roared, now holding the receiver at arm's length, as though frightened it might explode.""",
-  """[Vernon][Male][50][Angry]I DON'T KNOW WHAT SCHOOL YOURE TALKING ABOUT! NEVER CONTACT ME AGAIN! DON'T YOU COME NEAR MY FAMILY!""",
+  """[Vernon][Male][50][Angry][none]I DON'T KNOW WHAT SCHOOL YOURE TALKING ABOUT! NEVER CONTACT ME AGAIN! DON'T YOU COME NEAR MY FAMILY!""",
   """[Narration]And he threw the receiver back onto the telephone as if dropping a poisonous spider. The fight that had followed had been one of the worst ever.""",
-  """[Vernon][Male][50][Angry]HOW DARE YOU GIVE THIS NUMBER TO PEOPLE LIKE YOU!""",
+  """[Vernon][Male][50][Angry][none]HOW DARE YOU GIVE THIS NUMBER TO PEOPLE LIKE YOU!""",
 ]
 
 # User Input Command
@@ -226,9 +226,7 @@ def main_process():
                 
         # STEP 3: Speak the response
         final_result_text = singleton.text_to_speech_manager.process_text_stream(response_stream)
-        optiontxt1 = singleton.text_to_speech_manager.option1()
-        print(optiontxt1)
-        print(optiontxt2)
+       
         #print(final_result_text)
 
         # add the new question and answer to the list of previous questions and answers
