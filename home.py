@@ -210,8 +210,7 @@ def main_process():
 
         else:
             print("Detecting your input:")
-            new_question = "continue
-            "
+            new_question = "continue"
             
             
             print("You said: ", new_question)
