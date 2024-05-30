@@ -120,7 +120,7 @@ class TextToSpeechManager:
             "name": "Narration",
             "gender": "Female",
             "age": "35",
-            "emotion": "blinking"
+            "emotion": "blinking",
             "SFX": "none"
         }
         # Multithreading
