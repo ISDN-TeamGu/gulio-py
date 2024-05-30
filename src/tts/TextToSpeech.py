@@ -95,7 +95,8 @@ class SpeakTask:
         print("Finished preloaded audio: ", self.dialogue)
         self.preloaded = True
         semaphore.release()
-    
+    def playsfx(self, audio):
+        playsound(audio)
     async def play(self):
 
         print("Playing SpeakTask: ", self.dialogue, self.speech_attribute)
@@ -157,8 +158,7 @@ class TextToSpeechManager:
                
      
         self.speak_text(dialogue)
-    def playsfx(self, audio):
-        playsound(audio)
+    
     def process_option_stream(self, stream):
         temp = ""
         sentences = []
