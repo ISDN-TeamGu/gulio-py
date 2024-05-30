@@ -170,7 +170,7 @@ class TextToSpeechManager:
             if(";" in temp or "!" in temp or "?" in temp or "\n" in temp):
                 # print("sentence: ", temp)
                 # If the text detected flag like [Narration] or [Character name], update current attribute
-                dialogue1,dialoue2 = self.getoption(temp)
+                dialogue1,dialogue2 = self.getoption(temp)
                 
         self.speak_text(dialogue1)
         # Make result
