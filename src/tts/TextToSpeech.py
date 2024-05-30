@@ -121,7 +121,7 @@ class TextToSpeechManager:
             "gender": "Female",
             "age": "35",
             "emotion": "blinking"
-            "SFX" : "none"
+            "SFX": "none"
         }
         # Multithreading
         self.lock = threading.Lock()
