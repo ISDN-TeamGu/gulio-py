@@ -172,7 +172,7 @@ class TextToSpeechManager:
                 # If the text detected flag like [Narration] or [Character name], update current attribute
                 dialogue1,dialoue2 = self.process_option(temp)
                 
-        self.speak(dialogue1)
+        self.speak_text(dialogue1)
         # Make result
         return dialogue1, dialogue2 
       
