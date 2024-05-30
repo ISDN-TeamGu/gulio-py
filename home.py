@@ -115,10 +115,11 @@ IMPORTANT REMINDER:
   [Harry][Male][9][angry] "I do not want to talk to you right now! You don't know anything about me..";
 • For the start of the story, please start with these 5 characters if possible: Dumbledore, Snape, Harry, Ron, Hermione
 • Also, for the emotion, use more emotions like: happy, sad, surprised, fear, disgust
-• This is the format for every last line you output: [Option][choice1][choice2];
+• This is the format for every last line you output: [Option][choice1];[Option][choice2];
 • Always output only 2 options. 
 • Always give the options line before asking for my response, never end your response without the options line 
-• Here is an example: [Option]["Go find Dumbledore for advices"]["Meet up with Ron and Hermione"];
+• Here is an example: [Option]["Go find Dumbledore for advices"];
+[Option]["Meet up with Ron and Hermione"];
 • options should not be given by characters in the story
 • Here is one example for you output: 
   [Vernon][Male][50][Default]Vernon Dursley speaking.";
@@ -137,7 +138,8 @@ IMPORTANT REMINDER:
   [Vernon][Male][50][Angry]I DON'T KNOW WHAT SCHOOL YOURE TALKING ABOUT! NEVER CONTACT ME AGAIN! DON'T YOU COME NEAR MY FAMILY!";
   [Narration]And he threw the receiver back onto the telephone as if dropping a poisonous spider. The fight that had followed had been one of the worst ever.";
   [Vernon][Male][50][Angry]"HOW DARE YOU GIVE THIS NUMBER TO PEOPLE LIKE YOU!";
-  [Option]["Call Ron back"]["Confront Uncle Vernon"]
+  [Option]["Call Ron back"];
+  [Option]["Confront Uncle Vernon"];
 
   
 """
