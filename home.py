@@ -197,8 +197,8 @@ def main_process():
     while True:
         # STEP 1: Listen to user input
         new_question = ""
-        optiontxt1 = ""
-        optiontxt2 = ""
+        optiontxt1 = "option1"
+        optiontxt2 = "option2"
         print("iteration: ", i)
         if i == 0:
             print("Initializing for first time")
