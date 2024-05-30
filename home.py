@@ -240,7 +240,6 @@ def setquestion():
         events = pygame.event.get()     
         SCREEN.fill("white")
         OPTIONS_MOUSE_POS = pygame.mouse.get_pos()
-        SCREEN.blit(options_text, (400, 100))
         
         
         for button in [ROLEPLAY_BUTTON, STORY_BUTTON]:
