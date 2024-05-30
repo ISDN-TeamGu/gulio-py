@@ -247,10 +247,10 @@ def setquestion(choice1, choice2):
 
     SCREEN.fill("white")
     OPTIONS_MOUSE_POS = pygame.mouse.get_pos()
-    CHOICE_BUTTON = Button(image=pygame.image.load("assets/icon1A.png"), pos=(850, 500), 
-                        text_input=choice1, font=get_font2(100), base_color="#d7fcd4", hovering_color="White")
-    CHOICE2_BUTTON = Button(image=pygame.image.load("assets/icon2.png"), pos=(400, 500), 
-                        text_input=choice2, font=get_font2(100), base_color="#d7fcd4", hovering_color="White")
+    CHOICE_BUTTON = Button(image=pygame.image.load("assets/square.png"), pos=(850, 500), 
+                        text_input=choice1, font=get_font2(40), base_color="#d7fcd4", hovering_color="White")
+    CHOICE2_BUTTON = Button(image=pygame.image.load("assets/square.png"), pos=(400, 500), 
+                        text_input=choice2, font=get_font2(40), base_color="#d7fcd4", hovering_color="White")
     
     while True:
         pygame.time.delay(100)
@@ -266,12 +266,10 @@ def setquestion(choice1, choice2):
                 sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if CHOICE_BUTTON.checkForInput(OPTIONS_MOUSE_POS):
-                    CHOICE_BUTTON.changeImage(OPTIONS_MOUSE_POS,pygame.image.load("assets/icon1A.png"),SCREEN)
-                    CHOICE2_BUTTON.changeImage(OPTIONS_MOUSE_POS,pygame.image.load("assets/icon2.png"),SCREEN)
+
                     return choice1
                 if CHOICE2_BUTTON.checkForInput(OPTIONS_MOUSE_POS):
-                    CHOICE2_BUTTON.changeImage(OPTIONS_MOUSE_POS,pygame.image.load("assets/icon2A.png"),SCREEN)
-                    CHOICE_BUTTON.changeImage(OPTIONS_MOUSE_POS,pygame.image.load("assets/icon1.png"),SCREEN)
+             
                     return choice2
     
 main_process_thread = None
