@@ -33,7 +33,7 @@ class CommandProcessor:
     def play_emoji(self, name, emotion):
 
         # Handle the playMusic command with its arguments
-        if name.lower() == "harry" or name.lower() == "dumbledore" or name.lower() == "ron" or name.lower() == "hermione":
+        if name.lower() == "harry" or name.lower() == "dumbledore" or name.lower() == "ron" or name.lower() == "hermione" or name.lower() == "snape":
             emoji_name = name
             emoji = emotion
             print("Playing emoji:", emoji_name)
