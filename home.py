@@ -208,7 +208,7 @@ def storymode():
             #Initial wait
             pygame.time.wait(5000)
         i += 1 
-    main_menu()
+
 
 def main_process():
     t = threading.currentThread()
@@ -458,13 +458,10 @@ def main_menu():
                 sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if PLAY_BUTTON.checkForInput(MENU_MOUSE_POS):
-                    PLAY_BUTTON.changeImage(MENU_MOUSE_POS,pygame.image.load("assets/Play Rect1.png"),SCREEN)
                     play()
                 if OPTIONS_BUTTON.checkForInput(MENU_MOUSE_POS):
-                    OPTIONS_BUTTON.changeImage(MENU_MOUSE_POS,pygame.image.load("assets/Options rect1.png"),SCREEN)
                     options()
                 if QUIT_BUTTON.checkForInput(MENU_MOUSE_POS):
-                    QUIT_BUTTON.changeImage(MENU_MOUSE_POS,pygame.image.load("assets/Quit Rect1.png"),SCREEN)
                     pygame.quit()
                     sys.exit()
 
