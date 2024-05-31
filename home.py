@@ -458,12 +458,15 @@ def main_menu():
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if PLAY_BUTTON.checkForInput(MENU_MOUSE_POS):
                     PLAY_BUTTON.changeImage(MENU_MOUSE_POS,pygame.image.load("assets/Play Rect1.png"),SCREEN)
+                    pygame.time.wait(2000)
                     play()
                 if OPTIONS_BUTTON.checkForInput(MENU_MOUSE_POS):
                     OPTIONS_BUTTON.changeImage(MENU_MOUSE_POS,pygame.image.load("assets/Options rect1.png"),SCREEN)
+                    pygame.time.wait(2000)
                     options()
                 if QUIT_BUTTON.checkForInput(MENU_MOUSE_POS):
                     QUIT_BUTTON.changeImage(MENU_MOUSE_POS,pygame.image.load("assets/Quit Rect1.png"),SCREEN)
+                    pygame.time.wait(2000)
                     pygame.quit()
                     sys.exit()
 
