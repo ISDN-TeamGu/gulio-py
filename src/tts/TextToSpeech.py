@@ -99,9 +99,9 @@ class SpeakTask:
         singleton.command_processor.play_emoji(self.speech_attribute["name"].lower(),self.speech_attribute["emotion"].lower())
         if self.speech_attribute["SFX"] != "none":
             if self.speech_attribute["SFX"] == "Door":
-                singleton.command_processor.playsfx("soundeffects/Door.MP3")
+                singleton.command_processor.playsfx("soundeffects/Door.mp3")
             if self.speech_attribute["SFX"] == "Book":
-                singleton.command_processor.playsfx("soundeffects/Book.MP3")
+                singleton.command_processor.playsfx("soundeffects/Book.mp3")
         singleton.command_processor.set_motor(self.speech_attribute["emotion"])
         if self.audio_stream is not None:
             print("audio_stream: ", self.audio_stream)
