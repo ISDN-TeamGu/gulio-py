@@ -460,7 +460,7 @@ def main_menu():
                     PLAY_BUTTON.changeImage(MENU_MOUSE_POS,pygame.image.load("assets/Play Rect1.png"),SCREEN)
                     play()
                 if OPTIONS_BUTTON.checkForInput(MENU_MOUSE_POS):
-                    OPTIONS_BUTTON.changeImage(MENU_MOUSE_POS,pygame.image.load("assets/Option rect1.png"),SCREEN)
+                    OPTIONS_BUTTON.changeImage(MENU_MOUSE_POS,pygame.image.load("assets/Options rect1.png"),SCREEN)
                     options()
                 if QUIT_BUTTON.checkForInput(MENU_MOUSE_POS):
                     QUIT_BUTTON.changeImage(MENU_MOUSE_POS,pygame.image.load("assets/Quit Rect1.png"),SCREEN)
