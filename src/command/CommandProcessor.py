@@ -47,8 +47,10 @@ class CommandProcessor:
             emoji = emotion
             print("Playing emoji:", emoji_name)
             singleton.video_player.display_image("resources/videos/emojis/"+emoji_name.lower()+"/"+emoji.lower()+".jpg") 
-        else:
+        elif name.lower() == "narration":
             singleton.video_player.display_image("resources/videos/emojis/1.jpg")
+        else:
+            singleton.video_player.display_image("resources/videos/emojis/2.jpg")
     def set_motor(self,emotion):
         emoji = emotion
         if emoji == "happy" or emoji == "sad" or emoji == "angry" or emoji == "fear" or emoji == "surprised" or emoji == "disgust":
