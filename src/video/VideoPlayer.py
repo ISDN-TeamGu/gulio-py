@@ -100,11 +100,11 @@ class VideoPlayer:
             # Calculate the position to center the rotated image
             x = (1200 - rotated_rect.width) // 2
             y = (1000 - rotated_rect.height) // 2
-
+            
             if hasattr(self, 'image_displayed'):  # Check if image has been displayed before
                 # Fill the screen with white
                 self.window.fill((255, 255, 255))
-
+            exit_button = Button(image=None, pos=(50, 50), text_input="Exit", font=get_font(30), base_color="#d7fcd4", hovering_color="White")
             # Display the image on the screen
             self.window.blit(image, (x, y))
 
@@ -113,6 +113,23 @@ class VideoPlayer:
 
             # Store that an image has been displayed
             self.image_displayed = True
+            while True:
+                mouse_pos = pygame.mouse.get_pos()
+                mouse_pressed = pygame.mouse.get_pressed()
+
+                # Check if the exit button is clicked
+                if exit_button.checkForInput(mouse_pos) and mouse_pressed[0]:
+                    break
+    
+                # Update the button
+                exit_button.update(self.window)
+                pygame.display.update()
+    
+                # Handle events
+                for event in pygame.event.get():
+                    if event.type == pygame.QUIT:
+                        pygame.quit()
+                        sys.exit()
         except:
             print("Error occurred while displaying the image.")
             # Quit Pygame
