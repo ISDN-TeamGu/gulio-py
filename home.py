@@ -146,99 +146,38 @@ IMPORTANT REMINDER:
   
 """
 lines = [
- """[Narration]Harry had no room in his head to worry about anything except the match
-tomorrow. Oliver Wood kept hurrying up to him between classes and giving
-him tips. The third time this happened, Wood talked for so long that
-Harry suddenly realized he was ten minutes late for Defense Against the
-Dark Arts, and set off at a run with Wood shouting after him, Diggory's
-got a very fast swerve, Harry, so you might want to try looping him 
-140 Harry skidded to a halt outside the Defense Against the Dark Arts
-classroom, pulled the door open, and dashed inside. """,
-
+"""[Narration]Harry had no room in his head to worry about anything except the match tomorrow. Oliver Wood kept hurrying up to him between classes and giving him tips. The third time this happened, Wood talked for so long that Harry suddenly realized he was ten minutes late for Defense Against the Dark Arts, and set off at a run with Wood shouting after him, Diggory's got a very fast swerve, Harry, so you might want to try looping him  Harry skidded to a halt outside the Defense Against the Dark Arts classroom, pulled the door open, and dashed inside. """,
 """[Harry][Male][15][fear][Door]Sorry I'm late, Professor Lupin. I""",
-
-"""[Narration]But it wasn't Professor Lupin who looked up at him from the teacher's
-desk; it was Snape. """,
-
-"""[Snape][Male][50][disgust][none]This lesson began ten minutes ago, Potter, so I think we'll make it ten
-points from Gryffindor. Sit down.""",
-
+"""[Narration]But it wasn't Professor Lupin who looked up at him from the teacher's desk; it was Snape. """,
+"""[Snape][Male][50][disgust][none]This lesson began ten minutes ago, Potter, so I think we'll make it ten points from Gryffindor. Sit down.""",
 """[Narration]But Harry didn't move.""",
-
 """[Harry][Male][15][fear][none]Where's Professor Lupin?"""
-
 """[Snape][Male][50][disgust][none]He says he is feeling too ill to teach today, I believe I told you to sit down?""",
-
 """[Narration]But Harry stayed where he was.""",
-
 """[Harry][Male][15][fear][none]What's wrong with him?""",
-
 """[Narration]Snape's black eyes glittered.""",
-
 """[Snape][Male][50][disgust][none]Nothing life-threatening,Five more points from Gryffindor, and if I have to ask you to sitdown again, it will be fifty.""",
-
-"""[Narration]Harry walked slowly to his seat and sat down. Snape looked around at the
-class.""",
-
-"""[Snape][Male][50][default][none]As I was saying before Potter interrupted, Professor Lupin has not left
-any record of the topics you have covered so far""",
-
+"""[Narration]Harry walked slowly to his seat and sat down. Snape looked around at the class.""",
+"""[Snape][Male][50][default][none]As I was saying before Potter interrupted, Professor Lupin has not left any record of the topics you have covered so far""",
 """[Hermione][Female][15][default][none]Please, sir, we've done boggarts, Red Caps, kappas, and grindylows,and we're just about to start""",
-
-"""[Snape][Male][50][angry][none]Be quiet, I did not ask for information. I was
-merely commenting on Professor Lupin's lack of organization.""",
-
+"""[Snape][Male][50][angry][none]Be quiet, I did not ask for information. I was merely commenting on Professor Lupin's lack of organization.""",
 """[Dean][Male][15][default][none]He's the best Defense Against the Dark Arts teacher we've ever had,""",
-
-"""[Narration]said Dean Thomas boldly, and there was a murmur of agreement from the
-rest of the class. Snape looked more menacing than ever.""",
-
-"""[Snape][Male][50][disgust][Book]You are easily satisfied. Lupin is hardly overtaxing you  I ,Would
-expect first years to be able to deal with Red Caps and grindylows. Today we shall discuss""",
-
-"""[Narration]Harry watched him flick through the textbook, to the very back chapter,
-which he must know they hadn't covered.""",
-
+"""[Narration]said Dean Thomas boldly, and there was a murmur of agreement from the rest of the class. Snape looked more menacing than ever.""",
+"""[Snape][Male][50][disgust][Book]You are easily satisfied. Lupin is hardly overtaxing you I, Would expect first years to be able to deal with Red Caps and grindylows. Today we shall discuss""",
+"""[Narration]Harry watched him flick through the textbook, to the very back chapter, which he must know they hadn't covered.""",
 """[Snape][Male][50][sad][none]Werewolves""",
-
 """[Hermione][Female][15][fear][none]But, sir, we're not supposed to do werewolves yet, we're due to start hinkypunks""",
-
-"""[Snape][Male][50][disgust][none]Miss Granger, I was under the
-impression that I am teaching this lesson, not you. And I am telling you
-all to turn to page 394""",
-
-"""[Narration]With many bitter sidelong looks and some sullen muttering, the class
-opened their books.""",
-
-"""[Snape][Male][50][default][none]Which of you can tell me how we distinguish between the werewolf and
-the true wolf?""",
-
-"""[Narration]Everyone sat in motionless silence; everyone except Hermione, whose
-hand, as it so often did, had shot straight into the air.""",
-
-"""[Snape][Male][50][default][none] Anyone? Are you telling me that Professor Lupin hasn't even taught you the
-basic distinction between""",
-
+"""[Snape][Male][50][disgust][none]Miss Granger, I was under the impression that I am teaching this lesson, not you. And I am telling you all to turn to page 394""",
+"""[Narration]With many bitter sidelong looks and some sullen muttering, the class opened their books.""",
+"""[Snape][Male][50][default][none]Which of you can tell me how we distinguish between the werewolf and the true wolf?""",
+"""[Narration]Everyone sat in motionless silence; everyone except Hermione, whose hand, as it so often did, had shot straight into the air.""",
+"""[Snape][Male][50][default][none] Anyone? Are you telling me that Professor Lupin hasn't even taught you the basic distinction between""",
 """[Narration]Snape said, ignoring Hermione. His twisted smile was back.""",
-
-"""[Pervatti][Male][15][fear][none] We told you, we haven't got as far as
-werewolves yet, we're still on""",
-
-"""[Snape][Male][50][disgust][none]Silence! Well, well, well, I never thought I'd meet a
-third-year class who wouldn't even recognize a werewolf when they saw
-one. I shall make a point of informing Professor Dumbledore how very
-behind you all are""",
-
+"""[Pervatti][Male][15][fear][none] We told you, we haven't got as far as werewolves yet, we're still on""",
+"""[Snape][Male][50][disgust][none]Silence! Well, well, well, I never thought I'd meet athird-year class who wouldn't even recognize a werewolf when they saw one. I shall make a point of informing Professor Dumbledore how very behind you all are""",
 """[Hermione][Female][15][surprised][none]Please, sir, the werewolf differs from the true wolf in several small ways. The snout of the werewolf""",
-
 """[Snape][Male][50][angry][none]That is the second time you have spoken out of turn, Miss Granger, Five more points from Gryffindor for being an insufferable know it all.""",
-
-"""[Narration]Hermione went very red, put down her hand, and stared at the floor with
-her eyes full of tears. It was a mark of how much the class loathed
-Snape that they were all glaring at him, because every one of them had
-called Hermione a know-it-all at least once, and Ron, who told Hermione
-she was a know-it-all at least twice a week, said loudly.""",
-
+"""[Narration]Hermione went very red, put down her hand, and stared at the floor with her eyes full of tears. It was a mark of how much the class loathed Snape that they were all glaring at him, because every one of them had called Hermione a know-it-all at least once, and Ron, who told Hermione she was a know-it-all at least twice a week, said loudly.""",
 """[Ron][Male][15][angry][none]You asked us a question and she knows the answer! Why ask if you don't want to be told?""",
 ]
 
