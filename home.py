@@ -208,6 +208,7 @@ def storymode():
             #Initial wait
             pygame.time.wait(5000)
         i += 1 
+    main_menu()
 
 def main_process():
     t = threading.currentThread()
